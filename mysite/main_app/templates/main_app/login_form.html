@@ -1,14 +1,4 @@
 {% extends 'main_app/base.html' %}
-{% load static %}
-{% block content %}
-    <ul>
-        {% for pi in posts %}
-            <h1>{{pi.title}}</h1>
-            <p>{{pi.discription|truncatewords:50}}</p>
-        <hr>
-        {% endfor %}
-    </ul>
-{% endblock content %}
 {% block login %}
 <div class="bg-modal">
     <div class="modal-content">
@@ -22,4 +12,4 @@
     </div>
 </div>
 
-{% endblock login %}
+{% endblock %}

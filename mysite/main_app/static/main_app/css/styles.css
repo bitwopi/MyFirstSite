@@ -74,5 +74,58 @@ nav{
 }
 .left-chapters ul li a:hover { color: #CC0000; }
 /*sidebar end*/
+/*login form*/
+.bg-modal{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    display: none;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content{
+    box-sizing: border-box;
+    padding: 20px;
+    height: 300px;
+    width: 500px;
+    background-color: white;
+    position: relative;
+}
+.modal-content img{
+    border-radius: 10px;
+    width: 20%;
+    margin: 0 40%;
+}
+.modal-content input{
+    width: 50%;
+    display: block;
+    margin: 15px auto;
+}
+.close{
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 42px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+.button{
+    display: inline-block;
+    margin: 0 40%;
+    text-align: center;
+    border-radius: 18px;
+    padding: 10px 20px;
+    background-color: pink;
+    text-decoration: none;
+    color: white;
+    transition: 0.2s;
+}
+.button:hover{
+    background-color: #DB7093;
+}
+/*login form end*/
+
 .content{
 }

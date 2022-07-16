@@ -13,12 +13,18 @@
             {% block mainmenu %}
             <ul class="nav-links">
             {% for m in menu %}
-            <li><a href="">{{m}}</a></li>
+                {% if m == "Login"  %}
+                    <li><a href="#" id="login">{{m}}</a></li>
+                {% else %}
+                    <li><a href="#">{{m}}</a></li>
+                {% endif %}
             {% endfor %}
             </ul>
             {% endblock mainmenu %}
         </nav>
     </div>
+    {% block login %}
+    {% endblock%}
     <table class="table-content" border=0 cellpadding="0" cellspacing="0">
         <tr>
         <!-- Sidebar слева -->
@@ -42,5 +48,6 @@
     </tr>
     </table>
     </div>
+    <script src="{% static 'main_app/js/scripts.js' %}"></script>
 </body>
 </html>
