@@ -18,8 +18,24 @@
             <input type="text" placeholder="E-mail" required>
             <input type="password" placeholder="Enter your password" required>
             <a href="#" class="button">Submit</a>
+            <a href="#" class="sign-up" id="sign-up">Sign up</a>
         </form>
     </div>
 </div>
 
 {% endblock login %}
+{% block register %}
+<div class="bg-modal-register">
+    <div class="modal-content">
+        <form method="post">
+            <img src="{% static 'main_app/images/logo.jpg' %}">
+            <div class="close" id="close-reg">+</div>
+            <input type="text" placeholder="E-mail" required>
+            <input type="password" placeholder="Enter your password" required>
+            <input type="password" placeholder="Repeat your password" required>
+            <a href="#" class="button">Submit</a>
+        </form>
+    </div>
+</div>
+
+{% endblock register %}

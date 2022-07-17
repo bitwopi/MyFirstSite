@@ -8,7 +8,7 @@
 .header{
     height: 160px;
     width: 100%;
-    padding: 0 8%;
+    padding: 0 6%;
     background: #DB7093;
     position: relative;
 }
@@ -21,9 +21,6 @@ nav{
     width: 140px;
     height: 160px;
     border-radius: 100%;
-}
-.logo-link{
-
 }
 .nav-links{
     padding: 28px 0;
@@ -72,7 +69,12 @@ nav{
 	color: #444;
 	text-decoration: none;
 }
+.left-chapters ul li.selected {color: #0059b2; }
 .left-chapters ul li a:hover { color: #CC0000; }
+.table-content {
+	min-height: 100%;
+	height: 100%;
+}
 /*sidebar end*/
 /*login form*/
 .bg-modal{
@@ -88,14 +90,14 @@ nav{
 .modal-content{
     box-sizing: border-box;
     padding: 20px;
-    height: 300px;
+    height: 370px;
     width: 500px;
-    background-color: white;
+    background:rgba(255, 255, 255, 1);
     position: relative;
 }
 .modal-content img{
     border-radius: 10px;
-    width: 20%;
+    width: 100px;
     margin: 0 40%;
 }
 .modal-content input{
@@ -113,7 +115,7 @@ nav{
 }
 .button{
     display: inline-block;
-    margin: 0 40%;
+    margin: 10px 40%;
     text-align: center;
     border-radius: 18px;
     padding: 10px 20px;
@@ -125,7 +127,24 @@ nav{
 .button:hover{
     background-color: #DB7093;
 }
+.sign-up{
+    display: block;
+    text-align: center;
+    font-size: small;
+    color: grey;
+}
 /*login form end*/
-
+/*register form*/
+.bg-modal-register{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    display: none;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+}
+/*register form end*/
 .content{
 }
