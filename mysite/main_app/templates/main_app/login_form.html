@@ -10,22 +10,23 @@
     <link type="text/css" href="{% static 'main_app/css/styles.css' %}" rel="stylesheet">
     <title>{{title}}</title>
 </head>
-<body class="text-center log_bg">  
+<body class="text-center log_bg">
     <main class="login bg-modal">
         <form method="post">
           {% csrf_token %}
           <img class="mb-4" src="{% static 'main_app/images/logo.jpg' %}" alt="" width="57" height="72">
-          <h1 class="h3 mb-3 fw-normal">Sign up</h1>
+          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
           {% for f in form %}
-            <div class="form-floating">
+              <div class="form-floating">
                 {{f}}
                 <div class="form-errors">
-                    {{f.errors}}
-                </div>
+                  {{f.errors}}
+              </div>
                 <label for="{{f.id_for_label}}">{{f.label}}</label>
-            </div>
+              </div>
             {% endfor %}
-          <button class="button" type="submit">Sign up</button>
+          <button class="button" type="submit">Sign in</button>
+            <a href="{% url 'register' %}" class="sign-up">Sign up</a>
         </form>
     </main>   
 </body>

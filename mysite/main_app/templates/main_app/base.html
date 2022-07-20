@@ -10,47 +10,31 @@
 <body>
     <div class="header">
         <nav>
-            <a href="{%url 'home'%}" class="logo-link"><img src="{% static 'main_app/images/logo.jpg' %}" class="logo"></a>
+            <a href="{%url 'home'%}" class="logo-link">Y<p>our</p>A<p>nime</p>L<p>ist</p></a>
             {% block mainmenu %}
             <ul class="nav-links">
             {% for m in menu %}
-                {% if m == "Login"  %}
-                    <li><a href="#" id="login">{{m}}</a></li>
-                {% else %}
-                    <li><a href="#">{{m}}</a></li>
-                {% endif %}
+                <li><a href="#">{{m.title}}</a></li>
             {% endfor %}
+                {% if request.user.is_authenticated%}
+                    <li><a href="{% url 'create' %}">Create post</a></li>
+                    <li><a href="{%url 'logout'%}">{{request.user.username}}</a></li>
+                {% else %}
+                    <li><a href="{%url 'login'%}">Login</a></li>
+                {% endif %}
             </ul>
             {% endblock mainmenu %}
         </nav>
     </div>
-    {% block login %}
-    {% endblock%}
-    {% block register %}
-    {% endblock%}
-    <table class="table-content" border=0 cellpadding="0" cellspacing="0">
-        <tr>
-        <!-- Sidebar слева -->
-            <td valign="top" class="left-chapters">
-            <ul id="leftchapters">
-                <li class="selected">Categories</li>
-                <li><a href="#">Anime</a></li>
-                <li><a href="#">Manga</a></li>
-                <li><a href="#">Ranobe</a></li>
-            </ul>
-        </td>
-        <!-- Конец Sidebar'а -->
-        <td valign="top" class="content">
-        <!-- Блок контента -->
-            <div class="content-text">
-        {% block content %}
-        {% endblock %}
-            </div>
+        <div class="container">
+            {% block create %}
+            {% endblock %}
+            {% block post %}
+            {% endblock %}
+            {% block content %}
+            {% endblock %}
+        </div>
         <!-- Конец блока контента -->
-        </td>
-    </tr>
-    </table>
-    </div>
     <script src="{% static 'main_app/js/scripts.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>

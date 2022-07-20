@@ -4,11 +4,16 @@
     font-family: "poppins", sans-serif;
     box-sizing: border-box;
 }
+
+.container{
+    margin: 15px 10%;
+}
+
 /*header*/
 .header{
-    height: 160px;
+    height: 100px;
     width: 100%;
-    padding: 0 6%;
+    padding: 0 10%;
     background: #DB7093;
     position: relative;
 }
@@ -17,11 +22,19 @@ nav{
     align-items: center;
     justify-content: space-between;
 }
-.logo{
-    width: 140px;
-    height: 160px;
-    border-radius: 100%;
+.logo-link{
+   text-decoration: none;
+   font-size: 30px;
+   color: white;
+   font-weight: bold;
 }
+.logo-link p{
+    display: inline-block;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.logo-link:hover{
+    color: gainsboro;
+ }
 .nav-links{
     padding: 28px 0;
 }
@@ -35,6 +48,9 @@ nav{
     padding: 5px 0;
     position: relative;
 }
+.nav-links li a:hover{
+    color: gainsboro;
+}
 .nav-links li a::after{
     content: "";
     background: white;
@@ -45,47 +61,16 @@ nav{
     left: 0;
 }
 /*header end*/
-/*sidebar*/
-.left-chapters {
-	margin: 0;
-	background: #eee;
-	border-right: 1px solid #ccc;
-	min-height: 100%;
-}
-.left-chapters ul {
-	width: 230px;
-	min-height: 100%;
-	margin: 0;
-	padding: 20px 10px 10px 20px;
-	list-style: none;
-	font-size: 20px;
-}
-.left-chapters ul li {
-	margin: 30px 0 0 0;
-	color: #999;
-}
-.left-chapters ul li.selected {color: #0059b2; }
-.left-chapters ul li a {
-	color: #444;
-	text-decoration: none;
-}
-.left-chapters ul li.selected {color: #0059b2; }
-.left-chapters ul li a:hover { color: #CC0000; }
-.table-content {
-	min-height: 100%;
-	height: 100%;
-}
-/*sidebar end*/
 /*login form*/
 .bg-modal{
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.3);
     top: 0;
-    display: none;
     position: absolute;
-    justify-content: center;
-    align-items: center;
+}
+.bg-modal h1{
+    color: white;
 }
 .modal-content{
     box-sizing: border-box;
@@ -115,23 +100,34 @@ nav{
 }
 .button{
     display: inline-block;
-    margin: 10px 40%;
+    margin: 15px;
     text-align: center;
     border-radius: 18px;
     padding: 10px 20px;
-    background-color: pink;
+    background-color: #DB7093;
     text-decoration: none;
     color: white;
     transition: 0.2s;
+    border: none;
 }
 .button:hover{
-    background-color: #DB7093;
+    background-color: pink;
+    color: grey;
 }
 .sign-up{
     display: block;
     text-align: center;
     font-size: small;
-    color: grey;
+    color: white;
+}
+.login{
+    display: flex;
+    padding: 30px;
+    justify-content: center;
+    align_items: center;
+}
+.log_bg{
+    background-image: url(../images/log_bg.jpg);
 }
 /*login form end*/
 /*register form*/
@@ -145,6 +141,59 @@ nav{
     justify-content: center;
     align-items: center;
 }
-/*register form end*/
-.content{
+.form-floating{
+    margin: 15px;
 }
+.form-errors{
+    margin: 10px;
+    color: #CC0000;
+}
+.form-errors ul{
+    padding: 0px;
+}
+.form-errors li{
+    display: block;
+    text-align: center;
+}
+/*register form end*/
+
+.content{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.content figure{
+    padding: 15px;
+    text-align: center;
+    border: 0px;
+}
+.content a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+.content a:hover{
+    color: #444;
+}
+
+/*post*/
+.post-line{
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+.post-base-cont{
+    display: flex;
+    justify-content:left;
+}
+.info{
+    display: block;
+    margin-left: 100px;
+}
+.disc-block{
+    padding: 20px;
+}
+/*post end*/

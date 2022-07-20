@@ -1,41 +1,16 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
 {% block content %}
-    <ul>
+    <div class="content">
         {% for pi in posts %}
-            <h1>{{pi.title}}</h1>
-            <p>{{pi.discription|truncatewords:50}}</p>
-        <hr>
+        <a href="{{ pi.get_absolute_url }}">
+            <figure>
+                {% if pi.cover %}
+                <img src={{pi.cover.url}} width="180px" height="250px">
+                <figcaption>{{pi.title}}</figcaption>
+            </figure>
+        </a>
+        {% endif %}
         {% endfor %}
-    </ul>
+    </div> 
 {% endblock content %}
-{% block login %}
-<div class="bg-modal">
-    <div class="modal-content">
-        <form method="post">
-            <img src="{% static 'main_app/images/logo.jpg' %}">
-            <div class="close" id="close">+</div>
-            <input type="text" placeholder="E-mail" required>
-            <input type="password" placeholder="Enter your password" required>
-            <a href="#" class="button">Submit</a>
-            <a href="#" class="sign-up" id="sign-up">Sign up</a>
-        </form>
-    </div>
-</div>
-
-{% endblock login %}
-{% block register %}
-<div class="bg-modal-register">
-    <div class="modal-content">
-        <form method="post">
-            <img src="{% static 'main_app/images/logo.jpg' %}">
-            <div class="close" id="close-reg">+</div>
-            <input type="text" placeholder="E-mail" required>
-            <input type="password" placeholder="Enter your password" required>
-            <input type="password" placeholder="Repeat your password" required>
-            <a href="#" class="button">Submit</a>
-        </form>
-    </div>
-</div>
-
-{% endblock register %}
