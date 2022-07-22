@@ -69,7 +69,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'post_slug': self.slug})
+        return reverse('category', kwargs={'cat_slug': self.slug})
 
 
 class Studio(models.Model):
@@ -84,4 +84,4 @@ class Studio(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'post_slug': self.slug})
+        return reverse('studio', kwargs={'st_slug': self.slug})

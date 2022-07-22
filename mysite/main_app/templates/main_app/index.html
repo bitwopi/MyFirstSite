@@ -1,6 +1,10 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
 {% block content %}
+    {% block category_name %}
+    {% endblock category_name %}
+    {% block studio_name %}
+    {% endblock studio_name %}
     <div class="content bordering">
         {% for pi in posts %}
         <a href="{{ pi.get_absolute_url }}">

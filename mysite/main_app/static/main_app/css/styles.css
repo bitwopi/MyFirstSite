@@ -26,6 +26,7 @@
     padding: 0 10%;
     background: #DB7093;
     position: relative;
+    font-weight: bold;
 }
 nav{
     display: flex;
@@ -36,7 +37,6 @@ nav{
    text-decoration: none;
    font-size: 30px;
    color: white;
-   font-weight: bold;
 }
 .logo-link p{
     display: inline-block;
@@ -198,6 +198,17 @@ nav{
     padding: 10px;
     margin: 0 7%;
 }
+.post-line .button{
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 8px 20px;
+}
+.post-line .button:hover{
+    background-color: #DB7093;
+}
+.post-line a:hover{
+    color: pink;
+}
 .post-base-cont{
     color: white;
     display: flex;
@@ -209,9 +220,13 @@ nav{
 .info{
     margin-left: 100px;
     min-width: 200px;
+    max-width: 280px;
 }
 .info a{
     color: white;
+}
+.info a:hover{
+    color: #DB7093;
 }
 .info p{
     color: rgb(201, 200, 200);
@@ -249,17 +264,6 @@ nav{
     border-right-color: #DB7093;
     border-right-width: 10px;
     text-align: center;
-}
-.post-line .button{
-    border-radius: 10px;
-    font-weight: bold;
-    padding: 8px 20px;
-}
-.post-line .button:hover{
-    background-color: #DB7093;
-}
-.post-line a:hover{
-    color: pink;
 }
 /*post end*/
 .form-items{

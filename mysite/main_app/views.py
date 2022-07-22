@@ -19,7 +19,7 @@ class MainAppHome(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(MainAppHome, self).get_context_data(**kwargs)
-        c_def = super(MainAppHome, self).get_user_context(title="Main page")
+        c_def = super(MainAppHome, self).get_user_context(title="YourAnimeList")
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -78,11 +78,48 @@ class EditPost(DataMixin, UpdateView):
     form_class = CreatePostForm
     template_name = "main_app/create_post_form.html"
     slug_url_kwarg = 'post_slug'
+    context_object_name = 'post'
 
     def get_context_data(self, **kwargs):
         context = super(EditPost, self).get_context_data(**kwargs)
-        c_def = super(EditPost, self).get_user_context(title="Editing post")
+        c_def = super(EditPost, self).get_user_context(title=f"Editing post: {context['post']}")
         return dict(list(context.items()) + list(c_def.items()))
+
+
+class ShowCategory(DataMixin, ListView):
+    model = Anime
+    template_name = "main_app/category_list.html"
+    context_object_name = 'posts'
+    slug_url_kwarg = 'cat_slug'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ShowCategory, self).get_context_data(**kwargs)
+        c_def = super(ShowCategory, self).get_user_context(title="YourAnimeList", name=self.get_category()[0].name)
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+        return Anime.objects.filter(category__slug=self.kwargs['cat_slug'])
+
+    def get_category(self):
+        return Category.objects.filter(slug=self.kwargs['cat_slug'])
+
+
+class ShowStudio(DataMixin, ListView):
+    model = Anime
+    template_name = "main_app/studio_list.html"
+    context_object_name = 'posts'
+    slug_url_kwarg = 'st_slug'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ShowStudio, self).get_context_data(**kwargs)
+        c_def = super(ShowStudio, self).get_user_context(title="YourAnimeList", name=self.get_studio()[0].name)
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+        return Anime.objects.filter(studio__slug=self.kwargs['st_slug'])
+
+    def get_studio(self):
+        return Studio.objects.filter(slug=self.kwargs['st_slug'])
 
 
 def logout_user(request):
