@@ -2,22 +2,48 @@
 {% block post %}
     <div class="post-line">
         <h1>{{title}}</h1>
-        <h1>Rating:{{post.rate}}</h1>
+        {% if request.user.is_superuser %}
+            <a href="{% url 'edit' post.slug %}" class="button">Edit</a>
+        {% endif %}
     </div>
     <div class="post-base-cont">
         {% if post.cover %}
         <img src="{{ post.cover.url }}" width="250px">
         {% endif %}
         <div class="info">
-            <p>Type:</p>
-            <p>Episodes:</p>
-            <p>Duration:</p>
-            <p>Status:</p>
-            <p>Genres:</p>
+            <div class="info-title bordering">Information</div>
+            <p>Type: <span style="color: white;">{{post.type}}</span></p>
+            <p>Episodes: <span style="color: white;">{{post.episodes_now}}/{% if post.episodes_all > 0 %}{{post.episodes_all}}{% else %}? 
+                {% endif %}
+                episodes
+            </span></p>
+            <p>Duration:  <span style="color: white;">{{post.get_minutes}} minutes</span></p>
+            <p>Status: <span style="color: white;">{{post.get_status}}</span></p>
+            <p>Genres:
+                {% for c in post.get_categories %}
+                    {% if c == post.get_categories|last %}
+                        <a href="{{ c.get_absolute_url }}">{{c.name}}</a>
+                    {% else %}
+                        <a href="{{ c.get_absolute_url }}">{{c.name}},</a>
+                    {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+        <div class="third-plate">
+            {% if post.rate > 0 %}
+            <div class="rate">
+                <div class="info-title bordering">Rating</div>
+                <h1>{{post.rate}}</h1>
+            </div>
+            {% endif %}
+            <div class="studio">
+                <div class="info-title bordering">Studio</div>
+                <a href="{{ post.studio.get_absolute_url }}"><img src="{{ post.studio.logo.url }}" width="140px"></a>
+            </div>
         </div>
     </div>  
-    <div class="disc-block">
-        <h1>Discription</h1>
+    <div class="disc-block ">
+        <div class="info-title bordering">DISCRIPTION</div>
         <p>{{post.discription}}</p>
     </div>
     

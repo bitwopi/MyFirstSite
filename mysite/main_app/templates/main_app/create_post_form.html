@@ -2,9 +2,9 @@
 {% block create %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div>
+        <div class="form-items bordering">
             {{form.as_p}}
-            <button type="submit" class="button">Add</button>
+            <button type="submit" class="button">Submit</button>
         </div>
     </form>
 {% endblock create %}

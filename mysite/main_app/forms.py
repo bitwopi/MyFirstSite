@@ -35,6 +35,22 @@ class LoginForm(AuthenticationForm):
 
 
 class CreatePostForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        class_field = {'class': "form-control"}
+        self.fields['title'].widget.attrs.update(class_field)
+        self.fields['slug'].widget.attrs.update(class_field)
+        self.fields['discription'].widget.attrs.update(class_field)
+        self.fields['rate'].widget.attrs.update(class_field)
+        self.fields['category'].widget.attrs.update(class_field)
+        self.fields['type'].widget.attrs.update(class_field)
+        self.fields['episodes_now'].widget.attrs.update(class_field)
+        self.fields['episodes_all'].widget.attrs.update(class_field)
+        self.fields['duration'].widget.attrs.update(class_field)
+        self.fields['studio'].widget.attrs.update(class_field)
+
     class Meta:
         model = Anime
         fields = '__all__'
+
+

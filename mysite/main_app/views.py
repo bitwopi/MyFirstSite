@@ -3,23 +3,13 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.views.generic.detail import BaseDetailView
 
 from .forms import *
 
 from .models import *
-
-menu = [{'title': "About"},
-        {'title': "Feedback"},
-        ]
-
-
-class DataMixin:
-    def get_user_context(self, **kwargs):
-        context = kwargs
-        context['menu'] = menu
-        return context
+from .utils import *
 
 
 class MainAppHome(DataMixin, ListView):
@@ -64,7 +54,7 @@ class CreatePost(DataMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CreatePost, self).get_context_data(**kwargs)
-        c_def = super(CreatePost, self).get_user_context(title="Create post")
+        c_def = super(CreatePost, self).get_user_context(title="Create post", button_title="Add")
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):
@@ -82,6 +72,17 @@ class ShowPost(DataMixin, DetailView):
         c_def = super(ShowPost, self).get_user_context(title=context['post'])
         return dict(list(context.items()) + list(c_def.items()))
 
+
+class EditPost(DataMixin, UpdateView):
+    model = Anime
+    form_class = CreatePostForm
+    template_name = "main_app/create_post_form.html"
+    slug_url_kwarg = 'post_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditPost, self).get_context_data(**kwargs)
+        c_def = super(EditPost, self).get_user_context(title="Editing post")
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 def logout_user(request):

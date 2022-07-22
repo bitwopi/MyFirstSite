@@ -1,13 +1,13 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="content">
+    <div class="content bordering">
         {% for pi in posts %}
         <a href="{{ pi.get_absolute_url }}">
             <figure>
                 {% if pi.cover %}
                 <img src={{pi.cover.url}} width="180px" height="250px">
-                <figcaption>{{pi.title}}</figcaption>
+                <figcaption>{{pi.title|truncatechars:20}}</figcaption>
             </figure>
         </a>
         {% endif %}
