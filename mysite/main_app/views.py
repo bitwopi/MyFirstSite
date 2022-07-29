@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from django.views.generic.detail import BaseDetailView
 
 from .forms import *
 
@@ -61,15 +60,27 @@ class CreatePost(DataMixin, CreateView):
         return reverse_lazy('home')
 
 
-class ShowPost(DataMixin, DetailView):
+class ShowPostAnime(DataMixin, DetailView):
     model = Anime
     context_object_name = 'post'
-    template_name = 'main_app/post.html'
-    slug_url_kwarg = 'post_slug'
+    template_name = 'main_app/post_anime.html'
+    slug_url_kwarg = 'anime_slug'
 
     def get_context_data(self, **kwargs):
-        context = super(ShowPost, self).get_context_data(**kwargs)
-        c_def = super(ShowPost, self).get_user_context(title=context['post'])
+        context = super(ShowPostAnime, self).get_context_data(**kwargs)
+        c_def = super(ShowPostAnime, self).get_user_context(title=context['post'])
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class ShowPostManga(DataMixin, DetailView):
+    model = Manga
+    context_object_name = 'post'
+    template_name = 'main_app/post.html'
+    slug_url_kwarg = 'manga_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowPostManga, self).get_context_data(**kwargs)
+        c_def = super(ShowPostManga, self).get_user_context(title=context['post'])
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -77,7 +88,7 @@ class EditPost(DataMixin, UpdateView):
     model = Anime
     form_class = CreatePostForm
     template_name = "main_app/create_post_form.html"
-    slug_url_kwarg = 'post_slug'
+    slug_url_kwarg = 'anime_slug'
     context_object_name = 'post'
 
     def get_context_data(self, **kwargs):
