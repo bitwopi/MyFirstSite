@@ -282,6 +282,7 @@ nav{
 }
 .mini-card{
     display: flex;
+    margin-top: 10px;
 }
 .mini-cover{
     width: 100px;
@@ -293,17 +294,22 @@ nav{
 }
 .character-list{
     display: flex;
+    flex-wrap: wrap;
     margin: 10px;
 }
-.characters figure{
+.character-list figure{
     text-align: center;
 }
-.characters a:hover{
+.character-list a:hover{
     color: #DB7093;;
 }
 .mini-char-photo{
     width: 125px;
     height: 175px;
+}
+.voice-actors{
+    grid-column: 3/5;
+    justify-items: start;
 }
 /*post end*/
 .form-items{

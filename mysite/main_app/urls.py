@@ -10,8 +10,9 @@ urlpatterns =[
     path('post//anime/<slug:anime_slug>/', ShowPostAnime.as_view(), name='post'),
     path('post/manga/<slug:manga_slug>/', ShowPostManga.as_view(), name='post'),
     path('post/<slug:anime_slug>/edit/', EditPost.as_view(), name="edit"),
-    path('category/<slug:cat_slug>/', ShowCategory.as_view(), name="category"),
+    path('category/anime/<slug:cat_slug>/', ShowAnimeCategory.as_view(), name="category-anime"),
+    path('category/manga/<slug:cat_slug>/', ShowMangaCategory.as_view(), name="category-manga"),
     path('studio/<slug:st_slug>/', ShowStudio.as_view(), name="studio"),
-    path('person/<slug:person_slug>/', ShowStudio.as_view(), name="person"),
-    path('character/<slug:char_slug>/', ShowStudio.as_view(), name="character"),
+    path('person/<slug:person_slug>/', ShowPostPerson.as_view(), name="person"),
+    path('character/<slug:char_slug>/', ShowPostCharacter.as_view(), name="character"),
 ]

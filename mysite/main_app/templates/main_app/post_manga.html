@@ -1,0 +1,87 @@
+{% extends 'main_app/post.html' %}
+{% block manga %}
+<div class="info">
+    <div class="info-title bordering">Information</div>
+    <p>Type: <span style="color: white;">Manga</span></p>
+    <p>Release date: <span style="color: white;">{{ post.release_date }}</span></p>
+    <p>Genres:
+        {% for c in post.get_categories %}
+            {% if c == post.get_categories|last %}
+                <a href="{{ c.get_absolute_manga_url }}">{{c.name}}</a>
+            {% else %}
+                <a href="{{ c.get_absolute_manga_url }}">{{c.name}},</a>
+            {% endif %}
+        {% endfor %}
+    </p>
+</div>
+<div class="third-plate">
+    {% if post.rate > 0 %}
+    <div class="rate">
+        <div class="info-title bordering">Rating</div>
+        <h1>{{post.rate}}</h1>
+    </div>
+    {% endif %}
+</div>
+<div class="disc-block ">
+    <div class="info-title bordering">DISCRIPTION</div>
+    <p>{{post.discription|truncatewords:50}}</p>
+</div>
+<div class="related">
+    <div class="info-title bordering">Projects</div>
+    {% for p in post.get_projects %}
+    <div class="mini-card">      
+        <div class="mini-cover">
+            <a href="{{ p.get_absolute_url }}"><img class="mini-cover" src="{{ p.cover.url }}"></a>
+        </div>
+        <div class="mini-info">
+            <div class="mini-name">
+                <a href="{{ p.get_absolute_url }}">{{p.title}} / {{p.j_title}}</a>
+            </div>
+            <div class="line">
+                {% if p.type %}
+                    <p>Type: {{p.type}}</p>
+                {% else %}
+                    <p>Type: Manga</p>
+                {% endif %}
+                <p>Genres:
+                    {% for c in p.get_categories %}
+                        {% if c == p.get_categories|last %}
+                            <a href="{{ c.get_absolute_anime_url }}">{{c.name}}</a>
+                        {% else %}
+                            <a href="{{ c.get_absolute_anime_url }}">{{c.name}},</a>
+                        {% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div> 
+    {% endfor %}
+</div>
+<div class="authors">
+    <div class="info-title bordering">Authors</div>
+    <div class="mini-card">
+        <div class="mini-cover">
+            <a href="{{post.author.get_absolute_url}}"><img class="mini-cover" src="{{post.author.photo.url}}"></a>
+        </div>
+        <div class="mini-info">
+            <div class="mini-name">
+                <a href="{{post.author.get_absolute_url}}">{{ post.author.name }} / {{ post.author.j_name }}</a>
+            </div>
+            <div class="line">
+                Career:<a href="#"> {{ post.author.career }}</a>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="characters">
+    <div class="info-title bordering"><a href="#">Characters</a></div>
+    <div class="character-list">
+        {% for c in post.get_main_chars %}
+        <figure>
+            <a href="{{ c.get_absolute_url }}"><img src="{{ c.photo.url }}" class="mini-char-photo"></a>
+            <figcaption><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></figcaption>
+        </figure>
+    {% endfor %}
+    </div>
+</div>
+{% endblock manga %}

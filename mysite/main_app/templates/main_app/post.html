@@ -1,7 +1,11 @@
 {% extends 'main_app/base.html' %}
 {% block post %}
     <div class="post-line">
+        {% if post.title %}
         <h1>{{title}} / {{ post.j_title }}</h1>
+        {% else %}
+        <h1>{{title}} / {{ post.j_name }}</h1>
+        {% endif %}
         {% if request.user.is_superuser %}
             <a href="{% url 'edit' post.slug %}" class="button">Edit</a>
         {% endif %}
@@ -10,7 +14,14 @@
         {% if post.cover %}
         <img class="cover" src="{{ post.cover.url }}">
         {% endif %}
+        {% if post.photo %}
+        <img class="cover" src="{{ post.photo.url }}">
+        {% endif %}
         {% block anime %}
         {% endblock anime %}
+        {% block manga %}
+        {% endblock manga %}
+        {% block character %}
+        {% endblock character %}
     </div> 
 {% endblock %}

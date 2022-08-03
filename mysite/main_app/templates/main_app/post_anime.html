@@ -8,13 +8,17 @@
         episodes
     </span></p>
     <p>Duration:  <span style="color: white;">{{post.get_minutes}} minutes</span></p>
-    <p>Status: <span style="color: white;">{{post.get_status}}</span></p>
+    <p>Status: <span style="color: white;">{{post.get_status}}
+        {% if post.get_status == "Release" %}
+            in {{ post.out_date }}
+        {% endif %}
+    </span></p>
     <p>Genres:
         {% for c in post.get_categories %}
             {% if c == post.get_categories|last %}
-                <a href="{{ c.get_absolute_url }}">{{c.name}}</a>
+                <a href="{{ c.get_absolute_anime_url }}">{{c.name}}</a>
             {% else %}
-                <a href="{{ c.get_absolute_url }}">{{c.name}},</a>
+                <a href="{{ c.get_absolute_anime_url }}">{{c.name}},</a>
             {% endif %}
         {% endfor %}
     </p>
@@ -46,7 +50,29 @@
                 <a href="{{ post.source.get_absolute_url }}">{{post.source.title}} / {{post.source.j_title}}</a>
             </div>
             <div class="line">
-    
+                {% if post.source.type %}
+                <p>Type: {{post.source.type}}</p>
+                <p>Genres:
+                    {% for c in post.source.get_categories %}
+                        {% if c == post.source.get_categories|last %}
+                            <a href="{{ c.get_absolute_anime_url }}">{{c.name}}</a>
+                        {% else %}
+                            <a href="{{ c.get_absolute_anime_url }}">{{c.name}},</a>
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                {% else %}
+                <p>Type: Manga</p>
+                <p>Genres:
+                    {% for c in post.source.get_categories %}
+                        {% if c == post.source.get_categories|last %}
+                            <a href="{{ c.get_absolute_manga_url }}">{{c.name}}</a>
+                        {% else %}
+                            <a href="{{ c.get_absolute_manga_url }}">{{c.name}},</a>
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                {% endif %}
             </div>
         </div>
     </div> 

@@ -43,10 +43,7 @@ class Anime(models.Model):
         return result
 
     def get_main_chars(self):
-        result = []
-        for c in self.main_chars.all():
-            result.append(c)
-        return result
+        return self.main_chars.all()
 
     def get_status(self):
         if self.is_out:
@@ -91,6 +88,12 @@ class Manga(models.Model):
             result.append(cat)
         return result
 
+    def get_projects(self):
+        return Anime.objects.filter(source__slug=self.slug)
+
+    def get_main_chars(self):
+        return self.main_characters.all()
+
 
 class Character(models.Model):
     name = models.CharField(max_length=255)
@@ -108,6 +111,10 @@ class Character(models.Model):
 
     def get_absolute_url(self):
         return reverse('character', kwargs={'char_slug': self.slug})
+
+    def get_projects(self):
+        return list(Anime.objects.filter(main_chars__slug=self.slug)) \
+               + list(Manga.objects.filter(main_characters__slug=self.slug))
 
 
 class Career(models.Model):
@@ -136,6 +143,10 @@ class Person(models.Model):
 
     def get_absolute_url(self):
         return reverse('person', kwargs={'person_slug': self.slug})
+
+    def get_projects(self):
+        return list(Anime.objects.filter(main_chars__voice_actor__slug=self.slug)) \
+               + list(Anime.objects.filter(persons__slug=self.slug))
 
 
 class MPAA_rate(models.Model):
@@ -169,8 +180,11 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('category', kwargs={'cat_slug': self.slug})
+    def get_absolute_manga_url(self):
+        return reverse('category-manga', kwargs={'cat_slug': self.slug})
+
+    def get_absolute_anime_url(self):
+        return reverse('category-anime', kwargs={'cat_slug': self.slug})
 
 
 class Studio(models.Model):

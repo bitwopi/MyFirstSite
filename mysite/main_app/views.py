@@ -75,12 +75,36 @@ class ShowPostAnime(DataMixin, DetailView):
 class ShowPostManga(DataMixin, DetailView):
     model = Manga
     context_object_name = 'post'
-    template_name = 'main_app/post.html'
+    template_name = 'main_app/post_manga.html'
     slug_url_kwarg = 'manga_slug'
 
     def get_context_data(self, **kwargs):
         context = super(ShowPostManga, self).get_context_data(**kwargs)
         c_def = super(ShowPostManga, self).get_user_context(title=context['post'])
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class ShowPostPerson(DataMixin, DetailView):
+    model = Person
+    context_object_name = 'post'
+    template_name = 'main_app/post_character.html'
+    slug_url_kwarg = 'person_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowPostPerson, self).get_context_data(**kwargs)
+        c_def = super(ShowPostPerson, self).get_user_context(title=context['post'])
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class ShowPostCharacter(DataMixin, DetailView):
+    model = Character
+    context_object_name = 'post'
+    template_name = 'main_app/post_character.html'
+    slug_url_kwarg = 'char_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowPostCharacter, self).get_context_data(**kwargs)
+        c_def = super(ShowPostCharacter, self).get_user_context(title=context['post'])
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -98,7 +122,6 @@ class EditPost(DataMixin, UpdateView):
 
 
 class ShowCategory(DataMixin, ListView):
-    model = Anime
     template_name = "main_app/category_list.html"
     context_object_name = 'posts'
     slug_url_kwarg = 'cat_slug'
@@ -108,11 +131,32 @@ class ShowCategory(DataMixin, ListView):
         c_def = super(ShowCategory, self).get_user_context(title="YourAnimeList", name=self.get_category()[0].name)
         return dict(list(context.items()) + list(c_def.items()))
 
+    def get_category(self):
+        return Category.objects.filter(slug=self.kwargs['cat_slug'])
+
+
+class ShowAnimeCategory(ShowCategory):
+    model = Anime
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ShowAnimeCategory, self).get_context_data(**kwargs)
+        c_def = super(ShowAnimeCategory, self).get_user_context(type="Anime")
+        return dict(list(context.items()) + list(c_def.items()))
+
     def get_queryset(self):
         return Anime.objects.filter(category__slug=self.kwargs['cat_slug'])
 
-    def get_category(self):
-        return Category.objects.filter(slug=self.kwargs['cat_slug'])
+
+class ShowMangaCategory(ShowCategory):
+    model = Manga
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ShowMangaCategory, self).get_context_data(**kwargs)
+        c_def = super(ShowMangaCategory, self).get_user_context(type="Manga")
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+        return Manga.objects.filter(category__slug=self.kwargs['cat_slug'])
 
 
 class ShowStudio(DataMixin, ListView):
