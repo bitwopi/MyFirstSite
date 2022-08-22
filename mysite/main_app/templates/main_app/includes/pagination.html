@@ -1,0 +1,7 @@
+<nav class="paginator">
+        <a class="paginator-element" href="?page=1}"><<</a>
+        <a class="paginator-element" href="?page={{page_obj.number - 1}}"><</a>
+        <a class="paginator-element" href="?page={{page_obj.number}}">{{page_obj.number}}</a>
+        <a class="paginator-element" href="?page={{page_obj.number + 1}}">></a>
+        <a class="paginator-element" href="?page={{ paginator.page_range }}">>></a>
+</nav>

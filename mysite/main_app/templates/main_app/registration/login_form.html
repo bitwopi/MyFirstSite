@@ -1,0 +1,6 @@
+{% extends 'main_app/registration/base_registration_form.html' %}
+{% block login %}
+    <button class="button" type="submit">Sign in</button>
+    <a class="sign-up" href="{%url 'register'%}">Sign up</a>
+    <a class="sign-up" href="{%url 'reset_password'%}"> Forgot your password? </a>
+{% endblock login %}

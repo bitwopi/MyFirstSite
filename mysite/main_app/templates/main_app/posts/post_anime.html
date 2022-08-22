@@ -1,0 +1,109 @@
+{% extends 'main_app/posts/post.html' %}
+{% block anime %}
+<div class="info">
+    <div class="info-title bordering">Information</div>
+    <p>Type: <span class="contrast-color">{{post.type}}</span></p>
+    <p>Episodes: <span class="contrast-color">{{post.episodes_now}}/{% if post.episodes_all > 0 %}{{post.episodes_all}}{% else %}?
+        {% endif %}
+        episodes
+    </span></p>
+    <p>Duration:  <span class="contrast-color">{{post.get_minutes}} minutes</span></p>
+    <p>Status: <span class="contrast-color">{{post.get_status}}
+        {% if post.get_status == "Release" %}
+            in {{ post.out_date }}
+        {% endif %}
+    </span></p>
+    <p>Genres:
+        {% for c in post.get_categories %}
+            {% if c == post.get_categories|last %}
+                <a href="{{ c.get_absolute_anime_url }}">{{c.name}}</a>
+            {% else %}
+                <a href="{{ c.get_absolute_anime_url }}">{{c.name}},</a>
+            {% endif %}
+        {% endfor %}
+    </p>
+</div>
+<div class="third-plate">
+    {% if post.rate > 0 %}
+    <div class="rate">
+        <div class="info-title bordering">Rating</div>
+        <h1>{{post.rate}}</h1>
+    </div>
+    {% endif %}
+    <div class="studio">
+        <div class="info-title bordering">Studio</div>
+        <a href="{{ post.studio.get_absolute_url }}"><img src="{{ post.studio.logo.url }}" width="140px"></a>
+    </div>
+</div>
+<div class="disc-block ">
+    <div class="info-title bordering">DISCRIPTION</div>
+    <p>{{post.discription|truncatewords:50}}</p>
+</div>
+<div class="related">
+    <div class="info-title bordering">Related</div>
+    <div class="mini-card">      
+        <div class="mini-cover">
+            <a href="{{ post.source.get_absolute_url }}"><img class="mini-cover" src="{{ post.source.cover.url }}"></a>
+        </div>
+        <div class="mini-info">
+            <div class="mini-name">
+                <a href="{{ post.source.get_absolute_url }}">{{post.source.title}} / {{post.source.j_title}}</a>
+            </div>
+            <div class="line">
+                {% if post.source.type %}
+                <p>Type: {{post.source.type}}</p>
+                <p>Genres:
+                    {% for c in post.source.get_categories %}
+                        {% if c == post.source.get_categories|last %}
+                            <a href="{{ c.get_absolute_anime_url }}">{{c.name}}</a>
+                        {% else %}
+                            <a href="{{ c.get_absolute_anime_url }}">{{c.name}},</a>
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                {% else %}
+                <p>Type: Manga</p>
+                <p>Genres:
+                    {% for c in post.source.get_categories %}
+                        {% if c == post.source.get_categories|last %}
+                            <a href="{{ c.get_absolute_manga_url }}">{{c.name}}</a>
+                        {% else %}
+                            <a href="{{ c.get_absolute_manga_url }}">{{c.name}},</a>
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="authors">
+    <div class="info-title bordering">Authors</div>
+    {% for a in post.get_authors %}
+    <div class="mini-card">
+        <div class="mini-cover">
+            <a href="{{a.get_absolute_url}}"><img class="mini-cover" src="{{a.photo.url}}"></a>
+        </div>
+        <div class="mini-info">
+            <div class="mini-name">
+                <a href="{{a.get_absolute_url}}">{{ a.name }} / {{ a.j_name }}</a>
+            </div>
+            <div class="line">
+                Career:<a href="#"> {{ a.career }}</a>
+            </div>
+        </div>
+    </div> 
+{% endfor %}
+</div>
+<div class="characters">
+    <div class="info-title bordering"><a href="#">Characters</a></div>
+    <div class="character-list">
+        {% for c in post.get_main_chars %}
+        <figure>
+            <a href="{{ c.get_absolute_url }}"><img src="{{ c.photo.url }}" class="mini-char-photo"></a>
+            <figcaption><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></figcaption>
+        </figure>
+    {% endfor %}
+    </div>
+</div>
+{% endblock anime %}
