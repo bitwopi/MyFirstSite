@@ -7,7 +7,15 @@
         <h1>{{title}} / {{ post.j_name }}</h1>
         {% endif %}
         {% if request.user.is_superuser %}
-            <a href="{% url 'edit' post.slug %}" class="button">Edit</a>
+            {% if type == "manga" %}
+                <a href="{% url 'edit-manga' post.slug %}" class="button">Edit</a>
+            {% elif type == "character" %}
+                <a href="{% url 'edit-character' post.slug %}" class="button">Edit</a>
+            {% elif type == "person" %}
+                <a href="{% url 'edit-person' post.slug %}" class="button">Edit</a>
+            {% else %}
+                <a href="{% url 'edit-anime' post.slug %}" class="button">Edit</a>
+            {% endif %}
         {% endif %}
     </div>
     <div class="post-base-cont">

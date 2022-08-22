@@ -1,14 +1,14 @@
-{% extends 'main_app/post.html' %}
+{% extends 'main_app/posts/post.html' %}
 {% block anime %}
 <div class="info">
     <div class="info-title bordering">Information</div>
-    <p>Type: <span style="color: white;">{{post.type}}</span></p>
-    <p>Episodes: <span style="color: white;">{{post.episodes_now}}/{% if post.episodes_all > 0 %}{{post.episodes_all}}{% else %}?
+    <p>Type: <span class="contrast-color">{{post.type}}</span></p>
+    <p>Episodes: <span class="contrast-color">{{post.episodes_now}}/{% if post.episodes_all > 0 %}{{post.episodes_all}}{% else %}?
         {% endif %}
         episodes
     </span></p>
-    <p>Duration:  <span style="color: white;">{{post.get_minutes}} minutes</span></p>
-    <p>Status: <span style="color: white;">{{post.get_status}}
+    <p>Duration:  <span class="contrast-color">{{post.get_minutes}} minutes</span></p>
+    <p>Status: <span class="contrast-color">{{post.get_status}}
         {% if post.get_status == "Release" %}
             in {{ post.out_date }}
         {% endif %}

@@ -1,19 +1,24 @@
+import os
+
+from django.contrib.auth import views as auth_views
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 from .forms import *
-
 from .models import *
 from .utils import *
 
 
+PAGINATE_NUMBER = int(os.getenv('POSTS_NUMBER_IN_PAGE', 10))
+
+
 class MainAppHome(DataMixin, ListView):
+    paginate_by = PAGINATE_NUMBER
     model = Anime
-    template_name = 'main_app/index.html'
+    template_name = 'main_app/lists/index.html'
     context_object_name = 'posts'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -24,7 +29,7 @@ class MainAppHome(DataMixin, ListView):
 
 class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUserForm
-    template_name = 'main_app/registration_form.html'
+    template_name = 'main_app/registration/registration_form.html'
     context_object_name = 'regs'
     success_url = reverse_lazy('login')
 
@@ -34,9 +39,9 @@ class RegisterUser(DataMixin, CreateView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-class LoginUser(DataMixin, LoginView):
+class LoginUser(LoginView):
     form_class = LoginForm
-    template_name = 'main_app/login_form.html'
+    template_name = 'main_app/registration/login_form.html'
     context_object_name = 'logs'
 
     def get_context_data(self, **kwargs):
@@ -48,7 +53,7 @@ class LoginUser(DataMixin, LoginView):
 
 
 class CreatePost(DataMixin, CreateView):
-    form_class = CreatePostForm
+    form_class = CreatePostFormAnime
     template_name = "main_app/create_post_form.html"
 
     def get_context_data(self, **kwargs):
@@ -63,66 +68,108 @@ class CreatePost(DataMixin, CreateView):
 class ShowPostAnime(DataMixin, DetailView):
     model = Anime
     context_object_name = 'post'
-    template_name = 'main_app/post_anime.html'
+    template_name = 'main_app/posts/post_anime.html'
     slug_url_kwarg = 'anime_slug'
 
     def get_context_data(self, **kwargs):
         context = super(ShowPostAnime, self).get_context_data(**kwargs)
-        c_def = super(ShowPostAnime, self).get_user_context(title=context['post'])
+        c_def = super(ShowPostAnime, self).get_user_context(title=context['post'], type="anime")
         return dict(list(context.items()) + list(c_def.items()))
 
 
 class ShowPostManga(DataMixin, DetailView):
     model = Manga
     context_object_name = 'post'
-    template_name = 'main_app/post_manga.html'
+    template_name = 'main_app/posts/post_manga.html'
     slug_url_kwarg = 'manga_slug'
 
     def get_context_data(self, **kwargs):
         context = super(ShowPostManga, self).get_context_data(**kwargs)
-        c_def = super(ShowPostManga, self).get_user_context(title=context['post'])
+        c_def = super(ShowPostManga, self).get_user_context(title=context['post'], type="manga")
         return dict(list(context.items()) + list(c_def.items()))
 
 
 class ShowPostPerson(DataMixin, DetailView):
     model = Person
     context_object_name = 'post'
-    template_name = 'main_app/post_character.html'
+    template_name = 'main_app/posts/post_character.html'
     slug_url_kwarg = 'person_slug'
 
     def get_context_data(self, **kwargs):
         context = super(ShowPostPerson, self).get_context_data(**kwargs)
-        c_def = super(ShowPostPerson, self).get_user_context(title=context['post'])
+        c_def = super(ShowPostPerson, self).get_user_context(title=context['post'], type="person")
         return dict(list(context.items()) + list(c_def.items()))
 
 
 class ShowPostCharacter(DataMixin, DetailView):
     model = Character
     context_object_name = 'post'
-    template_name = 'main_app/post_character.html'
+    template_name = 'main_app/posts/post_character.html'
     slug_url_kwarg = 'char_slug'
 
     def get_context_data(self, **kwargs):
         context = super(ShowPostCharacter, self).get_context_data(**kwargs)
-        c_def = super(ShowPostCharacter, self).get_user_context(title=context['post'])
+        c_def = super(ShowPostCharacter, self).get_user_context(title=context['post'], type="character")
         return dict(list(context.items()) + list(c_def.items()))
 
 
 class EditPost(DataMixin, UpdateView):
-    model = Anime
-    form_class = CreatePostForm
+    """ Base class for post edit """
     template_name = "main_app/create_post_form.html"
-    slug_url_kwarg = 'anime_slug'
     context_object_name = 'post'
 
     def get_context_data(self, **kwargs):
-        context = super(EditPost, self).get_context_data(**kwargs)
-        c_def = super(EditPost, self).get_user_context(title=f"Editing post: {context['post']}")
+        return super(EditPost, self).get_context_data(**kwargs)
+
+
+class EditPostAnime(EditPost):
+    form_class = CreatePostFormAnime
+    model = Anime
+    slug_url_kwarg = 'anime_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditPostAnime, self).get_context_data(**kwargs)
+        c_def = super(EditPostAnime, self).get_user_context(title=f"Editing post: {context['post']}")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class EditPostCharacter(EditPost):
+    form_class = CreatePostFormCharacter
+    model = Character
+    slug_url_kwarg = 'char_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditPostCharacter, self).get_context_data(**kwargs)
+        c_def = super(EditPostCharacter, self).get_user_context(title=f"Editing post: {context['post']}")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class EditPostPerson(EditPost):
+    form_class = CreatePostFormPerson
+    model = Person
+    slug_url_kwarg = 'person_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditPostPerson, self).get_context_data(**kwargs)
+        c_def = super(EditPostPerson, self).get_user_context(title=f"Editing post: {context['post']}")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class EditPostManga(EditPost):
+    form_class = CreatePostFormManga
+    model = Manga
+    slug_url_kwarg = 'manga_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditPostManga, self).get_context_data(**kwargs)
+        c_def = super(EditPostManga, self).get_user_context(title=f"Editing post: {context['post']}")
         return dict(list(context.items()) + list(c_def.items()))
 
 
 class ShowCategory(DataMixin, ListView):
-    template_name = "main_app/category_list.html"
+    """ Base class for category items output """
+    paginate_by = PAGINATE_NUMBER
+    template_name = "main_app/lists/category_list.html"
     context_object_name = 'posts'
     slug_url_kwarg = 'cat_slug'
 
@@ -160,8 +207,9 @@ class ShowMangaCategory(ShowCategory):
 
 
 class ShowStudio(DataMixin, ListView):
+    paginate_by = PAGINATE_NUMBER
     model = Anime
-    template_name = "main_app/studio_list.html"
+    template_name = "main_app/lists/studio_list.html"
     context_object_name = 'posts'
     slug_url_kwarg = 'st_slug'
 
@@ -175,6 +223,20 @@ class ShowStudio(DataMixin, ListView):
 
     def get_studio(self):
         return Studio.objects.filter(slug=self.kwargs['st_slug'])
+
+
+class ResetPassword(auth_views.PasswordResetView):
+    form_class = ResetPasswordForm
+    template_name = 'main_app/registration/reset_form.html'
+    context_object_name = 'regs'
+    success_url = reverse_lazy('password_reset_done')
+
+
+class ResetPasswordConfirm(auth_views.PasswordResetConfirmView):
+    form_class = ResetPasswordConfirmForm
+    template_name = 'main_app/registration/reset_form.html'
+    context_object_name = 'regs'
+    success_url = reverse_lazy('password_reset_complete')
 
 
 def logout_user(request):

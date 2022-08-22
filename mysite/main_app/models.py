@@ -68,7 +68,7 @@ class Manga(models.Model):
     discription = models.TextField(verbose_name="Discription", null=True)
     rate = models.FloatField(verbose_name="Rating")
     release_date = models.DateField(verbose_name="Release date")
-    cover = models.ImageField(upload_to="covers", null=True, verbose_name="Cover")
+    cover = models.ImageField(upload_to="manga/covers", null=True, verbose_name="Cover")
     category = models.ManyToManyField('Category', verbose_name="Categories")
     main_characters = models.ManyToManyField('Character', verbose_name="Characters")
     author = models.ForeignKey('Person', on_delete=models.PROTECT, verbose_name="Author")
