@@ -39,9 +39,9 @@ class CreatePostFormAnime(forms.ModelForm):
         super().__init__(*args, **kwargs)
         class_field = {'class': "form-control"}
         self.fields['title'].widget.attrs.update(class_field)
-        self.fields['j_title'].widget.attrs.update(class_field)
+        self.fields['synonyms'].widget.attrs.update(class_field)
         self.fields['slug'].widget.attrs.update(class_field)
-        self.fields['discription'].widget.attrs.update(class_field)
+        self.fields['description'].widget.attrs.update(class_field)
         self.fields['rate'].widget.attrs.update(class_field)
         self.fields['out_date'].widget.attrs.update(class_field)
         self.fields['category'].widget.attrs.update(class_field)
@@ -64,9 +64,9 @@ class CreatePostFormManga(forms.ModelForm):
         super().__init__(*args, **kwargs)
         class_field = {'class': "form-control"}
         self.fields['title'].widget.attrs.update(class_field)
-        self.fields['j_title'].widget.attrs.update(class_field)
+        self.fields['synonyms'].widget.attrs.update(class_field)
         self.fields['slug'].widget.attrs.update(class_field)
-        self.fields['discription'].widget.attrs.update(class_field)
+        self.fields['description'].widget.attrs.update(class_field)
         self.fields['rate'].widget.attrs.update(class_field)
         self.fields['release_date'].widget.attrs.update(class_field)
         self.fields['main_characters'].widget.attrs.update(class_field)
@@ -84,9 +84,9 @@ class CreatePostFormCharacter(forms.ModelForm):
         super().__init__(*args, **kwargs)
         class_field = {'class': "form-control"}
         self.fields['name'].widget.attrs.update(class_field)
-        self.fields['j_name'].widget.attrs.update(class_field)
+        self.fields['synonyms'].widget.attrs.update(class_field)
         self.fields['slug'].widget.attrs.update(class_field)
-        self.fields['discription'].widget.attrs.update(class_field)
+        self.fields['description'].widget.attrs.update(class_field)
         self.fields['voice_actor'].widget.attrs.update(class_field)
 
     class Meta:
@@ -99,7 +99,7 @@ class CreatePostFormPerson(forms.ModelForm):
         super().__init__(*args, **kwargs)
         class_field = {'class': "form-control"}
         self.fields['name'].widget.attrs.update(class_field)
-        self.fields['j_name'].widget.attrs.update(class_field)
+        self.fields['synonyms'].widget.attrs.update(class_field)
         self.fields['slug'].widget.attrs.update(class_field)
         self.fields['birth_date'].widget.attrs.update(class_field)
         self.fields['career'].widget.attrs.update(class_field)
@@ -111,7 +111,7 @@ class CreatePostFormPerson(forms.ModelForm):
 
 class ResetPasswordForm(PasswordResetForm):
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': "form-control",
-                                                                          'id': "floatingEmail"}))
+                                                                           'id': "floatingEmail"}))
 
 
 class ResetPasswordConfirmForm(SetPasswordForm):

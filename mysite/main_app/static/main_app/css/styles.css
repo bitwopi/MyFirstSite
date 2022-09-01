@@ -14,8 +14,57 @@ a{
     padding-top: 15px;
     margin: 0 auto;
     min-height: 1080px;
-    min-width: 850px;
+    position: relative;
 }
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+    .container{
+        max-width: 1400px;
+    }
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .container{
+        max-width: 1100px;
+    }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+    .container{
+        max-width: 900px;
+    }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    .container{
+        max-width: 700px;
+    }
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    .container{
+        max-width: 400px;
+    }
+}
+
+/* Iphone 5 */
+@media (max-width: 320px) {
+    .container{
+        max-width: 320px;
+    }
+}
+
+/*list*/
+.list-items{
+    width: 180px;
+    height: 250px;
+}
+/*list end*/
 
 .bordering{
     text-shadow: 1px 0 3px #DB7093, 
@@ -28,7 +77,6 @@ a{
 .header{
     height: 100px;
     width: 100%;
-    min-width: 1000px;
     padding: 0 10%;
     background: #DB7093;
     position: relative;
@@ -172,12 +220,15 @@ nav{
     text-align: center;
 }
 /*register form end*/
-
+/*content*/
 .content{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 3em;
+    row-gap: 1em;
+    grid-auto-columns: minmax(auto, auto);
+    color: white;
 }
 .content figure{
     padding: 15px;
@@ -191,6 +242,41 @@ nav{
 .content a:hover{
     color: #c4c4c4;
 }
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+    .content{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+/* Landscape tablets and medium desktops */
+@media (max-width: 1199px) {
+    .content{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+    .content{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    .content{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    .content{
+        grid-template-columns: 1fr;
+    }
+}
+/*content end*/
 /*post*/
 .post-line{
     color: white;
@@ -245,7 +331,7 @@ nav{
 .studio{
     text-align: center;
 }
-.disc-block{
+.desc-block{
     grid-column: 1/5;
 }
 .info-title{
@@ -260,7 +346,7 @@ nav{
     border-left-color: #DB7093;
     border-left-width: 10px;
 }
-.disc-block .info-title{
+.desc-block .info-title{
     border-right-style: solid;
     border-right-color: #DB7093;
     border-right-width: 10px;
@@ -304,6 +390,7 @@ nav{
 }
 .character-list figure{
     text-align: center;
+    margin-right: 1em ;
 }
 .character-list a:hover{
     color: #DB7093;;
@@ -331,3 +418,20 @@ nav{
 .form-items a:hover{
     color: rgb(165, 103, 103);
 }
+/*pagination*/
+.paginator-container{
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 50%;
+    padding-top: 2em;
+    padding-bottom: 15px;
+}
+.paginator{
+    margin: 0 auto;
+    max-width: 50%;
+}
+.selected{
+    text-decoration: underline;
+    color: rgb(238, 188, 248);
+}
+/*pagination end*/

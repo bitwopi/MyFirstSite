@@ -17,10 +17,10 @@
     <p>Career: <span style="color: white;">{{post.career}}</span></p>
 </div>
 {% endif %}
-{% if post.discription %}
-<div class="disc-block ">
-    <div class="info-title bordering">DISCRIPTION</div>
-    <p>{{post.discription|truncatewords:50}}</p>
+{% if post.description %}
+<div class="desc-block ">
+    <div class="info-title bordering">DESCRIPTION</div>
+    <p>{{post.description}}</p>
 </div>
 {% endif %}
 <div class="related">
@@ -32,10 +32,10 @@
         </div>
         <div class="mini-info">
             <div class="mini-name">
-                <a href="{{ p.get_absolute_url }}">{{p.title}} / {{p.j_title}}</a>
+                <a href="{{ p.get_absolute_url }}">{{p.title}}</a>
             </div>
             <div class="line">
-                {% if p.type %}
+                {% if p.type != "Манга" or p.type != "Ранобэ" or p.type != "Ваншот"  %}
                     <p>Type: {{p.type}}</p>
                     <p>Genres:
                         {% for c in p.get_categories %}
@@ -47,7 +47,7 @@
                         {% endfor %}
                     </p>
                 {% else %}
-                    <p>Type: Manga</p>
+                    <p>Type: {{p.type}}</p>
                     <p>Genres:
                         {% for c in p.get_categories %}
                             {% if c == p.get_categories|last %}

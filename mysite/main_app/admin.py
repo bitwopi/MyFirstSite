@@ -6,7 +6,7 @@ from .models import *
 class AnimeAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'rate', 'is_out', 'out_date', 'type',
                     'episodes_now', 'episodes_all', 'duration',)
-    search_fields = ('title', 'discription')
+    search_fields = ('title', 'description')
     list_editable = ('is_out', 'episodes_now')
     prepopulated_fields = {"slug": ("title",)}
 
@@ -45,5 +45,5 @@ admin.site.register(Studio, StudioAdmin)
 admin.site.register(Manga, MangaAdmin)
 admin.site.register(Character, CharacterAdmin)
 admin.site.register(Career)
-admin.site.register(MPAA_rate)
+admin.site.register(MPAARate)
 admin.site.register(Person, PersonAdmin)

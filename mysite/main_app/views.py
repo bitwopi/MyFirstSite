@@ -1,5 +1,6 @@
 import os
 
+import dotenv
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
@@ -11,7 +12,7 @@ from .forms import *
 from .models import *
 from .utils import *
 
-
+dotenv.load_dotenv()
 PAGINATE_NUMBER = int(os.getenv('POSTS_NUMBER_IN_PAGE', 10))
 
 

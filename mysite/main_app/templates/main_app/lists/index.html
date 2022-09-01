@@ -10,7 +10,7 @@
         <a href="{{ pi.get_absolute_url }}">
             <figure>
                 {% if pi.cover %}
-                <img src={{pi.cover.url}} width="180px" height="250px">
+                <img class="list-items" src={{pi.cover.url}}>
                 <figcaption>{{pi.title|truncatechars:20}}</figcaption>
             </figure>
         </a>

@@ -7,9 +7,11 @@
         {% endif %}
         episodes
     </span></p>
-    <p>Duration:  <span class="contrast-color">{{post.get_minutes}} minutes</span></p>
+    {% if post.duration %}
+        <p>Duration:  <span class="contrast-color">{{post.get_minutes}} minutes</span></p>
+    {% endif %}
     <p>Status: <span class="contrast-color">{{post.get_status}}
-        {% if post.get_status == "Release" %}
+        {% if post.get_status == "Release" and post.out_date %}
             in {{ post.out_date }}
         {% endif %}
     </span></p>
@@ -32,25 +34,34 @@
     {% endif %}
     <div class="studio">
         <div class="info-title bordering">Studio</div>
-        <a href="{{ post.studio.get_absolute_url }}"><img src="{{ post.studio.logo.url }}" width="140px"></a>
+        {% for studio in post.get_studios %}
+            {% if studio.logo %}
+                <a href="{{ post.studio.get_absolute_url }}"><img src="{{ post.studio.logo.url }}" width="140px"></a>
+            {% else %}
+                <a href="{{ post.studio.get_absolute_url }}">{{ post.studio.name }}</a>
+            {% endif %}
+        {% endfor %}
     </div>
 </div>
-<div class="disc-block ">
-    <div class="info-title bordering">DISCRIPTION</div>
-    <p>{{post.discription|truncatewords:50}}</p>
+<div class="desc-block ">
+    <div class="info-title bordering">DESCRIPTION</div>
+    {% if post.description != "" %}
+        <p>{{post.description}}</p>
+    {% endif %}
 </div>
 <div class="related">
     <div class="info-title bordering">Related</div>
-    <div class="mini-card">      
+    {% if post.source %}
+    <div class="mini-card">
         <div class="mini-cover">
             <a href="{{ post.source.get_absolute_url }}"><img class="mini-cover" src="{{ post.source.cover.url }}"></a>
         </div>
         <div class="mini-info">
             <div class="mini-name">
-                <a href="{{ post.source.get_absolute_url }}">{{post.source.title}} / {{post.source.j_title}}</a>
+                <a href="{{ post.source.get_absolute_url }}">{{post.source.title}}</a>
             </div>
             <div class="line">
-                {% if post.source.type %}
+                {% if  post.source.type != "Манга" or post.source.type != "Ранобэ" or post.source.type != "Ваншот" %}
                 <p>Type: {{post.source.type}}</p>
                 <p>Genres:
                     {% for c in post.source.get_categories %}
@@ -62,7 +73,7 @@
                     {% endfor %}
                 </p>
                 {% else %}
-                <p>Type: Manga</p>
+                <p>Type: {{post.source.type}}</p>
                 <p>Genres:
                     {% for c in post.source.get_categories %}
                         {% if c == post.source.get_categories|last %}
@@ -75,7 +86,8 @@
                 {% endif %}
             </div>
         </div>
-    </div> 
+        {% endif %}
+    </div>
 </div>
 <div class="authors">
     <div class="info-title bordering">Authors</div>
@@ -86,7 +98,7 @@
         </div>
         <div class="mini-info">
             <div class="mini-name">
-                <a href="{{a.get_absolute_url}}">{{ a.name }} / {{ a.j_name }}</a>
+                <a href="{{a.get_absolute_url}}">{{ a.name }}</a>
             </div>
             <div class="line">
                 Career:<a href="#"> {{ a.career }}</a>
@@ -99,11 +111,11 @@
     <div class="info-title bordering"><a href="#">Characters</a></div>
     <div class="character-list">
         {% for c in post.get_main_chars %}
-        <figure>
-            <a href="{{ c.get_absolute_url }}"><img src="{{ c.photo.url }}" class="mini-char-photo"></a>
-            <figcaption><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></figcaption>
-        </figure>
-    {% endfor %}
+            <figure>
+                <a href="{{ c.get_absolute_url }}"><img src="{{ c.photo.url }}" class="mini-char-photo"></a>
+                <figcaption><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></figcaption>
+            </figure>
+        {% endfor %}
     </div>
 </div>
 {% endblock anime %}

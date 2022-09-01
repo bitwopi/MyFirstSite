@@ -22,9 +22,9 @@
     </div>
     {% endif %}
 </div>
-<div class="disc-block ">
-    <div class="info-title bordering">DISCRIPTION</div>
-    <p>{{post.discription|truncatewords:50}}</p>
+<div class="desc-block ">
+    <div class="info-title bordering">DESCRIPTION</div>
+    <p>{{post.description}}</p>
 </div>
 <div class="related">
     <div class="info-title bordering">Projects</div>
@@ -35,7 +35,7 @@
         </div>
         <div class="mini-info">
             <div class="mini-name">
-                <a href="{{ p.get_absolute_url }}">{{p.title}} / {{p.j_title}}</a>
+                <a href="{{ p.get_absolute_url }}">{{p.title}}</a>
             </div>
             <div class="line">
                 {% if p.type %}
@@ -65,7 +65,7 @@
         </div>
         <div class="mini-info">
             <div class="mini-name">
-                <a href="{{post.author.get_absolute_url}}">{{ post.author.name }} / {{ post.author.j_name }}</a>
+                <a href="{{post.author.get_absolute_url}}">{{ post.author.name }}</a>
             </div>
             <div class="line">
                 Career:<a href="#"> {{ post.author.career }}</a>
