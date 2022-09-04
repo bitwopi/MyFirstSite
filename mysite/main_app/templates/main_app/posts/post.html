@@ -2,9 +2,9 @@
 {% block post %}
     <div class="post-line">
         {% if post.title %}
-            <h1>{{title}}</h1>
+            <h1 class="bordering"><b>{{title}}</b></h1>
         {% else %}
-            <h1>{{post.name}}</h1>
+            <h1 class="bordering"><b>{{post.name}}</b></h1>
         {% endif %}
         {% if request.user.is_superuser %}
             {% if type == "manga" %}

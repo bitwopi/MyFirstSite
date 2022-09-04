@@ -36,9 +36,9 @@
         <div class="info-title bordering">Studio</div>
         {% for studio in post.get_studios %}
             {% if studio.logo %}
-                <a href="{{ post.studio.get_absolute_url }}"><img src="{{ post.studio.logo.url }}" width="140px"></a>
+                <a href="{{ studio.get_absolute_url }}"><img src="{{ studio.logo.url }}" width="140px"></a>
             {% else %}
-                <a href="{{ post.studio.get_absolute_url }}">{{ post.studio.name }}</a>
+                <a href="{{ studio.get_absolute_url }}">{{ studio.name }}</a>
             {% endif %}
         {% endfor %}
     </div>
@@ -47,6 +47,8 @@
     <div class="info-title bordering">DESCRIPTION</div>
     {% if post.description != "" %}
         <p>{{post.description}}</p>
+    {% else %}
+        <p>Нет описания.</p>
     {% endif %}
 </div>
 <div class="related">
@@ -86,8 +88,8 @@
                 {% endif %}
             </div>
         </div>
-        {% endif %}
     </div>
+    {% endif %}
 </div>
 <div class="authors">
     <div class="info-title bordering">Authors</div>

@@ -24,7 +24,11 @@
 </div>
 <div class="desc-block ">
     <div class="info-title bordering">DESCRIPTION</div>
-    <p>{{post.description}}</p>
+    {% if post.description != "" %}
+        <p>{{post.description}}</p>
+    {% else %}
+        <p>Нет описания.</p>
+    {% endif %}
 </div>
 <div class="related">
     <div class="info-title bordering">Projects</div>

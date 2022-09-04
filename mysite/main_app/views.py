@@ -220,7 +220,7 @@ class ShowStudio(DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
-        return Anime.objects.filter(studio__slug=self.kwargs['st_slug'])
+        return Anime.objects.filter(studios__slug=self.kwargs['st_slug'])
 
     def get_studio(self):
         return Studio.objects.filter(slug=self.kwargs['st_slug'])
