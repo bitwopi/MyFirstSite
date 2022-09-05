@@ -44,14 +44,14 @@ a{
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
     .container{
-        max-width: 700px;
+        width: 767px;
     }
 }
 
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
     .container{
-        max-width: 400px;
+        max-width: 480px;
     }
 }
 
@@ -63,9 +63,29 @@ a{
 }
 
 /*list*/
-.list-items{
+.list-img{
     width: 180px;
     height: 250px;
+}
+.list-items{
+    font-size: 18px;
+}
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    .list-img{
+        width: 200px;
+        height: 300px;
+    }
+    .list-items{
+        font-size: 25px;
+    }
+}
+/* Iphone 5 */
+@media (max-width: 320px) {
+    .list-img{
+        width: 250px;
+        height: 320px;
+    }
 }
 /*list end*/
 
@@ -274,12 +294,14 @@ a{
     display: flex;
     padding: 30px;
     justify-content: center;
-    align_items: center;
+    min-height: 1080px;
 }
 .log-bg{
     background-image: url(../images/log_bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100%;
+    width: 100%;
 }
 /*login form end*/
 /*register form*/
@@ -599,6 +621,7 @@ a{
         width: 150px;
         height: 200px;
     }
+}
 /*post end*/
 .form-items{
     display: flex;
@@ -618,13 +641,61 @@ a{
 .paginator-container{
     box-sizing: border-box;
     margin: 0 auto;
-    max-width: 50%;
-    padding-top: 2em;
-    padding-bottom: 15px;
+    background-color: #944c71;
+    max-width: 1400px;
 }
 .paginator{
-    margin: 0 auto;
-    max-width: 50%;
+    padding: 2em 0;
+    display: flex;
+    justify-content: center;
+}
+.paginator-element{
+    padding: 0 2%;
+}
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+    .paginator-container{
+        max-width: 1400px;
+    }
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .paginator-container{
+        max-width: 1100px;
+    }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+    .paginator-container{
+        max-width: 900px;
+    }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    .paginator-container{
+        width: 767px;
+    }
+    .paginator-container{
+        max-width: none;
+        font-size: 20px;
+    }
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    .paginator-container{
+        max-width: 480px;
+    }
+}
+
+/* Iphone 5 */
+@media (max-width: 320px) {
+    .paginator-container{
+        max-width: 320px;
+    }
 }
 .selected{
     text-decoration: underline;

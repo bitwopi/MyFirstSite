@@ -8,9 +8,9 @@
     <div class="content bordering">
         {% for pi in posts %}
         <a href="{{ pi.get_absolute_url }}">
-            <figure>
+            <figure class="list-items">
                 {% if pi.cover %}
-                <img class="list-items" src={{pi.cover.url}}>
+                <img class="list-img" src={{pi.cover.url}}>
                 <figcaption>{{pi.title|truncatechars:20}}</figcaption>
             </figure>
         </a>
