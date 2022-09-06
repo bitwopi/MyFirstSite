@@ -20,7 +20,8 @@ from mysite import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main_app.urls'))
+    path('', include('main_app.urls')),
+    path('api/', include('api.urls')),
 ]
 
 if settings.DEBUG:
