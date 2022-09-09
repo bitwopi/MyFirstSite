@@ -4,18 +4,21 @@ import dotenv
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from rest_framework import generics
 
 from .forms import *
 from .models import *
+from .serializer import AnimeSerializer, MangaSerializer, CharacterSerializer, PersonSerializer, StudioSerializer
 from .utils import *
 
 dotenv.load_dotenv()
 PAGINATE_NUMBER = int(os.getenv('POSTS_NUMBER_IN_PAGE', 10))
 
 
+# Class views
 class MainAppHome(DataMixin, ListView):
     paginate_by = PAGINATE_NUMBER
     model = Anime
@@ -240,6 +243,65 @@ class ResetPasswordConfirm(auth_views.PasswordResetConfirmView):
     success_url = reverse_lazy('password_reset_complete')
 
 
+# API views
+# Detail
+class AnimeDetailAPIView(generics.RetrieveAPIView):
+    queryset = Anime.objects.all()
+    serializer_class = AnimeSerializer
+    lookup_field = 'slug'
+
+
+class MangaDetailAPIView(generics.RetrieveAPIView):
+    queryset = Manga.objects.all()
+    serializer_class = MangaSerializer
+    lookup_field = 'slug'
+
+
+class CharacterDetailAPIView(generics.RetrieveAPIView):
+    queryset = Character.objects.all()
+    serializer_class = CharacterSerializer
+    lookup_field = 'slug'
+
+
+class PersonDetailAPIView(generics.RetrieveAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+    lookup_field = 'slug'
+
+
+class StudioDetailAPIView(generics.RetrieveAPIView):
+    queryset = Studio.objects.all()
+    serializer_class = StudioSerializer
+    lookup_field = 'slug'
+
+
+# List
+class AnimeListAPIView(generics.ListAPIView):
+    queryset = Anime.objects.all()
+    serializer_class = AnimeSerializer
+
+
+class MangaListAPIView(generics.ListAPIView):
+    queryset = Manga.objects.all()
+    serializer_class = MangaSerializer
+
+
+class CharacterListAPIView(generics.ListAPIView):
+    queryset = Character.objects.all()
+    serializer_class = CharacterSerializer
+
+
+class PersonListAPIView(generics.ListAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+
+
+class StudioListAPIView(generics.ListAPIView):
+    queryset = Studio.objects.all()
+    serializer_class = StudioSerializer
+
+
+# Function based views
 def logout_user(request):
     logout(request)
     return redirect('login')

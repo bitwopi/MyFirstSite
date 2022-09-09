@@ -20,7 +20,7 @@ class Anime(models.Model):
     studios = models.ManyToManyField('Studio', verbose_name="Studios")
     persons = models.ManyToManyField('Person', verbose_name="Authors", blank=True)
     main_chars = models.ManyToManyField('Character', verbose_name="Main characters")
-    source = models.ForeignKey('Manga', on_delete=models.PROTECT, null=True, verbose_name="Source", blank=True)
+    source = models.ForeignKey('Manga', on_delete=models.SET_NULL, null=True, verbose_name="Source", blank=True)
 
     # META CLASS
     class Meta:
@@ -75,7 +75,7 @@ class Manga(models.Model):
     category = models.ManyToManyField('Category', verbose_name="Categories")
     main_characters = models.ManyToManyField('Character', verbose_name="Characters")
     author = models.ManyToManyField('Person', verbose_name="Authors")
-    type = models.ForeignKey('Type', verbose_name="Type", on_delete=models.PROTECT, null=True)
+    type = models.ForeignKey('Type', verbose_name="Type", on_delete=models.SET_NULL, null=True)
 
     # META CLASS
     class Meta:

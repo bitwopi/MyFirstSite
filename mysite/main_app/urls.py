@@ -21,10 +21,8 @@ urlpatterns = [
     path('character/<slug:char_slug>/', ShowPostCharacter.as_view(), name="character"),
     path('reset_password', ResetPassword.as_view(), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(
-        template_name="main_app/registration/reset_password_sent.html"
-    ), name="password_reset_done"),
+        template_name="main_app/registration/reset_password_sent.html"), name="password_reset_done"),
     path('reset/<uidb64>/<token>/', ResetPasswordConfirm.as_view(), name="password_reset_confirm"),
     path('reset_password_complete', auth_views.PasswordResetCompleteView.as_view(
-        template_name="main_app/registration/reset_password_complete.html"
-    ), name="password_reset_complete"),
+        template_name="main_app/registration/reset_password_complete.html"), name="password_reset_complete"),
 ]
