@@ -1,0 +1,41 @@
+.container{
+    margin-top: 1em;
+}
+.search-card{
+    display: flex;
+    justify-content: start;
+    padding-bottom: 2em;
+}
+.title-info{
+    margin-left: 1em;
+    max-height: 280px;
+}
+.search-cover img{
+    width: 200px;
+}
+.title-name{
+    font-size: xx-large;
+}
+.title-name a:hover{
+    color: gainsboro;
+}
+.search-synonyms{
+    color: rgb(255, 255, 255, 0.7);
+}
+.search-type{
+    color: white;
+    margin-top: 1em;
+}
+.search-type span{
+    color: rgb(255, 255, 255, 0.7);
+}
+.search-genres{
+    color: white;
+}
+.search-genres a:hover{
+    color: #c4c4c4;
+}
+.search-genres span{
+    color: rgb(255, 255, 255, 0.7);
+}
+

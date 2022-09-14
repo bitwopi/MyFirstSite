@@ -7,6 +7,7 @@ urlpatterns = [
     path('login/', LoginUser.as_view(), name="login"),
     path('registration/', RegisterUser.as_view(), name="register"),
     path('logout/', logout_user, name="logout"),
+    path('search/', search, name='search'),
     path('create/', CreatePost.as_view(), name="create"),
     path('post/anime/<slug:anime_slug>/', ShowPostAnime.as_view(), name='post'),
     path('post/manga/<slug:manga_slug>/', ShowPostManga.as_view(), name='post'),

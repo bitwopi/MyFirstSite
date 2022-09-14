@@ -114,6 +114,26 @@ a{
     justify-content: space-between;
     margin: auto 0;
 }
+.search-form{
+    display: inline-block;
+    position: relative;
+}
+.search-bar{
+    width: 100%;
+    border: solid #f09ec8;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    padding-right: 30px;
+}
+.search-button{
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    border: none;
+    background-color: unset;
+}
 .logo-link{
    font-size: 30px;
    color: white;

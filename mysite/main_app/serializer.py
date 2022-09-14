@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Anime, Manga, Character, Person, Studio, Category, Type
+from .models import Anime, Manga, Character, Person, Studio, Category
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -34,6 +34,10 @@ class StudioSerializer(serializers.ModelSerializer):
 
 
 class MangaSerializer(serializers.ModelSerializer):
+    api_url = serializers.HyperlinkedIdentityField(
+        view_name='api-manga-detail',
+        lookup_field='slug'
+    )
     type = serializers.SerializerMethodField(read_only=True)
     category = CategorySerializer(many=True, read_only=True)
     main_characters = CharacterSerializer(many=True)
@@ -41,13 +45,31 @@ class MangaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Manga
-        fields = '__all__'
+        fields = [
+            "api_url",
+            "id",
+            "title",
+            "synonyms",
+            "slug",
+            "description",
+            "rate",
+            "release_date",
+            "cover",
+            "type",
+            "category",
+            "main_characters",
+            "author",
+        ]
 
     def get_type(self, obj):
         return obj.type.name
 
 
 class AnimeSerializer(serializers.ModelSerializer):
+    api_url = serializers.HyperlinkedIdentityField(
+        view_name='api-anime-detail',
+        lookup_field='slug'
+    )
     type = serializers.SerializerMethodField(read_only=True)
     category = CategorySerializer(many=True, read_only=True)
     main_chars = CharacterSerializer(many=True, read_only=True)
@@ -57,7 +79,27 @@ class AnimeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Anime
-        fields = '__all__'
+        fields = [
+            "api_url",
+            "id",
+            "type",
+            "category",
+            "main_chars",
+            "persons",
+            "studios",
+            "source",
+            "title",
+            "synonyms",
+            "slug",
+            "description",
+            "rate",
+            "is_out",
+            "out_date",
+            "cover",
+            "episodes_now",
+            "episodes_all",
+            "duration",
+        ]
 
     def get_type(self, obj):
         return obj.type.name

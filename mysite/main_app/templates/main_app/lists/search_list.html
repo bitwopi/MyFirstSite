@@ -1,0 +1,49 @@
+{% extends 'main_app/base.html' %}
+{% block search %}
+    <div class="search-results"></div>
+    {% if data %}
+        {% for item in data %}
+            <div class="search-card">
+                <div class="search-cover">
+                    <a href="{{ item.get_absolute_url }}">
+                        {% if item.cover %}
+                            <img src="{{ item.cover.url }}">
+                        {% endif %}
+                        {% if item.photo %}
+                            <img src="{{ item.photo.url }}">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="title-info">
+                    <div class="title-name bordering">
+                        {% if item.title %}
+                            <a href="{{item.get_absolute_url}}">{{ item.title }}</a>
+                        {% else %}
+                            <a href="{{item.get_absolute_url}}">{{ item.name }}</a>
+                        {% endif %}
+                    </div>
+                    <div class="search-synonyms">{{ item.synonyms|truncatewords:5}}</div>
+                    {% if item.type %}
+                        <div class="search-type">
+                            <span>Type: </span>{{ item.type }}
+                        </div>
+                    {% endif %}
+                    {% if item.get_categories %}
+                    <div class="search-genres">
+                        <span>Genres:</span>
+                            {% for cat in item.get_categories %}
+                                {% if cat == item.get_categories|last %}
+                                    <a href="{{ cat.get_absolute_anime_url }}">{{ cat.name }}</a>
+                                {% else %}
+                                    <a href="{{ cat.get_absolute_anime_url }}">{{ cat.name }},</a>
+                                {% endif %}
+                            {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        No results :(
+    {% endif %}
+{% endblock %}

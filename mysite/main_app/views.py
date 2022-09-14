@@ -4,9 +4,10 @@ import dotenv
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from django.db.models import Q
 from rest_framework import generics
 
 from .forms import *
@@ -18,7 +19,7 @@ dotenv.load_dotenv()
 PAGINATE_NUMBER = int(os.getenv('POSTS_NUMBER_IN_PAGE', 10))
 
 
-# Class views
+# ---Class views---
 class MainAppHome(DataMixin, ListView):
     paginate_by = PAGINATE_NUMBER
     model = Anime
@@ -31,6 +32,7 @@ class MainAppHome(DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+# Login views
 class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUserForm
     template_name = 'main_app/registration/registration_form.html'
@@ -56,6 +58,7 @@ class LoginUser(LoginView):
         return reverse_lazy('home')
 
 
+# Create views
 class CreatePost(DataMixin, CreateView):
     form_class = CreatePostFormAnime
     template_name = "main_app/create_post_form.html"
@@ -69,6 +72,7 @@ class CreatePost(DataMixin, CreateView):
         return reverse_lazy('home')
 
 
+# Show views
 class ShowPostAnime(DataMixin, DetailView):
     model = Anime
     context_object_name = 'post'
@@ -105,6 +109,7 @@ class ShowPostPerson(DataMixin, DetailView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+# Edit views
 class ShowPostCharacter(DataMixin, DetailView):
     model = Character
     context_object_name = 'post'
@@ -243,7 +248,7 @@ class ResetPasswordConfirm(auth_views.PasswordResetConfirmView):
     success_url = reverse_lazy('password_reset_complete')
 
 
-# API views
+# ---API views---
 # Detail
 class AnimeDetailAPIView(generics.RetrieveAPIView):
     queryset = Anime.objects.all()
@@ -301,7 +306,24 @@ class StudioListAPIView(generics.ListAPIView):
     serializer_class = StudioSerializer
 
 
-# Function based views
+# ---Function based views---
+def search(request):
+    if request.method == 'GET' and 'q' in request.GET:
+        q = request.GET['q']
+        multiple_q_titles = Q(Q(title__icontains=q) | Q(synonyms__icontains=q))
+        multiple_q_names = Q(Q(name__icontains=q) | Q(synonyms__icontains=q))
+        context_a = Anime.objects.filter(multiple_q_titles)
+        context_m = Manga.objects.filter(multiple_q_titles)
+        context_c = Character.objects.filter(multiple_q_names)
+        context_p = Person.objects.filter(multiple_q_names)
+        context = {
+            'data': list(context_a) + list(context_m) + list(context_p) + list(context_c),
+            'menu': menu
+        }
+        print(context)
+        return render(request=request, context=context, template_name='main_app/lists/search_list.html')
+
+
 def logout_user(request):
     logout(request)
     return redirect('login')
