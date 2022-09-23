@@ -44,7 +44,7 @@ a{
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
     .container{
-        width: 767px;
+        width: none;
     }
 }
 
@@ -167,8 +167,8 @@ a{
 .menu-icon{
     display: none;
 }
-/* Landscape phones and portrait tablets */
-@media (max-width: 767px) {
+/* Landscape tablets and medium desktops */
+@media (max-width: 992px) {
     .menu-icon{
         z-index: 5;
         display: block;
@@ -318,8 +318,8 @@ a{
 }
 .log-bg{
     background-image: url(../images/log_bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat: repeat;
+    background-size: contain;
     height: 100%;
     width: 100%;
 }
@@ -696,10 +696,7 @@ a{
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
     .paginator-container{
-        width: 767px;
-    }
-    .paginator-container{
-        max-width: none;
+        max-width: 540px;
         font-size: 20px;
     }
 }

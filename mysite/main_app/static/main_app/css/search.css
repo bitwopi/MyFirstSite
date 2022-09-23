@@ -13,6 +13,12 @@
 .search-cover img{
     width: 200px;
 }
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    .search-cover img{
+        width: 150px;
+    }
+}
 .title-name{
     font-size: xx-large;
 }

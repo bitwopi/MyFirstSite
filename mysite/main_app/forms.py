@@ -49,7 +49,7 @@ class CreatePostFormAnime(forms.ModelForm):
         self.fields['episodes_now'].widget.attrs.update(class_field)
         self.fields['episodes_all'].widget.attrs.update(class_field)
         self.fields['duration'].widget.attrs.update(class_field)
-        self.fields['studio'].widget.attrs.update(class_field)
+        self.fields['studios'].widget.attrs.update(class_field)
         self.fields['persons'].widget.attrs.update(class_field)
         self.fields['main_chars'].widget.attrs.update(class_field)
         self.fields['source'].widget.attrs.update(class_field)

@@ -31,6 +31,12 @@ class MainAppHome(DataMixin, ListView):
         c_def = super(MainAppHome, self).get_user_context(title="YourAnimeList")
         return dict(list(context.items()) + list(c_def.items()))
 
+    def get_queryset(self):
+        queryset = Anime.objects.all()
+        if 'type' in self.request.GET:
+            queryset = queryset.filter(type=self.request.GET['type'])
+        return queryset
+
 
 # Login views
 class RegisterUser(DataMixin, CreateView):
