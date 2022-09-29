@@ -34,6 +34,30 @@ class LoginForm(AuthenticationForm):
                                                                                    'id': "floatingPassword"}))
 
 
+class FilterAnimeForm(forms.ModelForm):
+    rate = forms.IntegerField(required=False)
+    category = forms.ModelMultipleChoiceField(required=False, queryset=Category.objects.all())
+    type = forms.ModelMultipleChoiceField(required=False, queryset=Type.objects.filter(id__lt=6))
+    studios = forms.ModelMultipleChoiceField(required=False, queryset=Studio.objects.all())
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        class_field = {'class': "form-control"}
+        self.fields['rate'].widget.attrs.update(class_field)
+        self.fields['category'].widget.attrs.update(class_field)
+        self.fields['type'].widget.attrs.update(class_field)
+        self.fields['studios'].widget.attrs.update(class_field)
+
+    class Meta:
+        model = Anime
+        fields = [
+            'rate',
+            'category',
+            'type',
+            'studios',
+        ]
+
+
 class CreatePostFormAnime(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

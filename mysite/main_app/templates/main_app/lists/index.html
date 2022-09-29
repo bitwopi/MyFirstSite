@@ -6,6 +6,15 @@
     {% block studio_name %}
     {% endblock studio_name %}
     <div class="content bordering">
+        <form method="get" action="{% url 'home' %}">
+          {% for f in form %}
+              <div class="form-floating">
+                {{f}}
+                <label for="{{f.id_for_label}}">{{f.label}}</label>
+              </div>
+            {% endfor %}
+            <button class="button" type="submit">Apply</button>
+        </form>
         {% for pi in posts %}
         <a href="{{ pi.get_absolute_url }}">
             <figure class="list-items">

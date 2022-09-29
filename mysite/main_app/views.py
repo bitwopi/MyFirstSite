@@ -28,13 +28,22 @@ class MainAppHome(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(MainAppHome, self).get_context_data(**kwargs)
-        c_def = super(MainAppHome, self).get_user_context(title="YourAnimeList")
+        form = FilterAnimeForm()
+        c_def = super(MainAppHome, self).get_user_context(title="YourAnimeList", form=form)
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
         queryset = Anime.objects.all()
         if 'type' in self.request.GET:
+            print(self.request.GET.get('type'))
             queryset = queryset.filter(type=self.request.GET['type'])
+        if 'rate' in self.request.GET:
+            if self.request.GET['rate'] != '':
+                queryset = queryset.filter(rate__gt=self.request.GET['rate'])
+        if 'category' in self.request.GET:
+            queryset = queryset.filter(category=self.request.GET['category'])
+        if 'studios' in self.request.GET:
+            queryset = queryset.filter(studios=self.request.GET['studios'])
         return queryset
 
 
