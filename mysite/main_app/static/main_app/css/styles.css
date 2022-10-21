@@ -44,7 +44,7 @@ a{
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
     .container{
-        width: none;
+        width: 100%;
     }
 }
 
@@ -70,6 +70,23 @@ a{
 .list-items{
     font-size: 18px;
 }
+.list-item{
+    width: 180px;
+    position: relative;
+}
+.list-rate{
+    background-color: #DB5090;
+    position: absolute;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right:15px;
+    padding-left: 10px;
+    top: 10px;
+    right: 0px;
+}
+.list-rate:hover{
+    color: white;
+}
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
     .list-img{
@@ -79,12 +96,18 @@ a{
     .list-items{
         font-size: 25px;
     }
+    .list-item{
+        width: 200px;
+    }
 }
 /* Iphone 5 */
 @media (max-width: 320px) {
     .list-img{
         width: 250px;
         height: 320px;
+    }
+    .list-item{
+        width: 250px;
     }
 }
 /*list end*/

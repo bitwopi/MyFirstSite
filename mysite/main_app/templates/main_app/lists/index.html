@@ -19,8 +19,11 @@
         <a href="{{ pi.get_absolute_url }}">
             <figure class="list-items">
                 {% if pi.cover %}
-                <img class="list-img" src={{pi.cover.url}}>
-                <figcaption>{{pi.title|truncatechars:20}}</figcaption>
+                <div class="list-item">
+                    <div class="list-rate">{{ pi.rate }}</div>
+                    <img class="list-img" src={{pi.cover.url}}>
+                    <figcaption>{{pi.title|truncatechars:20}}</figcaption>
+                </div>
             </figure>
         </a>
         {% endif %}
