@@ -1,0 +1,22 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block profile %}
+    <div class="profile">
+        <div class="profile-content">
+            {% if request.user.avatar %}
+                <img class="avatar" src="{{ request.user.avatar.url }}">
+            {% else %}
+                <img class="avatar" src="{% static 'account/images/placeholder.png' %}">
+            {% endif %}
+            <div class="profile-info">
+                <div class="username">{{ request.user.username }}</div>
+                <div class="email">email: <span>{{ request.user.email }}</span></div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="settings">
+                <a href="#">Settings</a>
+            </div>
+        </div>
+    </div>
+{% endblock profile %}

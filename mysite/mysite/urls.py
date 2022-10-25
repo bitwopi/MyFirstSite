@@ -21,6 +21,7 @@ from mysite import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_app.urls')),
+    path('accounts/', include('account.urls')),
     path('api/v1/', include('main_app.api_urls')),
 ]
 

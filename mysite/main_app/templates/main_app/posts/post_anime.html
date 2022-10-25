@@ -8,9 +8,9 @@
         episodes
     </span></p>
     {% if post.duration %}
-        <p>Duration:  <span class="contrast-color">{{post.get_minutes}} minutes</span></p>
+        <p>Duration:  <span class="contrast-color">{{ post.get_minutes} } minutes</span></p>
     {% endif %}
-    <p>Status: <span class="contrast-color">{{post.get_status}}
+    <p>Status: <span class="contrast-color">{{ post.get_status }}
         {% if post.get_status == "Release" and post.out_date %}
             in {{ post.out_date }}
         {% endif %}
@@ -18,9 +18,9 @@
     <p>Genres:
         {% for c in post.get_categories %}
             {% if c == post.get_categories|last %}
-                <a href="{{ c.get_absolute_anime_url }}">{{c.name}}</a>
+                <a href="{{ c.get_absolute_anime_url }}">{{ c.name }}</a>
             {% else %}
-                <a href="{{ c.get_absolute_anime_url }}">{{c.name}},</a>
+                <a href="{{ c.get_absolute_anime_url }}">{{ c.name }},</a>
             {% endif %}
         {% endfor %}
     </p>

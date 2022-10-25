@@ -124,7 +124,6 @@ class ShowPostPerson(DataMixin, DetailView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-# Edit views
 class ShowPostCharacter(DataMixin, DetailView):
     model = Character
     context_object_name = 'post'
@@ -134,59 +133,6 @@ class ShowPostCharacter(DataMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(ShowPostCharacter, self).get_context_data(**kwargs)
         c_def = super(ShowPostCharacter, self).get_user_context(title=context['post'], type="character")
-        return dict(list(context.items()) + list(c_def.items()))
-
-
-class EditPost(DataMixin, UpdateView):
-    """ Base class for post edit """
-    template_name = "main_app/create_post_form.html"
-    context_object_name = 'post'
-
-    def get_context_data(self, **kwargs):
-        return super(EditPost, self).get_context_data(**kwargs)
-
-
-class EditPostAnime(EditPost):
-    form_class = CreatePostFormAnime
-    model = Anime
-    slug_url_kwarg = 'anime_slug'
-
-    def get_context_data(self, **kwargs):
-        context = super(EditPostAnime, self).get_context_data(**kwargs)
-        c_def = super(EditPostAnime, self).get_user_context(title=f"Editing post: {context['post']}")
-        return dict(list(context.items()) + list(c_def.items()))
-
-
-class EditPostCharacter(EditPost):
-    form_class = CreatePostFormCharacter
-    model = Character
-    slug_url_kwarg = 'char_slug'
-
-    def get_context_data(self, **kwargs):
-        context = super(EditPostCharacter, self).get_context_data(**kwargs)
-        c_def = super(EditPostCharacter, self).get_user_context(title=f"Editing post: {context['post']}")
-        return dict(list(context.items()) + list(c_def.items()))
-
-
-class EditPostPerson(EditPost):
-    form_class = CreatePostFormPerson
-    model = Person
-    slug_url_kwarg = 'person_slug'
-
-    def get_context_data(self, **kwargs):
-        context = super(EditPostPerson, self).get_context_data(**kwargs)
-        c_def = super(EditPostPerson, self).get_user_context(title=f"Editing post: {context['post']}")
-        return dict(list(context.items()) + list(c_def.items()))
-
-
-class EditPostManga(EditPost):
-    form_class = CreatePostFormManga
-    model = Manga
-    slug_url_kwarg = 'manga_slug'
-
-    def get_context_data(self, **kwargs):
-        context = super(EditPostManga, self).get_context_data(**kwargs)
-        c_def = super(EditPostManga, self).get_user_context(title=f"Editing post: {context['post']}")
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -249,6 +195,61 @@ class ShowStudio(DataMixin, ListView):
         return Studio.objects.filter(slug=self.kwargs['st_slug'])
 
 
+# Edit views
+class EditPost(DataMixin, UpdateView):
+    """ Base class for post edit """
+    template_name = "main_app/create_post_form.html"
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        return super(EditPost, self).get_context_data(**kwargs)
+
+
+class EditPostAnime(EditPost):
+    form_class = CreatePostFormAnime
+    model = Anime
+    slug_url_kwarg = 'anime_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditPostAnime, self).get_context_data(**kwargs)
+        c_def = super(EditPostAnime, self).get_user_context(title=f"Editing post: {context['post']}")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class EditPostCharacter(EditPost):
+    form_class = CreatePostFormCharacter
+    model = Character
+    slug_url_kwarg = 'char_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditPostCharacter, self).get_context_data(**kwargs)
+        c_def = super(EditPostCharacter, self).get_user_context(title=f"Editing post: {context['post']}")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class EditPostPerson(EditPost):
+    form_class = CreatePostFormPerson
+    model = Person
+    slug_url_kwarg = 'person_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditPostPerson, self).get_context_data(**kwargs)
+        c_def = super(EditPostPerson, self).get_user_context(title=f"Editing post: {context['post']}")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class EditPostManga(EditPost):
+    form_class = CreatePostFormManga
+    model = Manga
+    slug_url_kwarg = 'manga_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditPostManga, self).get_context_data(**kwargs)
+        c_def = super(EditPostManga, self).get_user_context(title=f"Editing post: {context['post']}")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+# Reset views
 class ResetPassword(auth_views.PasswordResetView):
     form_class = ResetPasswordForm
     template_name = 'main_app/registration/reset_form.html'

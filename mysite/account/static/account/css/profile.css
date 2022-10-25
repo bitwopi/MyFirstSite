@@ -1,0 +1,17 @@
+.profile{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.profile-content{
+}
+.avatar{
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+}
+.email span{
+    color: rgb(107 147 255);
+}
