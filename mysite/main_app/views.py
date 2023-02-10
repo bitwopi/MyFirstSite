@@ -16,7 +16,7 @@ from .serializer import AnimeSerializer, MangaSerializer, CharacterSerializer, P
 from .utils import *
 
 dotenv.load_dotenv()
-PAGINATE_NUMBER = int(os.getenv('POSTS_NUMBER_IN_PAGE', 10))
+PAGINATE_NUMBER = int(os.getenv('POST_NUMBER_IN_PAGE', 10))
 
 
 # ---Class views---
@@ -30,20 +30,26 @@ class MainAppHome(DataMixin, ListView):
         context = super(MainAppHome, self).get_context_data(**kwargs)
         form = FilterAnimeForm()
         c_def = super(MainAppHome, self).get_user_context(title="YourAnimeList", form=form)
+        for filt in super(MainAppHome, self).filters:
+            if filt in self.request.GET:
+                context[filt] = self.request.GET[filt]
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
         queryset = Anime.objects.all()
         if 'type' in self.request.GET:
-            print(self.request.GET.get('type'))
-            queryset = queryset.filter(type=self.request.GET['type'])
+            if self.request.GET['type'] != '':
+                print(self.request.GET.get('type'))
+                queryset = queryset.filter(type=self.request.GET['type'])
         if 'rate' in self.request.GET:
             if self.request.GET['rate'] != '':
                 queryset = queryset.filter(rate__gt=self.request.GET['rate'])
         if 'category' in self.request.GET:
-            queryset = queryset.filter(category=self.request.GET['category'])
+            if self.request.GET['category'] != '':
+                queryset = queryset.filter(category=self.request.GET['category'])
         if 'studios' in self.request.GET:
-            queryset = queryset.filter(studios=self.request.GET['studios'])
+            if self.request.GET['studios'] != '':
+                queryset = queryset.filter(studios=self.request.GET['studios'])
         return queryset
 
 

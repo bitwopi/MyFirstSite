@@ -1,0 +1,20 @@
+.paginator-container{
+    box-sizing: border-box;
+    max-width: 1200px;
+    background-color: #944c71;
+    margin: 0 auto
+}
+.paginator{
+    padding: 2em 0;
+    display: flex;
+    justify-content: center;
+}
+.paginator-element{
+    padding: 0 2%;
+}
+.selected{
+    background-color: #565656;
+}
+.paginator-element:hover{
+    background-color: #565656;
+}

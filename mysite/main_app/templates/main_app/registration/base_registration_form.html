@@ -8,9 +8,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link type="text/css" href="{% static 'main_app/css/styles.css' %}" rel="stylesheet">
-    <title>{{title}}</title>
+    <title>{{ title }}</title>
 </head>
-<body class="text-center log-bg">
+<body class="log-bg text-center">
     <main class="login bg-modal">
         <form method="post">
           {% csrf_token %}
@@ -18,11 +18,11 @@
           <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
           {% for f in form %}
               <div class="form-floating">
-                {{f}}
+                {{ f }}
                 <div class="form-errors">
-                  {{f.errors}}
+                  {{ f.errors }}
               </div>
-                <label for="{{f.id_for_label}}">{{f.label}}</label>
+                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
               </div>
             {% endfor %}
             {% block login %}

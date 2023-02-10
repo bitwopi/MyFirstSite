@@ -4,6 +4,9 @@ menu = [{'title': "About"},
 
 
 class DataMixin:
+    # filters for anime
+    filters = ['type', 'rate', 'category', 'studios']
+
     def get_user_context(self, **kwargs):
         context = kwargs
         context['menu'] = menu

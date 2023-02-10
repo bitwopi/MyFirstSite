@@ -1,3 +1,4 @@
 /.env
 /mysite/venv/
 /venv/
+.env
