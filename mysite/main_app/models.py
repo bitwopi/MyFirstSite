@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from account.models import AnimeList, MangaList
 
 
 class Anime(models.Model):
@@ -62,6 +63,13 @@ class Anime(models.Model):
     def get_hours(self):
         return int(self.duration.seconds / 3600)
 
+    def get_true_rate(self):
+        instances = AnimeList.objects.filter(anime_id=self.id)
+        if instances is not None and len(instances) > 0:
+            return sum([item.rate for item in instances])
+        else:
+            return 0
+
 
 class Manga(models.Model):
     # DATABASE FIELDS
@@ -98,6 +106,10 @@ class Manga(models.Model):
 
     def get_main_chars(self):
         return self.main_characters.all()
+
+    def get_true_rate(self):
+        instances = MangaList.objects.filter(manga_id=self.id)
+        return sum([item.rate for item in instances])
 
 
 class Character(models.Model):

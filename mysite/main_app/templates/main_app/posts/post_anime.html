@@ -2,8 +2,8 @@
 {% block anime %}
 <div class="info">
     <div class="info-title bordering">Information</div>
-    <p>Type: <span class="contrast-color">{{post.type}}</span></p>
-    <p>Episodes: <span class="contrast-color">{{post.episodes_now}}/{% if post.episodes_all > 0 %}{{post.episodes_all}}{% else %}?
+    <p>Type: <span class="contrast-color">{{ post.type }}</span></p>
+    <p>Episodes: <span class="contrast-color">{{ post.episodes_now }}/{% if post.episodes_all > 0 %}{{ post.episodes_all }}{% else %}?
         {% endif %}
         episodes
     </span></p>
@@ -29,7 +29,8 @@
     {% if post.rate > 0 %}
     <div class="rate">
         <div class="info-title bordering">Rating</div>
-        <h1>{{post.rate}}</h1>
+        <h1>{{ post.rate }}</h1>
+        <h1>{{ post.get_true_rate }}</h1>
     </div>
     {% endif %}
     <div class="studio">
@@ -46,7 +47,7 @@
 <div class="desc-block ">
     <div class="info-title bordering">DESCRIPTION</div>
     {% if post.description != "" %}
-        <p>{{post.description}}</p>
+        <p>{{ post.description }}</p>
     {% else %}
         <p>Нет описания.</p>
     {% endif %}
@@ -60,17 +61,17 @@
         </div>
         <div class="mini-info">
             <div class="mini-name">
-                <a href="{{ post.source.get_absolute_url }}">{{post.source.title}}</a>
+                <a href="{{ post.source.get_absolute_url }}">{{ post.source.title }}</a>
             </div>
             <div class="line">
                 {% if  post.source.type != "Манга" or post.source.type != "Ранобэ" or post.source.type != "Ваншот" %}
-                <p>Type: {{post.source.type}}</p>
+                <p>Type: {{ post.source.type }}</p>
                 <p>Genres:
                     {% for c in post.source.get_categories %}
                         {% if c == post.source.get_categories|last %}
-                            <a href="{{ c.get_absolute_anime_url }}">{{c.name}}</a>
+                            <a href="{{ c.get_absolute_anime_url }}">{{ c.name }}</a>
                         {% else %}
-                            <a href="{{ c.get_absolute_anime_url }}">{{c.name}},</a>
+                            <a href="{{ c.get_absolute_anime_url }}">{{ c.name }},</a>
                         {% endif %}
                     {% endfor %}
                 </p>
@@ -79,9 +80,9 @@
                 <p>Genres:
                     {% for c in post.source.get_categories %}
                         {% if c == post.source.get_categories|last %}
-                            <a href="{{ c.get_absolute_manga_url }}">{{c.name}}</a>
+                            <a href="{{ c.get_absolute_manga_url }}">{{ c.name }}</a>
                         {% else %}
-                            <a href="{{ c.get_absolute_manga_url }}">{{c.name}},</a>
+                            <a href="{{ c.get_absolute_manga_url }}">{{ c.name }},</a>
                         {% endif %}
                     {% endfor %}
                 </p>
