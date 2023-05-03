@@ -9,7 +9,9 @@
     <link type="text/css" href="{% static 'main_app/css/search.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'account/css/profile.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'account/css/list.css' %}" rel="stylesheet">
-    <title>{{title}}</title>
+    {% block extrastyles %}
+    {% endblock extrastyles %}
+    <title>{{ title }}</title>
 </head>
 <body class="log-bg">
     <div class="header">
@@ -25,13 +27,13 @@
                     <button class="search-button" type="submit">🔎</button>
                 </form>
                 {% for m in menu %}
-                    <li><a href="#">{{m.title}}</a></li>
+                    <li><a href="#">{{ m.title }}</a></li>
                 {% endfor %}
                 {% if request.user.is_authenticated %}
                     {% if request.user.avatar %}
-                        <li><a href="{%url 'profile'%}">{{request.user.avatar}}</a></li>
+                        <li><a href="{%url 'profile'%}">{{ request.user.avatar }}</a></li>
                     {% else %}
-                        <li><a href="{%url 'profile'%}">{{request.user.username}}</a></li>
+                        <li><a href="{%url 'profile'%}">{{ request.user.username }}</a></li>
                     {% endif %}
                 {% else %}
                     <li><a href="{%url 'login'%}">Login</a></li>
@@ -54,5 +56,6 @@
     </div>
     {% include 'main_app/includes/pagination.html' %}
     <script src="{% static 'main_app/js/scripts.js' %}"></script>
+    <script src="{% static 'main_app/js/ajax.js' %}"></script>
 </body>
 </html>

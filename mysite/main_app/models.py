@@ -66,7 +66,7 @@ class Anime(models.Model):
     def get_true_rate(self):
         instances = AnimeList.objects.filter(anime_id=self.id)
         if instances is not None and len(instances) > 0:
-            return sum([item.rate for item in instances])
+            return sum([item.rate for item in instances if item.rate is not None])
         else:
             return 0
 
@@ -109,7 +109,7 @@ class Manga(models.Model):
 
     def get_true_rate(self):
         instances = MangaList.objects.filter(manga_id=self.id)
-        return sum([item.rate for item in instances])
+        return sum([item.rate for item in instances if item.rate is not None])
 
 
 class Character(models.Model):

@@ -34,6 +34,28 @@ class LoginForm(AuthenticationForm):
                                                                                    'id': "floatingPassword"}))
 
 
+class AnimeListForm(forms.ModelForm):
+    user = forms.IntegerField()
+    anime = forms.IntegerField()
+    status = forms.ChoiceField(choices=AnimeList.Status.choices)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        class_field = {'class': "form-control"}
+        self.fields['user'].widget.attrs.update({'hidden': "true"})
+        self.fields['anime'].widget.attrs.update({'hidden': "true"})
+        self.fields['status'].widget.attrs.update(class_field)
+
+    class Meta:
+        model = AnimeList
+        fields = [
+            'user',
+            'anime',
+            'status',
+            'rate',
+        ]
+
+
 class FilterAnimeForm(forms.ModelForm):
     rate = forms.IntegerField(required=False)
     category = forms.ModelMultipleChoiceField(required=False, queryset=Category.objects.all())

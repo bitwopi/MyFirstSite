@@ -2,9 +2,9 @@
 {% block manga %}
 <div class="info">
     <div class="info-title bordering">Information</div>
-    <p>Type: <span style="color: white;">Manga</span></p>
-    <p>Release date: <span style="color: white;">{{ post.release_date }}</span></p>
-    <p>Genres:
+    <p>Тип: <span style="color: white;">Manga</span></p>
+    <p>Дата выхода: <span style="color: white;">{{ post.release_date }}</span></p>
+    <p>Жанры:
         {% for c in post.get_categories %}
             {% if c == post.get_categories|last %}
                 <a href="{{ c.get_absolute_manga_url }}">{{ c.name }}</a>
@@ -17,14 +17,14 @@
 <div class="third-plate">
     {% if post.rate > 0 %}
     <div class="rate">
-        <div class="info-title bordering">Rating</div>
+        <div class="info-title bordering">Рейтинг</div>
         <h1>{{ post.rate }}</h1>
         <h1>{{ post.get_true_rate }}</h1>
     </div>
     {% endif %}
 </div>
 <div class="desc-block ">
-    <div class="info-title bordering">DESCRIPTION</div>
+    <div class="info-title bordering">ОПИСАНИЕ</div>
     {% if post.description != "" %}
         <p>{{ post.description }}</p>
     {% else %}
@@ -32,7 +32,7 @@
     {% endif %}
 </div>
 <div class="related">
-    <div class="info-title bordering">Projects</div>
+    <div class="info-title bordering">Связанное</div>
     {% for p in post.get_projects %}
     <div class="mini-card">      
         <div class="mini-cover">
@@ -44,9 +44,9 @@
             </div>
             <div class="line">
                 {% if p.type %}
-                    <p>Type: {{ p.type }}</p>
+                    <p>Тип: {{ p.type }}</p>
                 {% else %}
-                    <p>Type: Manga</p>
+                    <p>Тип: Manga</p>
                 {% endif %}
                 <p>Genres:
                     {% for c in p.get_categories %}
@@ -63,7 +63,7 @@
     {% endfor %}
 </div>
 <div class="authors">
-    <div class="info-title bordering">Authors</div>
+    <div class="info-title bordering">Авторы</div>
     <div class="mini-card">
         <div class="mini-cover">
             <a href="{{post.author.get_absolute_url}}"><img class="mini-cover" src="{{post.author.photo.url}}"></a>
@@ -79,7 +79,7 @@
     </div> 
 </div>
 <div class="characters">
-    <div class="info-title bordering"><a href="#">Characters</a></div>
+    <div class="info-title bordering"><a href="#">Персонажи</a></div>
     <div class="character-list">
         {% for c in post.get_main_chars %}
         <figure>

@@ -27,6 +27,9 @@ class CustomUser(AbstractUser):
 
 
 class AnimeList(models.Model):
+    class Meta:
+        unique_together = (("anime_id", "user_id"),)
+
     class Status(models.IntegerChoices):
         VIEWED = 1, "Просмотрено"
         WATCHING = 2, "Смотрю"
@@ -34,8 +37,8 @@ class AnimeList(models.Model):
         POSTPONED = 4, "Отложено"
         DROPPED = 5, "Брошено"
 
-    anime_id = models.ForeignKey("main_app.Anime", on_delete=models.CASCADE, null=False)
-    user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
+    anime = models.ForeignKey("main_app.Anime", on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
     status = models.PositiveSmallIntegerField(choices=Status.choices, default=Status.PLANNED)
     rate = models.PositiveSmallIntegerField(verbose_name="Rating", null=True, default=None)
 
@@ -47,7 +50,7 @@ class MangaList(models.Model):
         PLANNED = 3, "Запланировано"
         POSTPONED = 4, "Отложено"
         DROPPED = 5, "Брошено"
-    manga_id = models.ForeignKey("main_app.Manga", on_delete=models.CASCADE, null=False)
-    user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
+    manga = models.ForeignKey("main_app.Manga", on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
     status = models.PositiveSmallIntegerField(choices=Status.choices, default=Status.PLANNED)
     rate = models.PositiveSmallIntegerField(verbose_name="Rating", null=True, default=None)

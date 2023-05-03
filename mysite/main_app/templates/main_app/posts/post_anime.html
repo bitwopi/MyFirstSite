@@ -1,21 +1,21 @@
 {% extends 'main_app/posts/post.html' %}
 {% block anime %}
 <div class="info">
-    <div class="info-title bordering">Information</div>
-    <p>Type: <span class="contrast-color">{{ post.type }}</span></p>
-    <p>Episodes: <span class="contrast-color">{{ post.episodes_now }}/{% if post.episodes_all > 0 %}{{ post.episodes_all }}{% else %}?
+    <div class="info-title bordering">Информация</div>
+    <p>Тип: <span class="contrast-color">{{ post.type }}</span></p>
+    <p>Эпизоды: <span class="contrast-color">{{ post.episodes_now }}/{% if post.episodes_all > 0 %}{{ post.episodes_all }}{% else %}?
         {% endif %}
-        episodes
+        эпизодов
     </span></p>
     {% if post.duration %}
-        <p>Duration:  <span class="contrast-color">{{ post.get_minutes} } minutes</span></p>
+        <p>Длительность:  <span class="contrast-color">{{ post.get_minutes} } minutes</span></p>
     {% endif %}
-    <p>Status: <span class="contrast-color">{{ post.get_status }}
+    <p>Статус: <span class="contrast-color">{{ post.get_status }}
         {% if post.get_status == "Release" and post.out_date %}
             in {{ post.out_date }}
         {% endif %}
     </span></p>
-    <p>Genres:
+    <p>Жанры:
         {% for c in post.get_categories %}
             {% if c == post.get_categories|last %}
                 <a href="{{ c.get_absolute_anime_url }}">{{ c.name }}</a>
@@ -28,13 +28,13 @@
 <div class="third-plate">
     {% if post.rate > 0 %}
     <div class="rate">
-        <div class="info-title bordering">Rating</div>
-        <h1>{{ post.rate }}</h1>
+        <div class="info-title bordering">Рейтинг</div>
+        <h1>AnimeGo: {{ post.rate }}</h1>
         <h1>{{ post.get_true_rate }}</h1>
     </div>
     {% endif %}
     <div class="studio">
-        <div class="info-title bordering">Studio</div>
+        <div class="info-title bordering">Студия</div>
         {% for studio in post.get_studios %}
             {% if studio.logo %}
                 <a href="{{ studio.get_absolute_url }}"><img src="{{ studio.logo.url }}" width="140px"></a>
@@ -44,8 +44,9 @@
         {% endfor %}
     </div>
 </div>
+{% include 'main_app/includes/add_to_list.html' %}
 <div class="desc-block ">
-    <div class="info-title bordering">DESCRIPTION</div>
+    <div class="info-title bordering">ОПИСАНИЕ</div>
     {% if post.description != "" %}
         <p>{{ post.description }}</p>
     {% else %}
@@ -53,7 +54,7 @@
     {% endif %}
 </div>
 <div class="related">
-    <div class="info-title bordering">Related</div>
+    <div class="info-title bordering">Связанное</div>
     {% if post.source %}
     <div class="mini-card">
         <div class="mini-cover">
@@ -65,8 +66,8 @@
             </div>
             <div class="line">
                 {% if  post.source.type != "Манга" or post.source.type != "Ранобэ" or post.source.type != "Ваншот" %}
-                <p>Type: {{ post.source.type }}</p>
-                <p>Genres:
+                <p>Тип: {{ post.source.type }}</p>
+                <p>Жанры:
                     {% for c in post.source.get_categories %}
                         {% if c == post.source.get_categories|last %}
                             <a href="{{ c.get_absolute_anime_url }}">{{ c.name }}</a>
@@ -76,8 +77,8 @@
                     {% endfor %}
                 </p>
                 {% else %}
-                <p>Type: {{post.source.type}}</p>
-                <p>Genres:
+                <p>Тип: {{post.source.type}}</p>
+                <p>Жанры:
                     {% for c in post.source.get_categories %}
                         {% if c == post.source.get_categories|last %}
                             <a href="{{ c.get_absolute_manga_url }}">{{ c.name }}</a>
@@ -93,7 +94,7 @@
     {% endif %}
 </div>
 <div class="authors">
-    <div class="info-title bordering">Authors</div>
+    <div class="info-title bordering">Авторы</div>
     {% for a in post.get_authors %}
     <div class="mini-card">
         <div class="mini-cover">
@@ -104,14 +105,14 @@
                 <a href="{{a.get_absolute_url}}">{{ a.name }}</a>
             </div>
             <div class="line">
-                Career:<a href="#"> {{ a.career }}</a>
+                Карьера:<a href="#"> {{ a.career }}</a>
             </div>
         </div>
     </div> 
-{% endfor %}
+    {% endfor %}
 </div>
 <div class="characters">
-    <div class="info-title bordering"><a href="#">Characters</a></div>
+    <div class="info-title bordering"><a href="#">Персонажи</a></div>
     <div class="character-list">
         {% for c in post.get_main_chars %}
             <figure>

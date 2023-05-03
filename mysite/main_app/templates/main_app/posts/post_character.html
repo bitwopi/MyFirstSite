@@ -2,7 +2,7 @@
 {% block character %}
 {% if post.voice_actor %}
 <div class="voice-actors">
-    <div class="info-title bordering"><a href="#">Voice actors</a></div>
+    <div class="info-title bordering"><a href="#">Сэйю</a></div>
     <div class="character-list">
         <figure>
             <a href="{{ post.voice_actor.get_absolute_url }}"><img src="{{ post.voice_actor.photo.url }}" class="mini-char-photo"></a>
@@ -13,18 +13,18 @@
 {% endif %}
 {% if post.career %}
 <div class="info">
-    <div class="info-title bordering">Information</div>
+    <div class="info-title bordering">Информация</div>
     <p>Career: <span style="color: white;">{{post.career}}</span></p>
 </div>
 {% endif %}
 {% if post.description %}
 <div class="desc-block ">
-    <div class="info-title bordering">DESCRIPTION</div>
+    <div class="info-title bordering">ОПИСАНИЕ</div>
     <p>{{post.description}}</p>
 </div>
 {% endif %}
 <div class="related">
-    <div class="info-title bordering">Projects</div>
+    <div class="info-title bordering">Проекты</div>
     {% for p in post.get_projects %}
     <div class="mini-card">      
         <div class="mini-cover">
@@ -32,23 +32,23 @@
         </div>
         <div class="mini-info">
             <div class="mini-name">
-                <a href="{{ p.get_absolute_url }}">{{p.title}}</a>
+                <a href="{{ p.get_absolute_url }}">{{ p.title }}</a>
             </div>
             <div class="line">
                 {% if p.type != "Манга" or p.type != "Ранобэ" or p.type != "Ваншот"  %}
-                    <p>Type: {{p.type}}</p>
-                    <p>Genres:
+                    <p>Тип: {{p.type}}</p>
+                    <p>Жанры:
                         {% for c in p.get_categories %}
                             {% if c == p.get_categories|last %}
-                                <a href="{{ c.get_absolute_anime_url }}">{{c.name}}</a>
+                                <a href="{{ c.get_absolute_anime_url }}">{{ c.name }}</a>
                             {% else %}
-                                <a href="{{ c.get_absolute_anime_url }}">{{c.name}},</a>
+                                <a href="{{ c.get_absolute_anime_url }}">{{ c.name }},</a>
                             {% endif %}
                         {% endfor %}
                     </p>
                 {% else %}
-                    <p>Type: {{p.type}}</p>
-                    <p>Genres:
+                    <p>Тип: {{p.type}}</p>
+                    <p>Жанры:
                         {% for c in p.get_categories %}
                             {% if c == p.get_categories|last %}
                                 <a href="{{ c.get_absolute_manga_url }}">{{c.name}}</a>
