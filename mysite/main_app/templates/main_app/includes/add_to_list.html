@@ -5,22 +5,21 @@
 {% if request.user.is_authenticated %}
     <div class="add-panel">
         <div class="info-title bordering">Добавить в список</div>
-        <form class="add-form" method="get" enctype="multipart/form-data" action="{{ post.get_absolute_url }}">
-            {% csrf_token %}
-            <input type="number" name="user" value="{{ request.user.id }}" hidden>
-            <input type="number" name="anime" value="{{ post.id }}" hidden>
-            <select name="status" id="id_status">
-                {% if post.list is None %}
-                        <option value="" selected disabled hidden>+ Добавить в список</option>
+        {% csrf_token %}
+        <input type="number" name="anime_list_id" value="{{ list.id }}" hidden>
+        <input type="number" name="user" value="{{ request.user.id }}" hidden>
+        <input type="number" name="anime" value="{{ post.id }}" hidden>
+        <select name="status" id="id_status">
+            {% if list is None %}
+                    <option value="" selected disabled hidden>+ Добавить в список</option>
+            {% endif %}
+            {% for choice in status.choices %}
+                {% if  choice.0 == list.status %}
+                    <option value="{{ choice.0 }}" selected>{{ choice.1 }}</option>
+                {% else %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                 {% endif %}
-                {% for choice in status.choices %}
-                    {% if  choice == post.list.status %}
-                        <option value="{{ choice.0 }}" selected>{{ choice.1 }}</option>
-                    {% else %}
-                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </form>
+            {% endfor %}
+        </select>
     </div>
 {% endif %}

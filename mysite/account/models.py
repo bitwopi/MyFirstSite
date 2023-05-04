@@ -28,7 +28,7 @@ class CustomUser(AbstractUser):
 
 class AnimeList(models.Model):
     class Meta:
-        unique_together = (("anime_id", "user_id"),)
+        unique_together = (("anime", "user"),)
 
     class Status(models.IntegerChoices):
         VIEWED = 1, "Просмотрено"
@@ -44,12 +44,16 @@ class AnimeList(models.Model):
 
 
 class MangaList(models.Model):
+    class Meta:
+        unique_together = (("manga", "user"),)
+
     class Status(models.IntegerChoices):
         READ = 1, "Просмотрено"
         READING = 2, "Смотрю"
         PLANNED = 3, "Запланировано"
         POSTPONED = 4, "Отложено"
         DROPPED = 5, "Брошено"
+
     manga = models.ForeignKey("main_app.Manga", on_delete=models.CASCADE, null=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
     status = models.PositiveSmallIntegerField(choices=Status.choices, default=Status.PLANNED)

@@ -110,8 +110,6 @@ class ShowPostAnime(DataMixin, DetailView):
             anime_list = None
         c_def = super(ShowPostAnime, self).get_user_context(title=context['post'], type="anime", form=form,
                                                             list=anime_list, status=AnimeList.Status)
-        if "status" in self.request.GET and self.request.GET["status"] != "":
-            self.save_anime_to_list()
         return dict(list(context.items()) + list(c_def.items()))
 
     def save_anime_to_list(self):
@@ -345,17 +343,14 @@ class StudioListAPIView(generics.ListAPIView):
     serializer_class = StudioSerializer
 
 
-class AnimeListCreateUpdateAPIView(generics.mixins.CreateModelMixin,
-                                   generics.mixins.UpdateModelMixin,
-                                   generics.GenericAPIView):
+class AnimeListCreateAPIView(generics.CreateAPIView):
     queryset = AnimeList.objects.all()
     serializer_class = AnimeListSerializer
 
-    def create(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
 
-    def patch(self, request, *args, **kwargs):
-        return self.patch(request, *args, **kwargs)
+class AnimeListUpdateAPIView(generics.UpdateAPIView):
+    queryset = AnimeList.objects.all()
+    serializer_class = AnimeListSerializer
 
 
 # ---Function based views---

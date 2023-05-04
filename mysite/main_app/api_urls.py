@@ -1,7 +1,8 @@
 from django.urls import path
 
 from main_app.views import AnimeDetailAPIView, MangaDetailAPIView, CharacterDetailAPIView, PersonDetailAPIView, \
-    StudioDetailAPIView, AnimeListAPIView, MangaListAPIView, CharacterListAPIView, PersonListAPIView, StudioListAPIView
+    StudioDetailAPIView, AnimeListAPIView, MangaListAPIView, CharacterListAPIView, PersonListAPIView, \
+    StudioListAPIView, AnimeListCreateAPIView, AnimeListUpdateAPIView
 
 urlpatterns = [
     path('anime/', AnimeListAPIView.as_view(), name='api-anime'),
@@ -14,4 +15,6 @@ urlpatterns = [
     path('character/<slug:slug>/', CharacterDetailAPIView.as_view(), name='api-character-detail'),
     path('person/<slug:slug>/', PersonDetailAPIView.as_view(), name='api-person-detail'),
     path('studio/<slug:slug>/', StudioDetailAPIView.as_view(), name='api-studio-detail'),
+    path('animelist/', AnimeListCreateAPIView.as_view(), name='api-animelist'),
+    path('animelist/<int:pk>', AnimeListUpdateAPIView.as_view(), name='api-animelist-detail'),
 ]

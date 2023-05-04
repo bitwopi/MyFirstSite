@@ -1,40 +1,47 @@
-const apiURL = ''
-function sendRequest(method, url, body) {
+var apiURL = '/api/v1/animelist/'
+function sendRequest(method, url, body, token) {
     const headers = {
-        'Content-Type': 'application/json'
-    }
+        'Content-Type': 'application/json',
+        'X-CSRFTOKEN': token,
+    };
 
     return fetch(url, {
         method: method,
         body: JSON.stringify(body),
         headers: headers
-    }).tnen(response => {
-        if (response.ok){
-            return response.json();
-        }
-
-        return response.json().then(error => {
-            const e = new Error('Что-то пошло не так')
-            e.data = error
-            throw e
-        })
     })
-}
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        anime_list_id.value = data['id']
+    })
+    .catch((e) => console.log(e.message))
+};
 
 var selector = document.getElementById('id_status');
+var anime_list_id = document.querySelector("[name = 'anime_list_id']")
 
 selector.addEventListener('change', function(e){
+    var method = 'POST'
     var status = selector.value;
     var user = document.querySelector("[name = 'user']").value;
     var anime = document.querySelector("[name = 'anime']").value;
-    const body = {
-        anime: anime,
-        user: user,
-        status: status
+    var token = document.querySelector("[name = 'csrfmiddlewaretoken']").value;
+    var body = {}
+    if (anime_list_id.value != ''){
+        body = { status: status, }
+        method = 'PATCH'
+        apiURL += anime_list_id.value
+        console.log(apiURL)
+    }else{
+        body = {
+            status: status,
+            anime: anime,
+            user: user,
+        }
     }
 
-    console.log(body)
-    //sendRequest('POST', apiURL, body)
+    sendRequest(method, apiURL, body, token)
 })
 
 
