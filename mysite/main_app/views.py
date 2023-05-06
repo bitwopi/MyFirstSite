@@ -13,7 +13,7 @@ from rest_framework import generics
 from .forms import *
 from .models import *
 from .serializer import AnimeSerializer, MangaSerializer, CharacterSerializer, PersonSerializer, StudioSerializer, \
-    AnimeListSerializer
+    AnimeListSerializer, MangaListSerializer
 from .utils import *
 
 dotenv.load_dotenv()
@@ -108,17 +108,9 @@ class ShowPostAnime(DataMixin, DetailView):
             anime_list = AnimeList.objects.filter(user=self.request.user.id).get(anime=context['post'].id)
         except:
             anime_list = None
-        c_def = super(ShowPostAnime, self).get_user_context(title=context['post'], type="anime", form=form,
+        c_def = super(ShowPostAnime, self).get_user_context(title=context['post'], type="anime",
                                                             list=anime_list, status=AnimeList.Status)
         return dict(list(context.items()) + list(c_def.items()))
-
-    def save_anime_to_list(self):
-        if self.request.user.is_authenticated:
-            anime_list = AnimeList()
-            anime_list.anime = Anime.objects.get(self.request.GET["anime"])
-            anime_list.user = self.request.GET["user"]
-            anime_list.status = self.request.GET["status"]
-            anime_list.save()
 
 
 class ShowPostManga(DataMixin, DetailView):
@@ -129,7 +121,12 @@ class ShowPostManga(DataMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ShowPostManga, self).get_context_data(**kwargs)
-        c_def = super(ShowPostManga, self).get_user_context(title=context['post'], type="manga")
+        try:
+            manga_list = MangaList.objects.filter(user=self.request.user.id).get(manga=context['post'].id)
+        except:
+            manga_list = None
+        c_def = super(ShowPostManga, self).get_user_context(title=context['post'], type="manga",
+                                                            list=manga_list, status=MangaList.Status)
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -351,6 +348,16 @@ class AnimeListCreateAPIView(generics.CreateAPIView):
 class AnimeListUpdateAPIView(generics.UpdateAPIView):
     queryset = AnimeList.objects.all()
     serializer_class = AnimeListSerializer
+
+
+class MangaListCreateAPIView(generics.CreateAPIView):
+    queryset = MangaList.objects.all()
+    serializer_class = MangaListSerializer
+
+
+class MangaListUpdateAPIView(generics.UpdateAPIView):
+    queryset = MangaList.objects.all()
+    serializer_class = MangaListSerializer
 
 
 # ---Function based views---

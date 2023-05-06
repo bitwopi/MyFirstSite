@@ -64,9 +64,9 @@ class Anime(models.Model):
         return int(self.duration.seconds / 3600)
 
     def get_true_rate(self):
-        instances = AnimeList.objects.filter(anime_id=self.id)
-        if instances is not None and len(instances) > 0:
-            return sum([item.rate for item in instances if item.rate is not None])
+        grades = AnimeList.objects.filter(anime_id=self.id).values('rate')
+        if grades is not None and len(grades) > 0:
+            return sum([item['rate'] for item in grades if item['rate'] is not None])
         else:
             return 0
 

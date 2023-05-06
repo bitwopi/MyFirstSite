@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Anime, Manga, Character, Person, Studio, Category
-from account.models import AnimeList
+from account.models import AnimeList, MangaList
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -109,4 +109,10 @@ class AnimeSerializer(serializers.ModelSerializer):
 class AnimeListSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnimeList
+        exclude = ("rate", )
+
+
+class MangaListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MangaList
         exclude = ("rate", )

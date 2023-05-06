@@ -6,9 +6,15 @@
     <div class="add-panel">
         <div class="info-title bordering">Добавить в список</div>
         {% csrf_token %}
-        <input type="number" name="anime_list_id" value="{{ list.id }}" hidden>
+        {% if type == "anime" %}
+            <input type="number" name="anime_list_id" value="{{ list.id }}" hidden>
+            <input type="number" name="anime" value="{{ post.id }}" hidden>
+        {% else %}
+            <input type="number" name="manga_list_id" value="{{ list.id }}" hidden>
+            <input type="number" name="manga" value="{{ post.id }}" hidden>
+        {% endif %}
         <input type="number" name="user" value="{{ request.user.id }}" hidden>
-        <input type="number" name="anime" value="{{ post.id }}" hidden>
+
         <select name="status" id="id_status">
             {% if list is None %}
                     <option value="" selected disabled hidden>+ Добавить в список</option>
@@ -23,3 +29,6 @@
         </select>
     </div>
 {% endif %}
+{% block extrascripts %}
+    <script src="{% static 'main_app/js/ajax.js' %}"></script>
+{% endblock extrascripts %}

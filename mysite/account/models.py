@@ -48,8 +48,8 @@ class MangaList(models.Model):
         unique_together = (("manga", "user"),)
 
     class Status(models.IntegerChoices):
-        READ = 1, "Просмотрено"
-        READING = 2, "Смотрю"
+        READ = 1, "Прочитано"
+        READING = 2, "Читаю"
         PLANNED = 3, "Запланировано"
         POSTPONED = 4, "Отложено"
         DROPPED = 5, "Брошено"
