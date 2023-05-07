@@ -1,0 +1,64 @@
+.triangle-container{
+    box-sizing: border-box;
+    height: 100%;
+}
+.profile-dropdown{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 160px;
+    padding: 10px 10px 10px 10px;
+}
+.triangle-container::after{
+    width: 0px;
+    display: block;
+    content: "";
+    position: relative;
+    left: 130px;
+    bottom: 30px;
+	border-right: 5px solid white;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	transition: all 0.2s ease 0s;
+}
+.triangle-container.active::after{
+    border: 0px;
+    border-right: 5px solid transparent;
+	border-top: 5px solid white;
+	border-left: 5px solid transparent;
+}
+.triangle-container.active{
+    background: pink;
+}
+.submenu{
+    position: absolute;
+    width: 160px;
+    right: 218px;
+    top: 43px;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+    background: pink;
+    padding-bottom: 5px;
+}
+.submenu-title{
+    padding: 5px 10px;
+    color: white;
+}
+.submenu-item{
+    display: block;
+    padding: 5px 15px;
+    font-weight: normal;
+}
+.bordering:hover{
+    color: white;
+}
+.submenu-item:hover{
+    padding-left: 20px;
+}
+.mini-avatar{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin-right: 10px;
+}

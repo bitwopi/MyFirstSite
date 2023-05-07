@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link type="text/css" href="{% static 'main_app/css/styles.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'main_app/css/search.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'main_app/css/profile_dropdown.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'account/css/profile.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'account/css/list.css' %}" rel="stylesheet">
     {% block extrastyles %}
@@ -21,24 +22,37 @@
             <div class="menu-icon">
                 <span></span>
             </div>
-            <ul class="nav-links">
+            <div class="nav-links">
                 <form class="search-form" method="get" action="{% url 'search' %}">
                     <input class="search-bar" type="search" name="q" placeholder="Search">
                     <button class="search-button" type="submit">🔎</button>
                 </form>
                 {% for m in menu %}
-                    <li><a href="#">{{ m.title }}</a></li>
+                    <a href="#">{{ m.title }}</a>
                 {% endfor %}
                 {% if request.user.is_authenticated %}
-                    {% if request.user.avatar %}
-                        <li><a href="{%url 'profile'%}">{{ request.user.avatar }}</a></li>
-                    {% else %}
-                        <li><a href="{%url 'profile'%}">{{ request.user.username }}</a></li>
-                    {% endif %}
+                    <div class="triangle-container">
+                        <div class="profile-dropdown">
+                            {% if request.user.avatar %}
+                                <img class="mini-avatar" src="{{ request.user.avatar.url }}">
+                            {% else %}
+                                <img class="mini-avatar" src="{% static 'account/images/placeholder.png' %}">
+                            {% endif %}
+                            <a href="{%url 'profile'%}">{{ request.user.username }}</a>
+                        </div>
+                    </div>
+                    <div class="submenu bordering" hidden>
+                        <div class="submenu-title">Аккаунт</div>
+                        <a class="submenu-item" href="{%url 'profile'%}">Профиль</a>
+                        <a class="submenu-item">Список аниме</a>
+                        <a class="submenu-item">Список манги</a>
+                        <div class="submenu-title">Сайт</div>
+                        <a class="submenu-item" href="{%url 'logout'%}">Выход</a>
+                    </div>
                 {% else %}
-                    <li><a href="{%url 'login'%}">Login</a></li>
+                    <a href="{%url 'login'%}">Login</a>
                 {% endif %}
-            </ul>
+            </div>
             {% endblock mainmenu %}
         </nav>
     </div>

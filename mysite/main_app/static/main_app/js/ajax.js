@@ -12,12 +12,13 @@ function sendRequest(method, url, body, token) {
     .then(response => response.json())
     .then(data => {
         console.log(data)
-        anime_list_id.value = data['id']
+        list_id.value = data['id']
     })
     .catch((e) => console.log(e.message))
 };
 
 var selector = document.getElementById('id_status');
+var list_id;
 
 selector.addEventListener('change', function(e){
     var method = 'POST'
@@ -27,12 +28,15 @@ selector.addEventListener('change', function(e){
     var body = {}
     try{
         var anime = document.querySelector("[name = 'anime']").value;
-        var anime_list_id = document.querySelector("[name = 'anime_list_id']")
+        if (anime == None){
+            throw new Exception('anime is None')
+        }
+        list_id = document.querySelector("[name = 'anime_list_id']");
         var apiURL = '/api/v1/animelist/'
-        if (anime_list_id.value != ''){
+        if (list_id.value != ''){
         body = { status: status, }
         method = 'PATCH'
-        apiURL += anime_list_id.value
+        apiURL += list_id.value
         console.log(apiURL)
         }else{
             body = {
@@ -43,12 +47,12 @@ selector.addEventListener('change', function(e){
         }
     }catch{
         var manga = document.querySelector("[name = 'manga']").value;
-        var manga_list_id = document.querySelector("[name = 'manga_list_id']")
+        list_id = document.querySelector("[name = 'manga_list_id']")
         var apiURL = '/api/v1/mangalist/'
-        if (manga_list_id.value != ''){
+        if (list_id.value != ''){
         body = { status: status, }
         method = 'PATCH'
-        apiURL += manga_list_id.value
+        apiURL += list_id.value
         console.log(apiURL)
         }else{
             body = {

@@ -4,7 +4,7 @@
 {% endblock extrastyles %}
 {% if request.user.is_authenticated %}
     <div class="add-panel">
-        <div class="info-title bordering">Добавить в список</div>
+        <div class="info-title bordering">Cписок</div>
         {% csrf_token %}
         {% if type == "anime" %}
             <input type="number" name="anime_list_id" value="{{ list.id }}" hidden>

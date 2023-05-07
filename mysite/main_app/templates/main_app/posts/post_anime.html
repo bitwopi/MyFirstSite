@@ -56,60 +56,66 @@
 <div class="related">
     <div class="info-title bordering">Связанное</div>
     {% if post.source %}
-    <div class="mini-card">
-        <div class="mini-cover">
-            <a href="{{ post.source.get_absolute_url }}"><img class="mini-cover" src="{{ post.source.cover.url }}"></a>
-        </div>
-        <div class="mini-info">
-            <div class="mini-name">
-                <a href="{{ post.source.get_absolute_url }}">{{ post.source.title }}</a>
+        <div class="mini-card">
+            <div class="mini-cover">
+                <a href="{{ post.source.get_absolute_url }}"><img class="mini-cover" src="{{ post.source.cover.url }}"></a>
             </div>
-            <div class="line">
-                {% if  post.source.type != "Манга" or post.source.type != "Ранобэ" or post.source.type != "Ваншот" %}
-                <p>Тип: {{ post.source.type }}</p>
-                <p>Жанры:
-                    {% for c in post.source.get_categories %}
-                        {% if c == post.source.get_categories|last %}
-                            <a href="{{ c.get_absolute_anime_url }}">{{ c.name }}</a>
-                        {% else %}
-                            <a href="{{ c.get_absolute_anime_url }}">{{ c.name }},</a>
-                        {% endif %}
-                    {% endfor %}
-                </p>
-                {% else %}
-                <p>Тип: {{post.source.type}}</p>
-                <p>Жанры:
-                    {% for c in post.source.get_categories %}
-                        {% if c == post.source.get_categories|last %}
-                            <a href="{{ c.get_absolute_manga_url }}">{{ c.name }}</a>
-                        {% else %}
-                            <a href="{{ c.get_absolute_manga_url }}">{{ c.name }},</a>
-                        {% endif %}
-                    {% endfor %}
-                </p>
-                {% endif %}
+            <div class="mini-info">
+                <div class="mini-name">
+                    <a href="{{ post.source.get_absolute_url }}">{{ post.source.title }}</a>
+                </div>
+                <div class="line">
+                    {% if  post.source.type != "Манга" or post.source.type != "Ранобэ" or post.source.type != "Ваншот" %}
+                    <p>Тип: {{ post.source.type }}</p>
+                    <p>Жанры:
+                        {% for c in post.source.get_categories %}
+                            {% if c == post.source.get_categories|last %}
+                                <a href="{{ c.get_absolute_anime_url }}">{{ c.name }}</a>
+                            {% else %}
+                                <a href="{{ c.get_absolute_anime_url }}">{{ c.name }},</a>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    {% else %}
+                    <p>Тип: {{post.source.type}}</p>
+                    <p>Жанры:
+                        {% for c in post.source.get_categories %}
+                            {% if c == post.source.get_categories|last %}
+                                <a href="{{ c.get_absolute_manga_url }}">{{ c.name }}</a>
+                            {% else %}
+                                <a href="{{ c.get_absolute_manga_url }}">{{ c.name }},</a>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        Нет связанных произведений
     {% endif %}
 </div>
 <div class="authors">
     <div class="info-title bordering">Авторы</div>
-    {% for a in post.get_authors %}
-    <div class="mini-card">
-        <div class="mini-cover">
-            <a href="{{a.get_absolute_url}}"><img class="mini-cover" src="{{a.photo.url}}"></a>
-        </div>
-        <div class="mini-info">
-            <div class="mini-name">
-                <a href="{{a.get_absolute_url}}">{{ a.name }}</a>
+    {% if post.get_authors %}
+        {% for a in post.get_authors %}
+        <div class="mini-card">
+            <div class="mini-cover">
+                <a href="{{a.get_absolute_url}}"><img class="mini-cover" src="{{a.photo.url}}"></a>
             </div>
-            <div class="line">
-                Карьера:<a href="#"> {{ a.career }}</a>
+            <div class="mini-info">
+                <div class="mini-name">
+                    <a href="{{a.get_absolute_url}}">{{ a.name }}</a>
+                </div>
+                <div class="line">
+                    Карьера:<a href="#"> {{ a.career }}</a>
+                </div>
             </div>
         </div>
-    </div> 
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        Авторы неизвестны
+    {% endif %}
 </div>
 <div class="characters">
     <div class="info-title bordering"><a href="#">Персонажи</a></div>
