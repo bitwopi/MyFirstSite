@@ -28,7 +28,7 @@ selector.addEventListener('change', function(e){
     var body = {}
     try{
         var anime = document.querySelector("[name = 'anime']").value;
-        if (anime == None){
+        if (anime == null){
             throw new Exception('anime is None')
         }
         list_id = document.querySelector("[name = 'anime_list_id']");
@@ -45,7 +45,8 @@ selector.addEventListener('change', function(e){
                 user: user,
             }
         }
-    }catch{
+    }catch(e){
+        console.log(e.message)
         var manga = document.querySelector("[name = 'manga']").value;
         list_id = document.querySelector("[name = 'manga_list_id']")
         var apiURL = '/api/v1/mangalist/'

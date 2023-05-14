@@ -1,0 +1,46 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block extrastyles %}
+    <link type="text/css" href="{% static 'account/css/list.css' %}" rel="stylesheet">
+{% endblock extrastyles %}
+{% block list %}
+    <div class="list-title bordering">
+        Список аниме пользователя {{ request.user }}
+        {% if request.user.avatar %}
+            <img class="avatar" src="{{ request.user.avatar.url }}">
+        {% else %}
+            <img class="avatar" src="{% static 'account/images/placeholder.png' %}">
+        {% endif %}
+    </div>
+    {% if list %}
+        {% for l in lists %}
+            {% if l %}
+                {% for choice in choices %}
+                    {% if choice.0 == l.0.status %}
+                        <div class="info-title bordering" style="margin-top: 20px;">{{ choice.1 }}</div>
+                    {% endif %}
+                {% endfor %}
+              <table class="list">
+                  <thead>
+                    <tr>
+                        <th class="number">#</th>
+                        <th class="name">Название</th>
+                        <th class="sm-td">Оценка</th>
+                        <th class="sm-td">Тип</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in l %}
+                      <tr class="list-element">
+                          <td class="number">{{ forloop.counter }}</td>
+                          <td class="name"><a href="{{ item.anime.get_absolute_url }}">{{ item.anime.title }}</a></td>
+                          <td class="sm-td">{{ item.rate }}</td>
+                          <td class="sm-td">{{ item.anime.type }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock list %}

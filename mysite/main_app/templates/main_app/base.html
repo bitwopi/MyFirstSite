@@ -9,7 +9,6 @@
     <link type="text/css" href="{% static 'main_app/css/search.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'main_app/css/profile_dropdown.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'account/css/profile.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'account/css/list.css' %}" rel="stylesheet">
     {% block extrastyles %}
     {% endblock extrastyles %}
     <title>{{ title }}</title>
@@ -40,15 +39,16 @@
                             {% endif %}
                             <a href="{%url 'profile'%}">{{ request.user.username }}</a>
                         </div>
+                        <div class="submenu bordering" hidden>
+                            <div class="submenu-title">Аккаунт</div>
+                            <a class="submenu-item" href="{%url 'profile'%}">Профиль</a>
+                            <a class="submenu-item" href="{%url 'anime_list'%}">Список аниме</a>
+                            <a class="submenu-item">Список манги</a>
+                            <div class="submenu-title">Сайт</div>
+                            <a class="submenu-item" href="{%url 'logout'%}">Выход</a>
+                        </div>
                     </div>
-                    <div class="submenu bordering" hidden>
-                        <div class="submenu-title">Аккаунт</div>
-                        <a class="submenu-item" href="{%url 'profile'%}">Профиль</a>
-                        <a class="submenu-item">Список аниме</a>
-                        <a class="submenu-item">Список манги</a>
-                        <div class="submenu-title">Сайт</div>
-                        <a class="submenu-item" href="{%url 'logout'%}">Выход</a>
-                    </div>
+
                 {% else %}
                     <a href="{%url 'login'%}">Login</a>
                 {% endif %}
@@ -67,6 +67,8 @@
         {% endblock %}
         {% block profile %}
         {% endblock profile %}
+        {% block list %}
+        {% endblock list %}
     </div>
     {% include 'main_app/includes/pagination.html' %}
     <script src="{% static 'main_app/js/scripts.js' %}"></script>

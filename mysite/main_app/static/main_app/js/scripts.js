@@ -22,5 +22,6 @@ if(dropdown){
     submenu.addEventListener("mouseleave", function(e){
         submenu.setAttribute('hidden', '');
         container.classList.remove('active');
+        dropdown.classList.remove('bordering');
     })
 }

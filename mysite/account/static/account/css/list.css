@@ -1,10 +1,38 @@
 .list{
-    display: flex;
-    flex-flow: column nowrap;
+ width: 100%;
+ color: white;
 }
-.list-element{
+.list-element:hover{
+    background: rgba(255, 255, 255, 0.03);
+}
+.list-element a:hover{
+    color: white;
+    opacity: .7;
+}
+.number{
+    color: grey;
+    text-shadow: none;
+    width: 20px;
+}
+.name{
+
+    text-decoration: underline;
+}
+.sm-td{
+    width: 90px;
+    text-align: center;
+}
+.list-title{
+    color: white;
+    margin-left: 10px;
+    font-size: 30px;
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-    max-height: 30px;
+    align-items: center;
+}
+.avatar{
+    height: 100px;
+    width: 100px;
+    margin: 0;
 }

@@ -31,16 +31,16 @@ class AnimeList(models.Model):
         unique_together = (("anime", "user"),)
 
     class Status(models.IntegerChoices):
-        VIEWED = 1, "Просмотрено"
+        PLANNED = 1, "Запланировано"
         WATCHING = 2, "Смотрю"
-        PLANNED = 3, "Запланировано"
+        VIEWED = 3, "Просмотрено"
         POSTPONED = 4, "Отложено"
         DROPPED = 5, "Брошено"
 
     anime = models.ForeignKey("main_app.Anime", on_delete=models.CASCADE, null=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
     status = models.PositiveSmallIntegerField(choices=Status.choices, default=Status.PLANNED)
-    rate = models.PositiveSmallIntegerField(verbose_name="Rating", null=True, default=None)
+    rate = models.PositiveSmallIntegerField(verbose_name="Rating", null=False, default=0)
 
 
 class MangaList(models.Model):
@@ -48,9 +48,9 @@ class MangaList(models.Model):
         unique_together = (("manga", "user"),)
 
     class Status(models.IntegerChoices):
-        READ = 1, "Прочитано"
+        PLANNED = 1, "Запланировано"
         READING = 2, "Читаю"
-        PLANNED = 3, "Запланировано"
+        READ = 3, "Прочитано"
         POSTPONED = 4, "Отложено"
         DROPPED = 5, "Брошено"
 

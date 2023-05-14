@@ -1,18 +1,18 @@
-{% if len(request.user.anime_list) %}
+{% if request.user.anime_list %}
   <div class="list">
-    {% for item in request.user.anime_list %}
+    {% for item in request.user.anime_list.all %}
       <div class="list-element bordering">
-        <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
         <div>{{ item.rate }}</div>
       </div>
     {% endfor %}
   </div>
 {% endif %}
-{% if len(request.user.manga_list) %}
+{% if request.user.manga_list %}
   <div class="list">
-    {% for item in request.user.manga_list %}
+    {% for item in request.user.manga_list.all %}
       <div class="list-element bordering">
-        <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
         <div>{{ item.rate }}</div>
       </div>
     {% endfor %}
