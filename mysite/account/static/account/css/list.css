@@ -10,12 +10,11 @@
     opacity: .7;
 }
 .number{
-    color: grey;
+    color: #adb5bd;
     text-shadow: none;
     width: 20px;
 }
 .name{
-
     text-decoration: underline;
 }
 .sm-td{
@@ -35,4 +34,18 @@
     height: 100px;
     width: 100px;
     margin: 0;
+}
+td input{
+    display: none;
+    width: 60px;
+    border: transparent;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+}
+td input.active{
+    display: inline;
+}
+#rate.active{
+    display: none;
 }

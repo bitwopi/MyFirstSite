@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 
-from account.models import AnimeList
+from account.models import AnimeList, MangaList
 from main_app.utils import DataMixin
 
 
@@ -26,5 +26,27 @@ class ShowAnimeList(DataMixin, ListView):
         context = super(ShowAnimeList, self).get_context_data(**kwargs)
         choices = AnimeList.Status.choices
         lists = [context['list'].filter(status=choice[0]) for choice in choices]
-        c_def = super(ShowAnimeList, self).get_user_context(title="Список аниме", lists=lists, choices=choices)
+        c_def = super(ShowAnimeList, self).get_user_context(title="Список аниме",
+                                                            lists=lists,
+                                                            choices=choices,
+                                                            type="Anime")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class ShowMangaList(DataMixin, ListView):
+    template_name = "account/list.html"
+    model = MangaList
+    context_object_name = "list"
+
+    def get_queryset(self):
+        return MangaList.objects.filter(user=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowMangaList, self).get_context_data(**kwargs)
+        choices = MangaList.Status.choices
+        lists = [context['list'].filter(status=choice[0]) for choice in choices]
+        c_def = super(ShowMangaList, self).get_user_context(title="Список манги",
+                                                            lists=lists,
+                                                            choices=choices,
+                                                            type="Manga")
         return dict(list(context.items()) + list(c_def.items()))

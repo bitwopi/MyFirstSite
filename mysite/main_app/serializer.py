@@ -109,10 +109,10 @@ class AnimeSerializer(serializers.ModelSerializer):
 class AnimeListSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnimeList
-        exclude = ("rate", )
+        fields = '__all__'
 
 
 class MangaListSerializer(serializers.ModelSerializer):
     class Meta:
         model = MangaList
-        exclude = ("rate", )
+        fields = '__all__'

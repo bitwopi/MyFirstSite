@@ -41,11 +41,11 @@
                         </div>
                         <div class="submenu bordering" hidden>
                             <div class="submenu-title">Аккаунт</div>
-                            <a class="submenu-item" href="{%url 'profile'%}">Профиль</a>
-                            <a class="submenu-item" href="{%url 'anime_list'%}">Список аниме</a>
-                            <a class="submenu-item">Список манги</a>
+                            <a class="submenu-item" href="{% url 'profile' %}">Профиль</a>
+                            <a class="submenu-item" href="{% url 'anime_list' %}">Список аниме</a>
+                            <a class="submenu-item" href="{% url 'manga_list' %}">Список манги</a>
                             <div class="submenu-title">Сайт</div>
-                            <a class="submenu-item" href="{%url 'logout'%}">Выход</a>
+                            <a class="submenu-item" href="{% url 'logout' %}">Выход</a>
                         </div>
                     </div>
 
@@ -71,6 +71,8 @@
         {% endblock list %}
     </div>
     {% include 'main_app/includes/pagination.html' %}
+    {% block extrascripts %}
+    {% endblock extrascripts %}
     <script src="{% static 'main_app/js/scripts.js' %}"></script>
 </body>
 </html>

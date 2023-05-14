@@ -5,13 +5,19 @@
 {% endblock extrastyles %}
 {% block list %}
     <div class="list-title bordering">
-        Список аниме пользователя {{ request.user }}
+        <input id="type" hidden disabled value="{{ type }}">
+        {% if type == "Anime" %}
+            Список аниме пользователя {{ request.user }}
+        {% else %}
+            Список манги пользователя {{ request.user }}
+        {% endif %}
         {% if request.user.avatar %}
             <img class="avatar" src="{{ request.user.avatar.url }}">
         {% else %}
             <img class="avatar" src="{% static 'account/images/placeholder.png' %}">
         {% endif %}
     </div>
+
     {% if list %}
         {% for l in lists %}
             {% if l %}
@@ -21,6 +27,7 @@
                     {% endif %}
                 {% endfor %}
               <table class="list">
+                  {% csrf_token %}
                   <thead>
                     <tr>
                         <th class="number">#</th>
@@ -33,9 +40,21 @@
                     {% for item in l %}
                       <tr class="list-element">
                           <td class="number">{{ forloop.counter }}</td>
-                          <td class="name"><a href="{{ item.anime.get_absolute_url }}">{{ item.anime.title }}</a></td>
-                          <td class="sm-td">{{ item.rate }}</td>
-                          <td class="sm-td">{{ item.anime.type }}</td>
+                          {% if type == "Anime" %}
+                            <td class="name"><a href="{{ item.anime.get_absolute_url }}">{{ item.anime.title }}</a></td>
+                          {% else %}
+                            <td class="name"><a href="{{ item.manga.get_absolute_url }}">{{ item.manga.title }}</a></td>
+                          {% endif %}
+                          <td class="sm-td">
+                              <span id="rate" >{{ item.rate }}</span>
+                              <input id="list-id" hidden disabled value="{{ item.id }}">
+                              <input id="rate-input" type="number" min="0" max="10" value="{{ item.rate }}">
+                          </td>
+                          {% if type == "Anime" %}
+                            <td class="sm-td">{{ item.anime.type }}</td>
+                          {% else %}
+                            <td class="sm-td">{{ item.manga.type }}</td>
+                          {% endif %}
                       </tr>
                     {% endfor %}
                   </tbody>
@@ -44,3 +63,7 @@
         {% endfor %}
     {% endif %}
 {% endblock list %}
+{% block extrascripts %}
+<script src="{% static 'account/js/scripts.js' %}"></script>
+<script src="{% static 'main_app/js/ajax.js' %}"></script>
+{% endblock extrascripts %}
