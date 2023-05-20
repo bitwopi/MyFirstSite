@@ -1,5 +1,5 @@
-menu = [{'title': "About"},
-        {'title': "Feedback"},
+menu = [{'title': "О нас"},
+        {'title': "Обратная связь"},
         ]
 
 
