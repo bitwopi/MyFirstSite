@@ -2,3 +2,4 @@
 /mysite/venv/
 /venv/
 .env
+/mysite/main_app/media/
