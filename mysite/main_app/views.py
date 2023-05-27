@@ -102,7 +102,6 @@ class ShowPostAnime(DataMixin, DetailView):
     slug_url_kwarg = 'anime_slug'
 
     def get_context_data(self, **kwargs):
-        form = AnimeListForm()
         context = super(ShowPostAnime, self).get_context_data(**kwargs)
         try:
             anime_list = AnimeList.objects.filter(user=self.request.user.id).get(anime=context['post'].id)
@@ -340,9 +339,17 @@ class StudioListAPIView(generics.ListAPIView):
     serializer_class = StudioSerializer
 
 
-class AnimeListCreateAPIView(generics.CreateAPIView):
-    queryset = AnimeList.objects.all()
+class AnimeListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = AnimeListSerializer
+
+    def get_queryset(self):
+        queryset = AnimeList.objects.all()
+        if self.request.GET:
+            if "status" in self.request.GET:
+                queryset = queryset.filter(status=self.request.GET["status"])
+            if "user_id" in self.request.GET:
+                queryset = queryset.filter(user=self.request.GET["user"])
+        return queryset
 
 
 class AnimeListUpdateAPIView(generics.UpdateAPIView):
@@ -350,9 +357,17 @@ class AnimeListUpdateAPIView(generics.UpdateAPIView):
     serializer_class = AnimeListSerializer
 
 
-class MangaListCreateAPIView(generics.CreateAPIView):
-    queryset = MangaList.objects.all()
+class MangaListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = MangaListSerializer
+
+    def get_queryset(self):
+        queryset = MangaList.objects.all()
+        if self.request.GET:
+            if "status" in self.request.GET:
+                queryset = queryset.filter(status=self.request.GET["status"])
+            if "user_id" in self.request.GET:
+                queryset = queryset.filter(user=self.request.GET["user"])
+        return queryset
 
 
 class MangaListUpdateAPIView(generics.UpdateAPIView):

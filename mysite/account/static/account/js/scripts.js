@@ -4,8 +4,6 @@ const list_ids = document.querySelectorAll("#list-id");
 const token = document.querySelector("[name = 'csrfmiddlewaretoken']").value;
 const type = document.querySelector("#type");
 if (rates && rate_inputs) {
-    console.log(rates);
-    console.log(rate_inputs);
     rates.forEach((rate, i) => {
         rate.addEventListener("mouseover", (e) => {
             rate.classList.add('active');

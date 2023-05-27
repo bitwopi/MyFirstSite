@@ -1,17 +1,72 @@
+.container{
+    padding: 70px 30px;
+}
 .profile{
     color: white;
     display: flex;
     justify-content: space-between;
-    padding-right: 10px;
-    padding-left: 10px;
+    flex-wrap: wrap;
 }
 .profile-content{
+    display: flex;
+}
+.profile-info{
+    margin-left: 10px;
 }
 .avatar{
     width: 150px;
     height: 150px;
     margin-bottom: 10px;
 }
+.username{
+    font-weight: bold;
+    font-size: 25px;
+}
+.actions{
+    display: flex;
+    flex-flow: column;
+    text-align: right;
+    margin-bottom: 10px;
+}
 .email span{
     color: rgb(107 147 255);
+}
+.profile-сhart{
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.profile-сhart canvas{
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.info-title{
+    border-right-style: solid;
+    border-right-color: #DB7093;
+    border-right-width: 10px;
+    text-align: center;
+}
+@media (max-width: 992px) {
+    .profile-сhart canvas{
+        width: 500px;
+        height: 500px;
+    }
+    .actions{
+        text-align: right;
+    }
+}
+/* Portrait phones and smaller */
+@media (max-width: 540px) {
+    .profile-сhart canvas{
+        width: 300px;
+        height: 300px;
+    }
+    .actions{
+        text-align: left;
+    }
 }

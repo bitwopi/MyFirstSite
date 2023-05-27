@@ -1,34 +1,43 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
+{% block extrastyles %}
+    <link type="text/css" href="{% static 'main_app/css/pagination.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'main_app/css/index.css' %}" rel="stylesheet">
+{% endblock extrastyles %}
 {% block content %}
-    {% block category_name %}
-    {% endblock category_name %}
-    {% block studio_name %}
-    {% endblock studio_name %}
-    <div class="content bordering">
+    <div class="content">
+        <div class="content-posts bordering">
+            {% block category_name %}
+            {% endblock category_name %}
+            {% block studio_name %}
+            {% endblock studio_name %}
+            {% for pi in posts %}
+            <a href="{{ pi.get_absolute_url }}">
+                <figure class="list-items">
+                    {% if pi.cover %}
+                    <div class="list-item">
+                        <div class="list-rate">{{ pi.rate }}</div>
+                        <img class="list-img" src={{pi.cover.url}}>
+                        <figcaption>{{pi.title|truncatechars:20}}</figcaption>
+                    </div>
+                </figure>
+            </a>
+            {% endif %}
+            {% endfor %}
+            {% include 'main_app/includes/pagination.html' %}
+        </div>
         {% if form %}
-            <form method="get" action="{% url 'home' %}">
-              {% for f in form %}
-                  <div class="form-floating">
-                    {{f}}
-                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>
-                  </div>
-                {% endfor %}
-                <button class="button" type="submit">Apply</button>
-            </form>
+            <div class="filter-form bordering">
+                <form method="get" action="{% url 'home' %}">
+                  {% for f in form %}
+                      <div class="form-floating">
+                        {{ f }}
+                        <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                      </div>
+                    {% endfor %}
+                    <button class="button" type="submit">Apply</button>
+                </form>
+            </div>
         {% endif %}
-        {% for pi in posts %}
-        <a href="{{ pi.get_absolute_url }}">
-            <figure class="list-items">
-                {% if pi.cover %}
-                <div class="list-item">
-                    <div class="list-rate">{{ pi.rate }}</div>
-                    <img class="list-img" src={{pi.cover.url}}>
-                    <figcaption>{{pi.title|truncatechars:20}}</figcaption>
-                </div>
-            </figure>
-        </a>
-        {% endif %}
-        {% endfor %}
-    </div> 
+    </div>
 {% endblock content %}

@@ -1,4 +1,10 @@
 {% extends 'main_app/lists/index.html' %}
+{% load static %}
+{% block extrastyles %}
+    <link type="text/css" href="{% static 'main_app/css/pagination.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'main_app/css/index.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'main_app/css/no_filter.css' %}" rel="stylesheet">
+{% endblock extrastyles %}
 {% block category_name %}
-    <div class="info-title bordering">{{type}} in category: {{name}}</div>
+    <div class="info-title bordering">{{ type }} в категории: {{ name }}</div>
 {% endblock category_name %}

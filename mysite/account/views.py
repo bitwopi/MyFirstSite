@@ -10,6 +10,7 @@ class ProfileView(DataMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
+
         c_def = super(ProfileView, self).get_user_context(title=self.request.user.username)
         return dict(list(context.items()) + list(c_def.items()))
 

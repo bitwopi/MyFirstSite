@@ -1,4 +1,10 @@
 {% extends 'main_app/base.html' %}
+{% load static %}
+{% block extrastyles %}
+    <link type="text/css" href="{% static 'main_app/css/pagination.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'main_app/css/index.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'main_app/css/no_filter.css' %}" rel="stylesheet">
+{% endblock extrastyles %}
 {% block search %}
     <div class="search-results"></div>
     {% if data %}
@@ -43,6 +49,7 @@
                 </div>
             </div>
         {% endfor %}
+    {% include 'main_app/includes/pagination.html' %}
     {% else %}
         No results :(
     {% endif %}

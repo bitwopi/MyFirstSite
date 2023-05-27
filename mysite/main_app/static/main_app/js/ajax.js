@@ -1,21 +1,36 @@
-function sendRequest(method, url, body, token) {
+async function sendRequest(method, url, body, token) {
     const headers = {
         'Content-Type': 'application/json',
         'X-CSRFTOKEN': token,
     };
 
-    return fetch(url, {
-        method: method,
-        body: JSON.stringify(body),
-        headers: headers
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        if (list_id)
-            list_id.value = data['id']
-    })
-    .catch((e) => console.log(e.message))
+    let request;
+    if (body) {
+        request = {
+            method: method,
+            body: JSON.stringify(body),
+            headers: headers
+        };
+    } else {
+        request = {
+            method: method,
+            headers: headers
+        };
+    }
+
+    try {
+        const response = await fetch(url, request);
+        const data = await response.json();
+        console.log(data);
+
+        if (list_id) {
+            list_id.value = data['id'];
+        }
+
+        return data;
+    } catch (error) {
+        console.log(error.message);
+    }
 };
 
 var selector = document.getElementById('id_status');

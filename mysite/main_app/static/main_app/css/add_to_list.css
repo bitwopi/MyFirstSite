@@ -1,4 +1,8 @@
+.add-panel{
+    text-align: center;
+}
 select{
+    width: 100%;
     height: 30px;
     border-radius: 5px;
     padding: 5px;

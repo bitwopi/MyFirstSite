@@ -14,10 +14,28 @@
             </div>
         </div>
         <div class="actions">
-            <div class="settings">
-                <a href="#">Настройки</a>
-                <a href="{% url 'logout' %}">Выход</a>
-            </div>
+            <a href="#">Настройки</a>
+            {% if request.user.is_staff %}
+                <a href="{% url 'admin' %}">Админ панель</a>
+            {% endif %}
+            <a href="{% url 'logout' %}">Выход</a>
         </div>
-    </div>\\
+    </div>
+    <div class="profile-сhart">
+        {% csrf_token %}
+        <input type="number" name="user" value="{{ request.user.id }}" hidden>
+        <div>
+            <p class="info-title bordering">СПИСОК АНИМЕ</p>
+            <canvas id="profileChartAnime"></canvas>
+        </div>
+        <div>
+            <p class="info-title bordering">СПИСОК МАНГИ</p>
+            <canvas id="profileChartManga"></canvas>
+        </div>
+    </div>
 {% endblock profile %}
+{% block extrascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'main_app/js/ajax.js' %}"></script>
+    <script src="{% static 'account/js/charts.js' %}"></script>
+{% endblock extrascripts %}

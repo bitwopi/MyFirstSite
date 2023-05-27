@@ -1,0 +1,85 @@
+/*content*/
+.container{
+    background: transparent;
+    padding-top: 50px;
+}
+.content{
+    display: grid;
+    grid-template-areas:
+        "posts filter";
+    column-gap: 2em;
+    row-gap: 2em;
+    grid-auto-columns: minmax(auto, auto);
+    min-height: 1080px;
+}
+.content-posts{
+    display: grid;
+    row-gap: 0;
+    grid-auto-columns: minmax(auto, auto);
+    color: white;
+    background-color: #944c71;
+    padding: 10px;
+    padding-top: 1.2em;
+    height: fit-content;
+}
+.content-posts figure{
+    padding: 15px;
+    text-align: center;
+    border: 0px;
+}
+.content-posts a{
+    font-weight: bold;
+    font-size: 17px;
+}
+.content-posts a:hover{
+    color: #c4c4c4;
+}
+.filter-form{
+    text-align: center;
+    min-width: 250px;
+    height: fit-content;
+    background-color: #944c71;;
+    color: white;
+    padding: 10px 5px;
+    border-radius: 10px;
+    margin-top: 2em;
+}
+.info-title{
+    grid-column: 1/-1;
+}
+/* Large desktops and laptops */
+@media (min-width: 1381px) {
+    .content-posts{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        column-gap: 0em;
+    }
+}
+
+/* Landscape tablets and medium desktops */
+@media (max-width: 1380px) {
+    .content-posts{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .content-posts{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 992px) {
+    .content-posts{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    .content-posts{
+        grid-template-columns: 1fr;
+    }
+}
+/*content end*/

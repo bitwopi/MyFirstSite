@@ -6,7 +6,7 @@
         {% else %}
             <h1 class="bordering"><b>{{ post.name }}</b></h1>
         {% endif %}
-        {% if request.user.is_superuser %}
+        {% if request.user.is_staff %}
             {% if type == "manga" %}
                 <a href="{% url 'edit-manga' post.slug %}" class="button">Edit</a>
             {% elif type == "character" %}

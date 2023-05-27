@@ -19,6 +19,7 @@
     </div>
 
     {% if list %}
+        {% csrf_token %}
         {% for l in lists %}
             {% if l %}
                 {% for choice in choices %}
@@ -27,7 +28,6 @@
                     {% endif %}
                 {% endfor %}
               <table class="list">
-                  {% csrf_token %}
                   <thead>
                     <tr>
                         <th class="number">#</th>

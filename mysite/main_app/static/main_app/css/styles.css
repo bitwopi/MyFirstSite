@@ -14,7 +14,7 @@ a{
 
 .container{
     background-color: #944c71;
-    padding-top: 50px;
+    padding-top: 70px;
     margin: 0 auto;
     min-height: 1080px;
     position: relative;
@@ -45,20 +45,6 @@ a{
 @media (max-width: 767px) {
     .container{
         width: 100%;
-    }
-}
-
-/* Portrait phones and smaller */
-@media (max-width: 480px) {
-    .container{
-        max-width: 480px;
-    }
-}
-
-/* Iphone 5 */
-@media (max-width: 320px) {
-    .container{
-        max-width: 320px;
     }
 }
 
@@ -340,8 +326,9 @@ a{
 }
 .log-bg{
     background-image: url(../images/log_bg.jpg);
-    background-repeat: repeat;
-    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
     height: 100%;
     width: 100%;
 }
@@ -372,63 +359,6 @@ a{
     text-align: center;
 }
 /*register form end*/
-/*content*/
-.content{
-    padding: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    column-gap: 3em;
-    row-gap: 1em;
-    grid-auto-columns: minmax(auto, auto);
-    color: white;
-}
-.content figure{
-    padding: 15px;
-    text-align: center;
-    border: 0px;
-}
-.content a{
-    font-weight: bold;
-    font-size: 17px;
-}
-.content a:hover{
-    color: #c4c4c4;
-}
-/* Large desktops and laptops */
-@media (min-width: 1281px) {
-    .content{
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }
-}
-
-/* Landscape tablets and medium desktops */
-@media (max-width: 1280px) {
-    .content{
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-}
-
-/* Portrait tablets and small desktops */
-@media (min-width: 768px) and (max-width: 991px) {
-    .content{
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-}
-
-/* Landscape phones and portrait tablets */
-@media (max-width: 767px) {
-    .content{
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-/* Portrait phones and smaller */
-@media (max-width: 480px) {
-    .content{
-        grid-template-columns: 1fr;
-    }
-}
-/*content end*/
 /*post*/
 .post-line{
     color: white;
@@ -588,29 +518,6 @@ a{
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
     .post-base-cont{
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-    .related{
-        grid-column: 1/5;
-    }
-    .authors{
-        grid-column: 1/5;
-    }
-    .characters{
-        grid-column: 1/5;
-    }
-    .voice-actors{
-        grid-column: 3/5;
-        justify-items: start;
-    }
-    .desc-block{
-        grid-column: 1/5;
-    }
-}
-
-/* Landscape phones and portrait tablets */
-@media (max-width: 767px) {
-    .post-base-cont{
         grid-template-columns: 1fr 1fr;
     }
     .related{
@@ -631,8 +538,8 @@ a{
     }
 }
 
-/* Portrait phones and smaller */
-@media (max-width: 480px) {
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
     .post-base-cont{
         grid-template-columns: 1fr;
     }
@@ -664,6 +571,11 @@ a{
         height: 200px;
     }
 }
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
+}
 /*post end*/
 .form-items{
     display: flex;
@@ -679,65 +591,3 @@ a{
 .form-items a:hover{
     color: rgb(165, 103, 103);
 }
-/*pagination*/
-.paginator-container{
-    box-sizing: border-box;
-    margin: 0 auto;
-    background-color: #944c71;
-    max-width: 1400px;
-}
-.paginator{
-    padding: 2em 0;
-    display: flex;
-    justify-content: center;
-}
-.paginator-element{
-    padding: 0 2%;
-}
-/* Large desktops and laptops */
-@media (min-width: 1200px) {
-    .paginator-container{
-        max-width: 1400px;
-    }
-}
-
-/* Landscape tablets and medium desktops */
-@media (min-width: 992px) and (max-width: 1199px) {
-    .paginator-container{
-        max-width: 1100px;
-    }
-}
-
-/* Portrait tablets and small desktops */
-@media (min-width: 768px) and (max-width: 991px) {
-    .paginator-container{
-        max-width: 900px;
-    }
-}
-
-/* Landscape phones and portrait tablets */
-@media (max-width: 767px) {
-    .paginator-container{
-        max-width: 540px;
-        font-size: 20px;
-    }
-}
-
-/* Portrait phones and smaller */
-@media (max-width: 480px) {
-    .paginator-container{
-        max-width: 480px;
-    }
-}
-
-/* Iphone 5 */
-@media (max-width: 320px) {
-    .paginator-container{
-        max-width: 320px;
-    }
-}
-.selected{
-    text-decoration: underline;
-    color: rgb(238, 188, 248);
-}
-/*pagination end*/
