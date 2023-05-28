@@ -31,7 +31,14 @@
 .email span{
     color: rgb(107 147 255);
 }
-.profile-сhart{
+
+.info-title{
+    border-right-style: solid;
+    border-right-color: #DB7093;
+    border-right-width: 10px;
+    text-align: center;
+}
+.profile-chart{
     color: white;
     text-align: center;
     display: flex;
@@ -39,34 +46,20 @@
     flex-wrap: wrap;
     width: 100%;
 }
-.profile-сhart canvas{
+.profile-chart canvas{
     width: 500px;
-    height: 500px;
     margin: 0 auto;
     margin-bottom: 20px;
 }
-.info-title{
-    border-right-style: solid;
-    border-right-color: #DB7093;
-    border-right-width: 10px;
-    text-align: center;
-}
-@media (max-width: 992px) {
-    .profile-сhart canvas{
-        width: 500px;
-        height: 500px;
-    }
-    .actions{
+@media (min-width: 540px) {
+    .actions {
         text-align: right;
     }
 }
+
 /* Portrait phones and smaller */
 @media (max-width: 540px) {
-    .profile-сhart canvas{
-        width: 300px;
-        height: 300px;
-    }
-    .actions{
+    .actions {
         text-align: left;
     }
 }

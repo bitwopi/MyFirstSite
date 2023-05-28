@@ -1,14 +1,20 @@
 async function sendRequest(method, url, body, token) {
     const headers = {
-        'Content-Type': 'application/json',
         'X-CSRFTOKEN': token,
     };
 
     let request;
+    let requestBody;
     if (body) {
+          if (body instanceof FormData) {
+            requestBody = body;
+          } else {
+            requestBody = JSON.stringify(body);
+            headers['Content-Type'] = 'application/json';
+          }
         request = {
             method: method,
-            body: JSON.stringify(body),
+            body: requestBody,
             headers: headers
         };
     } else {
@@ -61,7 +67,7 @@ if(selector){
                     user: user,
                 }
             }
-        }catch(e){
+        } catch(e) {
             console.log(e.message)
             var manga = document.querySelector("[name = 'manga']").value;
             list_id = document.querySelector("[name = 'manga_list_id']")

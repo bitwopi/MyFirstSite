@@ -8,7 +8,6 @@
     <link type="text/css" href="{% static 'main_app/css/styles.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'main_app/css/search.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'main_app/css/profile_dropdown.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'account/css/profile.css' %}" rel="stylesheet">
     {% block extrastyles %}
     {% endblock extrastyles %}
     <title>{{ title }}</title>
@@ -37,7 +36,7 @@
                             {% else %}
                                 <img class="mini-avatar" src="{% static 'account/images/placeholder.png' %}">
                             {% endif %}
-                            <a href="{%url 'profile'%}">{{ request.user.username }}</a>
+                            <span style="color:white;">{{ request.user.username }}</span>
                         </div>
                         <div class="submenu bordering" hidden>
                             <div class="submenu-title">Аккаунт</div>

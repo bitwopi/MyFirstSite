@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, UpdateView, DetailView
 
-from account.models import AnimeList, MangaList
+from account.models import AnimeList, MangaList, CustomUser
 from main_app.utils import DataMixin
 
 
@@ -12,6 +12,17 @@ class ProfileView(DataMixin, TemplateView):
         context = super(ProfileView, self).get_context_data(**kwargs)
 
         c_def = super(ProfileView, self).get_user_context(title=self.request.user.username)
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class EditProfileView(DataMixin, UpdateView):
+    template_name = "main_app/create_post_form.html"
+    context_object_name = 'post'
+    model = CustomUser
+
+    def get_context_data(self, **kwargs):
+        context = super(EditProfileView, self).get_context_data(**kwargs)
+        c_def = super(EditProfileView, self).get_user_context(title="Editing profile")
         return dict(list(context.items()) + list(c_def.items()))
 
 

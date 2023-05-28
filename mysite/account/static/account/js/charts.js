@@ -33,7 +33,7 @@ async function createCharts(labels, titleType, label, instance) {
           'rgb(231, 76, 60)'    // red
         ];
 
-        new Chart(instance, {
+        return new Chart(instance, {
           type: 'doughnut', // Изменяем тип на 'doughnut'
           data: {
             labels: labels,
@@ -50,7 +50,35 @@ async function createCharts(labels, titleType, label, instance) {
     }
 }
 
-createCharts(labels1, "Anime", "Список аниме", ctx_anime)
-createCharts(labels2, "Manga", "Список манги", ctx_manga)
+function handleResize() {
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+  try{
+    if (windowWidth >= 540){
+        chart1.resize(500, 500);
+        chart2.resize(500, 500);
+    }
+    else if (windowWidth >=340){
+        chart1.resize(300, 300);
+        chart2.resize(300, 300);
+    }
+    else{
+        chart1.resize(200, 200);
+        chart2.resize(200, 200);
+    }
+  }catch(error){
+    console.log(error);
+  }
+}
 
+var chart1;
+var chart2;
 
+async function initializeCharts() {
+  chart1 = await createCharts(labels1, "Anime", "Список аниме", ctx_anime);
+  chart2 = await createCharts(labels2, "Manga", "Список манги", ctx_manga);
+
+  window.addEventListener('resize', handleResize);
+}
+
+initializeCharts();

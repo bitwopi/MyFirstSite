@@ -1,5 +1,8 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
+{% block extrastyles %}
+    <link type="text/css" href="{% static 'account/css/profile.css' %}" rel="stylesheet">
+{% endblock extrastyles %}
 {% block profile %}
     <div class="profile">
         <div class="profile-content">
@@ -14,14 +17,14 @@
             </div>
         </div>
         <div class="actions">
-            <a href="#">Настройки</a>
+            <a href="{% url 'edit_profile' %}">Настройки</a>
             {% if request.user.is_staff %}
-                <a href="{% url 'admin' %}">Админ панель</a>
+                <a href="../../admin">Админ панель</a>
             {% endif %}
             <a href="{% url 'logout' %}">Выход</a>
         </div>
     </div>
-    <div class="profile-сhart">
+    <div class="profile-chart">
         {% csrf_token %}
         <input type="number" name="user" value="{{ request.user.id }}" hidden>
         <div>

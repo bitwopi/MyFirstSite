@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Anime, Manga, Character, Person, Studio, Category
-from account.models import AnimeList, MangaList
+from account.models import AnimeList, MangaList, CustomUser
 
 
 class CategorySerializer(serializers.ModelSerializer):
