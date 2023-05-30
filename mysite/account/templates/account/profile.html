@@ -6,27 +6,29 @@
 {% block profile %}
     <div class="profile">
         <div class="profile-content">
-            {% if request.user.avatar %}
-                <img class="avatar" src="{{ request.user.avatar.url }}">
+            {% if user.avatar %}
+                <img class="avatar" src="{{ user.avatar.url }}">
             {% else %}
                 <img class="avatar" src="{% static 'account/images/placeholder.png' %}">
             {% endif %}
             <div class="profile-info">
-                <div class="username">{{ request.user.username }}</div>
-                <div class="email">email: <span>{{ request.user.email }}</span></div>
+                <div class="username">{{ user.username }}</div>
+                <div class="email">email: <span>{{ user.email }}</span></div>
             </div>
         </div>
         <div class="actions">
-            <a href="{% url 'edit_profile' %}">Настройки</a>
-            {% if request.user.is_staff %}
-                <a href="../../admin">Админ панель</a>
+            {% if request.user.id == user.id %}
+                <a href="{{ user.get_absolute_url }}edit/">Настройки</a>
+                {% if request.user.is_staff %}
+                    <a href="../../../../admin">Админ панель</a>
+                {% endif %}
+                <a href="{% url 'logout' %}">Выход</a>
             {% endif %}
-            <a href="{% url 'logout' %}">Выход</a>
         </div>
     </div>
     <div class="profile-chart">
         {% csrf_token %}
-        <input type="number" name="user" value="{{ request.user.id }}" hidden>
+        <input type="number" name="user" value="{{ user.id }}" hidden>
         <div>
             <p class="info-title bordering">СПИСОК АНИМЕ</p>
             <canvas id="profileChartAnime"></canvas>

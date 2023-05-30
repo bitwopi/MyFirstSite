@@ -1,16 +1,19 @@
-from django.shortcuts import render
+from django.core.exceptions import PermissionDenied
 from django.views.generic import TemplateView, ListView, UpdateView, DetailView
 
+from account.forms import CustomUserCreationForm
 from account.models import AnimeList, MangaList, CustomUser
 from main_app.utils import DataMixin
 
 
-class ProfileView(DataMixin, TemplateView):
+class ProfileView(DataMixin, DetailView):
     template_name = "account/profile.html"
+    model = CustomUser
+    pk_url_kwarg = "id"
+    context_object_name = "user"
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
-
         c_def = super(ProfileView, self).get_user_context(title=self.request.user.username)
         return dict(list(context.items()) + list(c_def.items()))
 
@@ -18,12 +21,28 @@ class ProfileView(DataMixin, TemplateView):
 class EditProfileView(DataMixin, UpdateView):
     template_name = "main_app/create_post_form.html"
     context_object_name = 'post'
+    pk_url_kwarg = "id"
+    form_class = CustomUserCreationForm
     model = CustomUser
 
     def get_context_data(self, **kwargs):
         context = super(EditProfileView, self).get_context_data(**kwargs)
         c_def = super(EditProfileView, self).get_user_context(title="Editing profile")
         return dict(list(context.items()) + list(c_def.items()))
+
+    def get(self, request, *args, **kwargs):
+        user_object = self.get_object()
+        self.check_permission(request.user, user_object)
+        return super(EditProfileView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        user_object = self.get_object()
+        self.check_permission(request.user, user_object)
+        return super(EditProfileView, self).post(request, *args, **kwargs)
+
+    def check_permission(self, request_user, user_object):
+        if request_user != user_object:
+            raise PermissionDenied()
 
 
 class ShowAnimeList(DataMixin, ListView):

@@ -40,7 +40,7 @@
                         </div>
                         <div class="submenu bordering" hidden>
                             <div class="submenu-title">Аккаунт</div>
-                            <a class="submenu-item" href="{% url 'profile' %}">Профиль</a>
+                            <a class="submenu-item" href="{{ request.user.get_absolute_url }}">Профиль</a>
                             <a class="submenu-item" href="{% url 'anime_list' %}">Список аниме</a>
                             <a class="submenu-item" href="{% url 'manga_list' %}">Список манги</a>
                             <div class="submenu-title">Сайт</div>

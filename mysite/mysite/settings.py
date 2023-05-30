@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main_app.apps.MainAppConfig',
     'account.apps.AccountConfig',
+    'django_cleanup.apps.CleanupConfig', # image paths auto update
     'rest_framework',
 ]
 

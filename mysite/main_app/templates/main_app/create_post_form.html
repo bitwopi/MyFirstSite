@@ -3,7 +3,18 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-items bordering">
-            {{form.as_p}}
+            {% for f in form %}
+                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                {% if f.label == "Cover" %}
+                    <img src="{{ post.cover.url }}" class="mini-cover">
+                {% elif f.label == "Avatar" and post.avatar %}
+                    <img src="{{ post.avatar.url }}" class="mini-cover">
+                {% endif %}
+                {{ f }}
+                <div class="form-errors">
+                    {{ f.errors }}
+                </div>
+            {% endfor %}
             <button type="submit" class="button">Submit</button>
         </div>
     </form>

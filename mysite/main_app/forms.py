@@ -77,6 +77,7 @@ class CreatePostFormAnime(forms.ModelForm):
         self.fields['persons'].widget.attrs.update(class_field)
         self.fields['main_chars'].widget.attrs.update(class_field)
         self.fields['source'].widget.attrs.update(class_field)
+        self.fields['cover'].widget.attrs.update(class_field)
 
     class Meta:
         model = Anime
@@ -97,6 +98,7 @@ class CreatePostFormManga(forms.ModelForm):
         self.fields['category'].widget.attrs.update(class_field)
         self.fields['main_characters'].widget.attrs.update(class_field)
         self.fields['author'].widget.attrs.update(class_field)
+        self.fields['cover'].widget.attrs.update(class_field)
 
     class Meta:
         model = Manga
@@ -112,6 +114,7 @@ class CreatePostFormCharacter(forms.ModelForm):
         self.fields['slug'].widget.attrs.update(class_field)
         self.fields['description'].widget.attrs.update(class_field)
         self.fields['voice_actor'].widget.attrs.update(class_field)
+        self.fields['photo'].widget.attrs.update(class_field)
 
     class Meta:
         model = Character
@@ -127,6 +130,7 @@ class CreatePostFormPerson(forms.ModelForm):
         self.fields['slug'].widget.attrs.update(class_field)
         self.fields['birth_date'].widget.attrs.update(class_field)
         self.fields['career'].widget.attrs.update(class_field)
+        self.fields['photo'].widget.attrs.update(class_field)
 
     class Meta:
         model = Person

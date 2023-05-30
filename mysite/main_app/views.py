@@ -8,6 +8,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.db.models import Q
+from django.core.exceptions import PermissionDenied
 from rest_framework import generics
 
 from .forms import *
@@ -221,6 +222,18 @@ class EditPost(DataMixin, UpdateView):
     def get_context_data(self, **kwargs):
         return super(EditPost, self).get_context_data(**kwargs)
 
+    def get(self, request, *args, **kwargs):
+        self.check_permission(request.user)
+        return super(EditPost, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.check_permission(request.user)
+        return super(EditPost, self).post(request, *args, **kwargs)
+
+    def check_permission(self, user):
+        if user.is_staff is False:
+            raise PermissionDenied()
+
 
 class EditPostAnime(EditPost):
     form_class = CreatePostFormAnime
@@ -347,7 +360,7 @@ class AnimeListCreateAPIView(generics.ListCreateAPIView):
         if self.request.GET:
             if "status" in self.request.GET:
                 queryset = queryset.filter(status=self.request.GET["status"])
-            if "user_id" in self.request.GET:
+            if "user" in self.request.GET:
                 queryset = queryset.filter(user=self.request.GET["user"])
         return queryset
 
@@ -365,7 +378,7 @@ class MangaListCreateAPIView(generics.ListCreateAPIView):
         if self.request.GET:
             if "status" in self.request.GET:
                 queryset = queryset.filter(status=self.request.GET["status"])
-            if "user_id" in self.request.GET:
+            if "user" in self.request.GET:
                 queryset = queryset.filter(user=self.request.GET["user"])
         return queryset
 
