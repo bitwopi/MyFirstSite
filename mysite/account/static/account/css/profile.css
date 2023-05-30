@@ -8,13 +8,14 @@ a:hover{
     color: white;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
 }
 .profile-content{
     display: flex;
+    flex-wrap: wrap;
 }
 .profile-info{
     margin-left: 10px;
+    margin-bottom: 10px;
 }
 .avatar{
     width: 150px;
@@ -53,16 +54,4 @@ a:hover{
     width: 500px;
     margin: 0 auto;
     margin-bottom: 20px;
-}
-@media (min-width: 540px) {
-    .actions {
-        text-align: right;
-    }
-}
-
-/* Portrait phones and smaller */
-@media (max-width: 540px) {
-    .actions {
-        text-align: left;
-    }
 }

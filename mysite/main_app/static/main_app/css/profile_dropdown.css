@@ -29,7 +29,7 @@
 	border-left: 5px solid transparent;
 }
 .triangle-container.active{
-    background: pink;
+    background: #DB7093;
 }
 .submenu{
     position: relative;
@@ -37,7 +37,7 @@
     box-sizing: border-box;
     display: flex;
     flex-flow: column;
-    background: pink;
+    background: #DB7093;
     padding-bottom: 5px;
 }
 .submenu-title{

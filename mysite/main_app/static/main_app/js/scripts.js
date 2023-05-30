@@ -17,11 +17,9 @@ if(dropdown){
     dropdown.addEventListener("mouseover", function(e){
         submenu.removeAttribute('hidden');
         container.classList.add('active');
-        dropdown.classList.add('bordering');
     })
     submenu.addEventListener("mouseleave", function(e){
         submenu.setAttribute('hidden', '');
         container.classList.remove('active');
-        dropdown.classList.remove('bordering');
     })
 }
