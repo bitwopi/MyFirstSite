@@ -3,8 +3,9 @@ YourAnimeList is a web-site for publishing anime and manga-themed content.
 ___
 ## Installation
 To install this project you need to clone it from this github repo
-> git clone https://github.com/bitwopi/MyFirstSite.git
-
+```
+git clone https://github.com/bitwopi/MyFirstSite.git
+```
 After you need to create virtual environment in project directory.
 
  __For windows:__
