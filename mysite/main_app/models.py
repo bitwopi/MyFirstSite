@@ -6,7 +6,7 @@ from account.models import AnimeList, MangaList
 class Anime(models.Model):
     # DATABASE FIELDS
     title = models.CharField(max_length=255)
-    synonyms = models.TextField()
+    synonyms = models.TextField(null=True, blank=True)
     slug = models.SlugField(max_length=255, verbose_name='URL', unique=True)
     description = models.TextField(verbose_name="Description", blank=True)
     rate = models.FloatField(verbose_name="Rating", default=0)

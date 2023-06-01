@@ -43,18 +43,18 @@ var selector = document.getElementById('id_status');
 var list_id;
 if(selector){
     selector.addEventListener('change', function(e){
-        var method = 'POST'
-        var status = selector.value;
-        var user = document.querySelector("[name = 'user']").value;
-        var token = document.querySelector("[name = 'csrfmiddlewaretoken']").value;
-        var body = {}
+        let method = 'POST'
+        const status = selector.value;
+        const user = document.querySelector("[name = 'user']").value;
+        const token = document.querySelector("[name = 'csrfmiddlewaretoken']").value;
+        let body = {}
         try{
-            var anime = document.querySelector("[name = 'anime']").value;
+            const anime = document.querySelector("[name = 'anime']").value;
             if (anime == null){
                 throw new Exception('anime is None')
             }
             list_id = document.querySelector("[name = 'anime_list_id']");
-            var apiURL = '/api/v1/animelist/'
+            const apiURL = '/api/v1/animelist/'
             if (list_id.value != ''){
             body = { status: status, }
             method = 'PATCH'
@@ -69,9 +69,9 @@ if(selector){
             }
         } catch(e) {
             console.log(e.message)
-            var manga = document.querySelector("[name = 'manga']").value;
+            const manga = document.querySelector("[name = 'manga']").value;
             list_id = document.querySelector("[name = 'manga_list_id']")
-            var apiURL = '/api/v1/mangalist/'
+            const apiURL = '/api/v1/mangalist/'
             if (list_id.value != ''){
             body = { status: status, }
             method = 'PATCH'
