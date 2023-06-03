@@ -7,7 +7,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from django.db.models import Q
+from django.db.models import Q, Avg
 from django.core.exceptions import PermissionDenied
 from rest_framework import generics
 
@@ -22,30 +22,33 @@ PAGINATE_NUMBER = int(os.getenv('POST_NUMBER_IN_PAGE', 10))
 
 
 # ---Class views---
-class MainAppHome(DataMixin, ListView):
+class ShowCatalog(DataMixin, ListView):
     paginate_by = PAGINATE_NUMBER
-    model = Anime
     template_name = 'main_app/lists/index.html'
     context_object_name = 'posts'
+    form = FilterAnimeForm()
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(MainAppHome, self).get_context_data(**kwargs)
-        form = FilterAnimeForm()
-        c_def = super(MainAppHome, self).get_user_context(title="YourAnimeList", form=form)
-        for filt in super(MainAppHome, self).filters:
+        context = super(ShowCatalog, self).get_context_data(**kwargs)
+        c_def = super(ShowCatalog, self).get_user_context(title="YourAnimeList", form=self.form)
+        for filt in super(ShowCatalog, self).filters:
             if filt in self.request.GET:
                 context[filt] = self.request.GET[filt]
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
-        queryset = Anime.objects.all()
+        queryset = self.model.objects.all()
         if 'type' in self.request.GET:
             if self.request.GET['type'] != '':
                 print(self.request.GET.get('type'))
                 queryset = queryset.filter(type=self.request.GET['type'])
         if 'rate' in self.request.GET:
             if self.request.GET['rate'] != '':
-                queryset = queryset.filter(rate__gt=self.request.GET['rate'])
+                rate_filter = float(self.request.GET['rate'])
+                if self.model == Anime:
+                    queryset = queryset.annotate(avg_rate=Avg('animelist__rate')).filter(Q(avg_rate__gte=rate_filter))
+                else:
+                    queryset = queryset.annotate(avg_rate=Avg('mangalist__rate')).filter(Q(avg_rate__gte=rate_filter))
         if 'category' in self.request.GET:
             if self.request.GET['category'] != '':
                 queryset = queryset.filter(category=self.request.GET['category'])
@@ -53,6 +56,15 @@ class MainAppHome(DataMixin, ListView):
             if self.request.GET['studios'] != '':
                 queryset = queryset.filter(studios=self.request.GET['studios'])
         return queryset
+
+
+class ShowAnimeCatalogView(ShowCatalog):
+    model = Anime
+
+
+class ShowMangaCatalogView(ShowCatalog):
+    model = Manga
+    form = FilterMangaForm()
 
 
 # Login views
@@ -108,8 +120,11 @@ class ShowPostAnime(DataMixin, DetailView):
             anime_list = AnimeList.objects.filter(user=self.request.user.id).get(anime=context['post'].id)
         except:
             anime_list = None
-        c_def = super(ShowPostAnime, self).get_user_context(title=context['post'], type="anime",
-                                                            list=anime_list, status=AnimeList.Status)
+        c_def = super(ShowPostAnime, self).get_user_context(title=context['post'],
+                                                            type="anime",
+                                                            manga_types=[7, 8, 9, 11],
+                                                            list=anime_list,
+                                                            status=AnimeList.Status)
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -125,8 +140,10 @@ class ShowPostManga(DataMixin, DetailView):
             manga_list = MangaList.objects.filter(user=self.request.user.id).get(manga=context['post'].id)
         except:
             manga_list = None
-        c_def = super(ShowPostManga, self).get_user_context(title=context['post'], type="manga",
-                                                            list=manga_list, status=MangaList.Status)
+        c_def = super(ShowPostManga, self).get_user_context(title=context['post'],
+                                                            type="manga",
+                                                            list=manga_list,
+                                                            status=MangaList.Status)
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -138,7 +155,9 @@ class ShowPostPerson(DataMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ShowPostPerson, self).get_context_data(**kwargs)
-        c_def = super(ShowPostPerson, self).get_user_context(title=context['post'], type="person")
+        c_def = super(ShowPostPerson, self).get_user_context(title=context['post'],
+                                                             type="person",
+                                                             manga_types=[7, 8, 9, 11],)
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -150,7 +169,9 @@ class ShowPostCharacter(DataMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ShowPostCharacter, self).get_context_data(**kwargs)
-        c_def = super(ShowPostCharacter, self).get_user_context(title=context['post'], type="character")
+        c_def = super(ShowPostCharacter, self).get_user_context(title=context['post'],
+                                                                type="character",
+                                                                manga_types=[7, 8, 9, 11],)
         return dict(list(context.items()) + list(c_def.items()))
 
 

@@ -15,10 +15,9 @@
     </p>
 </div>
 <div class="third-plate">
-    {% if post.rate > 0 %}
+    {% if post.get_true_rate > 0 %}
     <div class="rate">
         <div class="info-title bordering">Рейтинг</div>
-        <h1>{{ post.rate }}</h1>
         <h1>{{ post.get_true_rate }}</h1>
     </div>
     {% endif %}

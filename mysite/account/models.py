@@ -57,4 +57,4 @@ class MangaList(models.Model):
     manga = models.ForeignKey("main_app.Manga", on_delete=models.CASCADE, null=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
     status = models.PositiveSmallIntegerField(choices=Status.choices, default=Status.PLANNED)
-    rate = models.PositiveSmallIntegerField(verbose_name="Rating", null=True, default=None)
+    rate = models.PositiveSmallIntegerField(verbose_name="Rating", null=True, default=0)

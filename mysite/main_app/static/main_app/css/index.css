@@ -37,6 +37,7 @@
 .filter-form{
     text-align: center;
     min-width: 250px;
+    max-width: 300px;
     height: fit-content;
     background-color: #944c71;;
     color: white;

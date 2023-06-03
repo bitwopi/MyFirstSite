@@ -16,8 +16,8 @@
                 <figure class="list-items">
                     {% if pi.cover %}
                     <div class="list-item">
-                        <div class="list-rate">{{ pi.rate }}</div>
-                        <img class="list-img" src={{pi.cover.url}}>
+                        <div class="list-rate">{{ pi.get_true_rate }}</div>
+                        <img class="list-img" src="{{ pi.cover.url }}">
                         <figcaption>{{pi.title|truncatechars:20}}</figcaption>
                     </div>
                 </figure>
@@ -28,7 +28,7 @@
         </div>
         {% if form %}
             <div class="filter-form bordering">
-                <form method="get" action="{% url 'home' %}">
+                <form method="get" action="{{ request.path }}">
                   {% for f in form %}
                       <div class="form-floating">
                         {{ f }}

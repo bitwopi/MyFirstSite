@@ -54,7 +54,7 @@ if(selector){
                 throw new Exception('anime is None')
             }
             list_id = document.querySelector("[name = 'anime_list_id']");
-            const apiURL = '/api/v1/animelist/'
+            var apiURL = '/api/v1/animelist/'
             if (list_id.value != ''){
             body = { status: status, }
             method = 'PATCH'
@@ -71,7 +71,7 @@ if(selector){
             console.log(e.message)
             const manga = document.querySelector("[name = 'manga']").value;
             list_id = document.querySelector("[name = 'manga_list_id']")
-            const apiURL = '/api/v1/mangalist/'
+            var apiURL = '/api/v1/mangalist/'
             if (list_id.value != ''){
             body = { status: status, }
             method = 'PATCH'
@@ -85,8 +85,8 @@ if(selector){
                 }
             }
         }
-
-        sendRequest(method, apiURL, body, token)
+        console.log(list_id);
+        sendRequest(method, apiURL, body, token);
     })
 }
 

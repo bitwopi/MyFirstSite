@@ -37,7 +37,7 @@ class LoginForm(AuthenticationForm):
 class FilterAnimeForm(forms.ModelForm):
     rate = forms.IntegerField(required=False)
     category = forms.ModelMultipleChoiceField(required=False, queryset=Category.objects.all())
-    type = forms.ModelMultipleChoiceField(required=False, queryset=Type.objects.filter(id__lt=6))
+    type = forms.ModelMultipleChoiceField(required=False, queryset=Type.objects.filter(id__in=[1, 2, 3, 4, 5, 6, 10]))
     studios = forms.ModelMultipleChoiceField(required=False, queryset=Studio.objects.all())
 
     def __init__(self, *args, **kwargs):
@@ -55,6 +55,27 @@ class FilterAnimeForm(forms.ModelForm):
             'category',
             'type',
             'studios',
+        ]
+
+
+class FilterMangaForm(forms.ModelForm):
+    rate = forms.IntegerField(required=False)
+    category = forms.ModelMultipleChoiceField(required=False, queryset=Category.objects.all())
+    type = forms.ModelMultipleChoiceField(required=False, queryset=Type.objects.filter(id__in=[7, 8, 9, 11]))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        class_field = {'class': "form-control"}
+        self.fields['rate'].widget.attrs.update(class_field)
+        self.fields['category'].widget.attrs.update(class_field)
+        self.fields['type'].widget.attrs.update(class_field)
+
+    class Meta:
+        model = Manga
+        fields = [
+            'rate',
+            'category',
+            'type',
         ]
 
 
@@ -92,7 +113,6 @@ class CreatePostFormManga(forms.ModelForm):
         self.fields['synonyms'].widget.attrs.update(class_field)
         self.fields['slug'].widget.attrs.update(class_field)
         self.fields['description'].widget.attrs.update(class_field)
-        self.fields['rate'].widget.attrs.update(class_field)
         self.fields['release_date'].widget.attrs.update(class_field)
         self.fields['main_characters'].widget.attrs.update(class_field)
         self.fields['category'].widget.attrs.update(class_field)

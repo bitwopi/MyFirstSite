@@ -65,7 +65,7 @@
                     <a href="{{ post.source.get_absolute_url }}">{{ post.source.title }}</a>
                 </div>
                 <div class="line">
-                    {% if  post.source.type != "Манга" or post.source.type != "Ранобэ" or post.source.type != "Ваншот" %}
+                    {% if  post.source.type.id not in manga_types %}
                     <p>Тип: {{ post.source.type }}</p>
                     <p>Жанры:
                         {% for c in post.source.get_categories %}
@@ -77,7 +77,7 @@
                         {% endfor %}
                     </p>
                     {% else %}
-                    <p>Тип: {{post.source.type}}</p>
+                    <p>Тип: {{ post.source.type }}</p>
                     <p>Жанры:
                         {% for c in post.source.get_categories %}
                             {% if c == post.source.get_categories|last %}

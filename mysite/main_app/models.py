@@ -66,7 +66,7 @@ class Anime(models.Model):
     def get_true_rate(self):
         grades = AnimeList.objects.filter(anime_id=self.id).values('rate')
         if grades is not None and len(grades) > 0:
-            return sum([item['rate'] for item in grades if item['rate'] is not None])
+            return round(sum([item['rate'] for item in grades if item['rate'] is not None])/len(grades), 1)
         else:
             return 0
 
@@ -77,7 +77,6 @@ class Manga(models.Model):
     synonyms = models.TextField()
     slug = models.SlugField(max_length=255, verbose_name='URL', unique=True)
     description = models.TextField(verbose_name="Description", blank=True)
-    rate = models.FloatField(verbose_name="Rating", null=True)
     release_date = models.DateField(verbose_name="Release date", null=True)
     cover = models.ImageField(upload_to="manga/covers", null=True, verbose_name="Cover")
     category = models.ManyToManyField('Category', verbose_name="Categories")
@@ -108,8 +107,11 @@ class Manga(models.Model):
         return self.main_characters.all()
 
     def get_true_rate(self):
-        instances = MangaList.objects.filter(manga_id=self.id)
-        return sum([item.rate for item in instances if item.rate is not None])
+        grades = MangaList.objects.filter(manga_id=self.id).values('rate')
+        if grades is not None and len(grades) > 0:
+            return round(sum([item['rate'] for item in grades if item['rate'] is not None]) / len(grades), 1)
+        else:
+            return 0
 
 
 class Character(models.Model):
@@ -157,9 +159,9 @@ class Person(models.Model):
     name = models.CharField(max_length=255)
     synonyms = models.TextField()
     slug = models.SlugField(max_length=255, verbose_name='URL', unique=True)
-    birth_date = models.DateField(verbose_name="Birth date", null=True)
-    career = models.ManyToManyField('Career', verbose_name="Career")
-    photo = models.ImageField(upload_to="persons/photos", null=True, verbose_name="Photo")
+    birth_date = models.DateField(verbose_name="Birth date", null=True, blank=True)
+    career = models.ManyToManyField('Career', verbose_name="Career", related_name="careers")
+    photo = models.ImageField(upload_to="persons/photos", null=True, verbose_name="Photo", blank=True)
 
     # META CLASS
     class Meta:
