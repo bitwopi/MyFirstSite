@@ -1,5 +1,5 @@
-menu = [{'title': "Список аниме", 'url_name': "home"},
-        {'title': "Список манги", 'url_name': "catalog-manga"},
+menu = [{'title': "Аниме", 'url_name': "home"},
+        {'title': "Манга", 'url_name': "catalog-manga"},
         ]
 
 

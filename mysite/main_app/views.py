@@ -76,18 +76,19 @@ class RegisterUser(DataMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(RegisterUser, self).get_context_data(**kwargs)
-        c_def = super(RegisterUser, self).get_user_context(title="Registration")
+        c_def = super(RegisterUser, self).get_user_context(title="Регистрация")
         return dict(list(context.items()) + list(c_def.items()))
 
 
-class LoginUser(LoginView):
+class LoginUser(DataMixin, LoginView):
     form_class = LoginForm
     template_name = 'main_app/registration/login_form.html'
     context_object_name = 'logs'
 
     def get_context_data(self, **kwargs):
         context = super(LoginUser, self).get_context_data(**kwargs)
-        return dict(list(context.items()))
+        c_def = super(LoginUser, self).get_user_context(title="Авторизация")
+        return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):
         return reverse_lazy('home')
@@ -301,11 +302,16 @@ class EditPostManga(EditPost):
 
 
 # Reset views
-class ResetPassword(auth_views.PasswordResetView):
+class ResetPassword(DataMixin, auth_views.PasswordResetView):
     form_class = ResetPasswordForm
     template_name = 'main_app/registration/reset_form.html'
     context_object_name = 'regs'
     success_url = reverse_lazy('password_reset_done')
+
+    def get_context_data(self, **kwargs):
+        context = super(ResetPassword, self).get_context_data(**kwargs)
+        c_def = super(ResetPassword, self).get_user_context(title="Восстановление пароля")
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 class ResetPasswordConfirm(auth_views.PasswordResetConfirmView):

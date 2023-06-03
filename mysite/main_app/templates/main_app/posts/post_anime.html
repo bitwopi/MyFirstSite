@@ -8,7 +8,7 @@
         эпизодов
     </span></p>
     {% if post.duration %}
-        <p>Длительность:  <span class="contrast-color">{{ post.get_minutes} } minutes</span></p>
+        <p>Длительность:  <span class="contrast-color">{{ post.get_minutes }} минуты</span></p>
     {% endif %}
     <p>Статус: <span class="contrast-color">{{ post.get_status }}
         {% if post.get_status == "Release" and post.out_date %}
@@ -101,14 +101,11 @@
         {% for a in post.get_authors %}
         <div class="mini-card">
             <div class="mini-cover">
-                <a href="{{a.get_absolute_url}}"><img class="mini-cover" src="{{a.photo.url}}"></a>
+                <a href="{{a.get_absolute_url}}"><img class="mini-cover" src="{{ a.photo.url }}"></a>
             </div>
             <div class="mini-info">
                 <div class="mini-name">
                     <a href="{{a.get_absolute_url}}">{{ a.name }}</a>
-                </div>
-                <div class="line">
-                    Карьера:<a href="#"> {{ a.career }}</a>
                 </div>
             </div>
         </div>

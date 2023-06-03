@@ -1,7 +1,7 @@
 {% extends 'main_app/posts/post.html' %}
 {% block manga %}
 <div class="info">
-    <div class="info-title bordering">Information</div>
+    <div class="info-title bordering">Информация</div>
     <p>Тип: <span style="color: white;">Manga</span></p>
     <p>Дата выхода: <span style="color: white;">{{ post.release_date }}</span></p>
     <p>Жанры:
@@ -47,9 +47,9 @@
                     {% if p.type %}
                         <p>Тип: {{ p.type }}</p>
                     {% else %}
-                        <p>Тип: Manga</p>
+                        <p>Тип: Манга</p>
                     {% endif %}
-                    <p>Genres:
+                    <p>Жанры:
                         {% for c in p.get_categories %}
                             {% if c == p.get_categories|last %}
                                 <a href="{{ c.get_absolute_anime_url }}">{{ c.name }}</a>
@@ -78,7 +78,7 @@
                     <a href="{{ post.author.get_absolute_url }}">{{ post.author.name }}</a>
                 </div>
                 <div class="line">
-                    Career:<a href="#"> {{ post.author.career }}</a>
+                    Карьера:<a href="#"> {{ post.author.career.name }}</a>
                 </div>
             </div>
         </div>

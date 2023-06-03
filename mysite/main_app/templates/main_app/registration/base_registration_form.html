@@ -15,7 +15,7 @@
         <form method="post">
           {% csrf_token %}
           <img class="mb-4" src="{% static 'main_app/images/logo.jpg' %}" alt="" width="57" height="72">
-          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+          <h1 class="h3 mb-3 fw-normal">{{ title }}</h1>
           {% for f in form %}
               <div class="form-floating">
                 {{ f }}
